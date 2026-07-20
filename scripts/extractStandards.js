@@ -17,8 +17,8 @@ const draftDir = path.join(sourceDir, "draft");
 const outputFilePath = path.join(sourceDir, "assets", "api-standards.json");
 const draftOutputFilePath = path.join(draftDir, "assets", "api-standards.json");
 
-// Regular expression to match the desired format (e.g., HNZAS_MUST_NOT_X_NOTATION_HEADERS)
-const idFormatRegex = /^HNZAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[\w_]+$/;
+// Regular expression to match the desired format (e.g., MSDAS_MUST_NOT_X_NOTATION_HEADERS)
+const idFormatRegex = /^MSDAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[\w_]+$/;
 
 const standardTypes = "MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY".replace(/_/g, ' ').split('|')
 
@@ -56,8 +56,8 @@ function extractDataFromHTML(filePath, standardsIds, htmlContent, excludeDraft) 
     }
 
     // Check that `type` is valid and matches ID
-    if (!standardTypes.includes(standardType) || !id.startsWith(`HNZAS_${standardType.replace(' ', '_')}`)) {
-      console.log(standardTypes.includes(standardType), id.startsWith(`HNZAS_${standardType.replace(' ', '_')}`), standardType, id);
+    if (!standardTypes.includes(standardType) || !id.startsWith(`MSDAS_${standardType.replace(' ', '_')}`)) {
+      console.log(standardTypes.includes(standardType), id.startsWith(`MSDAS_${standardType.replace(' ', '_')}`), standardType, id);
       if (excludeDraft) invalid.add(id);
       else draftInvalid.add(id);
       return;

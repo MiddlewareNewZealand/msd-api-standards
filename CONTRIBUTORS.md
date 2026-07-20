@@ -8,7 +8,7 @@ The contents of this page is displayed on the deployed website at /community/con
     <img src="/msd-api-standards/img/msd-logo-light.svg" alt="Ministry of Social Developmemnt"  style={{ width: '25%' }} />
   </div>
   <br/>
-  <p>These Standards have been authored by <a href="https://www.middleware.co.nz/">Middleware New Zealand,</a> on behalf of Health NZ.</p>
+  <p>These Standards have been authored by <a href="https://www.middleware.co.nz/">Middleware New Zealand,</a> on behalf of MSD.</p>
 </div>
 
 #### We thank the following individuals for their significant contributions:

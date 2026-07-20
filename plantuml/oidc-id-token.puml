@@ -23,7 +23,7 @@ skinparam {
 !includeurl ICONURL/font-awesome-5/code.puml
 
 
-actor "Health Sector\nConsumer" as HSC
+actor "Social Sector\nClient" as HSC
 
 FA5_SERVER(oidc,OpenID Connect\nProvider)
 FA5_SERVER(auth,Authentication\nServer)

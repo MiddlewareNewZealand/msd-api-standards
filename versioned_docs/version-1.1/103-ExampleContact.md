@@ -5,10 +5,10 @@ slug: /contact
 
 Its a good idea to provide some places for viewers to contact those behind your collateral.
 
-[visit the community on Github.](https://github.com/tewhatuora/standards-template)
+[visit the community on Github.](https://github.com/temanatuwhakahiatoora/standards-template)
 
 ## Email
-example@tewhatuora.govt.nz
+example@temanatuwhakahiatoora.govt.nz
 
 ## Phone
 0800 123 456

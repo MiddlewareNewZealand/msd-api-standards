@@ -24,14 +24,14 @@ rectangle Hira {
     'DP -[hidden]- CP
     'HAP -[hidden]- CP
 }
-rectangle "Health Sector Participants" as HSP {
-    actor "Health Consumer" as HC
+rectangle "Social Sector Participants" as HSP {
+    actor "Client" as HC
     actor "Whanau"
     actor "Iwi"
 
 }
-rectangle "Health Workforce"  as HWF {
-    actor "Health Worker" AS HW
+rectangle "Social Sector Workforce"  as HWF {
+    actor "Case Worker" AS HW
 }
 
 'HSP --[hidden]up-- HWF

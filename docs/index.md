@@ -1,10 +1,10 @@
 ---
-title: "Health New Zealand | Te Whatu Ora Collateral Publishing Template"
+title: "Ministry of Social Development | Te Manatū Whakahiato Ora Collateral Publishing Template"
 sidebar_position: 1
 slug: /
 ---
 
-An example template for publishing HNZ Collateral.
+An example template for publishing MSD Collateral.
 
 [**Example Content**](/example-content/ExampleContent)
 

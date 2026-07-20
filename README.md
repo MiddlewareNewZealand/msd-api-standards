@@ -3,22 +3,22 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/tewhatuora/standards-template">
+  <a href="https://github.com/temanatuwhakahiatoora/standards-template">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./static/img/two-dark-theme-logo.svg">
-      <img alt="Health New Zealand Te Whatu Ora Logo" src="./static/img/two.svg" width="50%">
+      <img alt="Ministry of Social Development Te Manatū Whakahiato Ora Logo" src="./static/img/two.svg" width="50%">
     </picture>
   </a>
 
-  <h3 align="center">Health New Zealand | Te Whatu Ora Standards Template</h3>
+  <h3 align="center">Ministry of Social Development | Te Manatū Whakahiato Ora Standards Template</h3>
 
   <p align="center">
-    This GitHub repository serves as both a template example and user guide, of how to publish HNZ collateral (standards, guides, Glossaries etc) using github and the tooling built in to this project. The template is based on the HNZ API Standards developed by Middleware NZ for HNZ. The idea is that by copying and editing this project, more HNZ collateral can be published for consumption with minimum development effort <a href="https://apistandards.digital.health.nz">https://apistandards.digital.health.nz</a>.
+    This GitHub repository serves as both a template example and user guide, of how to publish MSD collateral (standards, guides, Glossaries etc) using github and the tooling built in to this project. The template is based on the MSD API Standards developed by Middleware NZ for MSD. The idea is that by copying and editing this project, more MSD collateral can be published for consumption with minimum development effort <a href="https://apistandards.digital.health.nz">https://apistandards.digital.health.nz</a>.
     <br />
     <br />
-    <a href="https://tewhatuora.github.io/msd-api-standards/">The example output</a>
+    <a href="https://temanatuwhakahiatoora.github.io/msd-api-standards/">The example output</a>
     ·
-    <a href="https://github.com/tewhatuora/msd-api-standards/issues">Submit feedback</a>
+    <a href="https://github.com/temanatuwhakahiatoora/msd-api-standards/issues">Submit feedback</a>
   </p>
 </div>
 
@@ -52,13 +52,13 @@ Once you have [installed the GitHub client](https://github.com/cli/cli#installat
 To create a `private` repository
 
 ```bash
-gh repo create your-github-org/your-new-repo-name --template tewhatuora/standards-template --private
+gh repo create your-github-org/your-new-repo-name --template temanatuwhakahiatoora/standards-template --private
 ```
 
 To create a `public` repository
 
 ```bash
-gh repo create your-github-org/your-new-repo-name --template tewhatuora/standards-template --public
+gh repo create your-github-org/your-new-repo-name --template temanatuwhakahiatoora/standards-template --public
 ```
 
 This will create a repository in GitHub that you can now update as you please.
@@ -66,10 +66,10 @@ This will create a repository in GitHub that you can now update as you please.
 Example output
 
 ```sh
-  gh repo create tewhatuora/template-test1 --template tewhatuora/standards-template --public
-    ✓ Created repository tewhatuora/template-test1 on GitHub
-      https://github.com/tewhatuora/template-test1
-  git clone git@github.com:tewhatuora/template-test1.git
+  gh repo create temanatuwhakahiatoora/template-test1 --template temanatuwhakahiatoora/standards-template --public
+    ✓ Created repository temanatuwhakahiatoora/template-test1 on GitHub
+      https://github.com/temanatuwhakahiatoora/template-test1
+  git clone git@github.com:temanatuwhakahiatoora/template-test1.git
     Cloning into 'template-test1'...
     remote: Enumerating objects: 101, done.
     remote: Counting objects: 100% (101/101), done.
@@ -155,7 +155,7 @@ We have defined a component called a "standard"; essentially a rule that follows
 
 ### "Standard" Component Attributes
 
-- `id`: A unique identifier for the rule. It follows the pattern `HNZAS_<RULE_TYPE>_<SHORT_DESCRIPTION>`.
+- `id`: A unique identifier for the rule. It follows the pattern `MSDAS_<RULE_TYPE>_<SHORT_DESCRIPTION>`.
 
 - `type`: The type of rule, such as MUST, SHOULD, MAY, SHOULD_NOT, MUST_NOT.
 
@@ -172,7 +172,7 @@ To wrap a piece of text in an `Standard` component, use the following structure:
 
 Note that the `Standard id=` value must match the following regular expression
 
-`^HNZAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[\w_]+$`
+`^MSDAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[\w_]+$`
 
 ```jsx
 
@@ -188,7 +188,7 @@ Note that the `Standard id=` value must match the following regular expression
 
 ```jsx
 
-<Standard id="HNZAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
+<Standard id="MSDAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
 
   All communications to or from an API **MUST** use TLS 1.3 or higher.
 
@@ -204,7 +204,7 @@ When documenting simple rules, wrap the rule text in an `Standard` component:
 
 ```jsx
 
-<Standard id="HNZAS_SHOULD_HAVE_HOME_PAGE" type="SHOULD" toolTip="A FHIR IG should have a home page with a clear high level description of the implementation." wrapper="li">
+<Standard id="MSDAS_SHOULD_HAVE_HOME_PAGE" type="SHOULD" toolTip="A FHIR IG should have a home page with a clear high level description of the implementation." wrapper="li">
 
   A FHIR IG **SHOULD** have a home page: "A clear high level description of the implementation"
 
@@ -218,7 +218,7 @@ For more complex rules that span multiple sentences, ensure each sentence is cle
 
 ```jsx
 
-<Standard id="HNZAS_MUST_PUBLISH_CAPABILITY_STATEMENT" type="MUST" toolTip="FHIR APIs MUST publish a CapabilityStatement resource at the {{API_URL}}/metadata endpoint." wrapper="li">
+<Standard id="MSDAS_MUST_PUBLISH_CAPABILITY_STATEMENT" type="MUST" toolTip="FHIR APIs MUST publish a CapabilityStatement resource at the {{API_URL}}/metadata endpoint." wrapper="li">
 
   FHIR APIs **MUST** publish a **CapabilityStatement** resource at the `{{API_URL}}/metadata` endpoint.
 
@@ -232,13 +232,13 @@ When listing multiple requirements, each item should be wrapped individually:
 
 ```jsx
 
-<Standard id="HNZAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
+<Standard id="MSDAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
 
   All communications to or from an API **MUST** use TLS 1.3 or higher.
 
 </Standard>
 
-<Standard id="HNZAS_MUST_ENCRYPT_TOKENS" type="MUST" toolTip="Tokens MUST be encrypted." wrapper="li">
+<Standard id="MSDAS_MUST_ENCRYPT_TOKENS" type="MUST" toolTip="Tokens MUST be encrypted." wrapper="li">
 
   Tokens **MUST** be encrypted.
 
