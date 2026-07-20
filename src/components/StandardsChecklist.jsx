@@ -26,7 +26,7 @@ const StandardsChecklist = () => {
     const fetchData = async () => {
       try {
         const baseUrl = window.location.href;
-        const path = baseUrl.includes('/draft/') ? '/draft/assets/api-standards.json' : '/assets/api-standards.json';
+        const path = baseUrl.includes('/draft/') ? '/draft/assets/msd-api-standards.json' : '/assets/msd-api-standards.json';
         console.log(path);
         const response = await fetch(path);
         console.log(response);
