@@ -10,21 +10,20 @@ module.exports = async function createConfig() {
   const { remarkKroki } = await import('remark-kroki');
   return {
     title: 'Ministry of Social Development | API Standards',
-    favicon: '/standards-template/img/favicon.ico',
+    favicon: '/msd-api-standards/img/favicon.ico',
 
     // Set the production url of your site here
     url: 'https://middlewarenewzealand.github.io',
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
-    baseUrl: '/standards-template/',
+    baseUrl: '/msd-api-standards/',
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
-    organizationName: 'tewhatuora', // Usually your GitHub org/user name.
-    projectName: 'standards-template', // Usually your repo name.
+    organizationName: 'MiddlewareNewZealand', // Usually your GitHub org/user name.
+    projectName: 'msd-api-standards', // Usually your repo name.
 
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'throw',
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -91,8 +90,8 @@ module.exports = async function createConfig() {
           hideOnScroll: false,
           logo: {
             alt: 'Ministry of Social Development | Te Manatū Whakahiato Ora logo',
-            src: '/standards-template/img/msd-logo-light.svg',
-            srcDark: '/standards-template/img/msd-logo-dark.svg',
+            src: '/msd-api-standards/img/msd-logo-light.svg',
+            srcDark: '/msd-api-standards/img/msd-logo-dark.svg',
           },
           items: [
             {
@@ -100,7 +99,7 @@ module.exports = async function createConfig() {
               position: 'right',
             },
             {
-              href: 'https://github.com/tewhatuora/standards-template/issues',
+              href: 'https://github.com/MiddlewareNewZealand/msd-api-standards/issues',
               label: 'Raise issue',
               position: 'right',
               target: '_blank',
@@ -137,7 +136,7 @@ module.exports = async function createConfig() {
                   html: `
                       </br>
                       <a href="https://www.govt.nz" target="_blank" rel="noreferrer noopener" aria-label="New Zealand Government">
-                        <img src="/standards-template/img/govt-nz.png" alt="Te Kāwanatanga o Aotearoa — New Zealand Government" style="float:left;width:7.5rem;height:auto;" />
+                        <img src="/msd-api-standards/img/govt-nz.png" alt="Te Kāwanatanga o Aotearoa — New Zealand Government" style="float:left;width:7.5rem;height:auto;" />
                       </a>
                     `,
                 },
@@ -148,7 +147,7 @@ module.exports = async function createConfig() {
               items: [
                 {
                   label: 'Raise issue',
-                  href: 'https://github.com/tewhatuora/standards-template/issues',
+                  href: 'https://github.com/MiddlewareNewZealand/msd-api-standards/issues',
                 },
                 {
                   label: 'Ministry of Social Development',
@@ -170,6 +169,9 @@ module.exports = async function createConfig() {
       }),
       markdown: {
         mermaid: true,
+        hooks: {
+          onBrokenMarkdownLinks: 'throw',
+        },
       },
       themes: [
         '@docusaurus/theme-mermaid',
