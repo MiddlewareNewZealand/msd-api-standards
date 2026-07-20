@@ -42,6 +42,6 @@ You can insert images into your content, by storing them in the static/img direc
 
 You can link to alternative parts of the document as such 
 
-- Follow this link ["Link Text"](/example-content/ExampleContent)
+- Follow this link ["Link Text"](/ExampleContent)
 
 ```

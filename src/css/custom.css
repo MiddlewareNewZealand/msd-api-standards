@@ -3610,8 +3610,80 @@ h2+.rich-text--highlight {
   font-size: small;
 }
 
-.menu__link {
-  font-size: smaller;
+/* ------------------------------------------------------------------ */
+/* MSD left-hand navigation — mirror the msd.govt.nz "#nav" side menu   */
+/* on the Docusaurus doc sidebar:                                       */
+/*   • top-level items render as a navy "section header" with a rounded */
+/*     top-right corner and white text (msd.govt.nz uses #152f63 with   */
+/*     border-radius: 0 10px 0 0);                                      */
+/*   • nested pages render as pale blue-grey tiles (#dae7ec) with dark  */
+/*     text and 2px gaps, giving the stacked-tile look;                 */
+/*   • hover / current page pick up MSD's dark-red (#900).              */
+/* Colours are aligned to the site's existing MSD brand tokens.         */
+/* ------------------------------------------------------------------ */
+:root {
+  --msd-nav-child-bg: #dbe7ec;
+  --msd-nav-child-bg-hover: #cbdde5;
+}
+
+/* Flush tiles: drop Infima's list padding and per-item top spacing */
+.theme-doc-sidebar-menu.menu__list,
+.theme-doc-sidebar-menu .menu__list {
+  padding-left: 0;
+}
+.theme-doc-sidebar-menu .menu__list .menu__list {
+  padding-left: 0.75rem; /* indent children like MSD (15px -> 30px) */
+}
+.theme-doc-sidebar-menu .menu__list-item:not(:first-child) {
+  margin-top: 0;
+}
+
+/* Base tile shape shared by every sidebar link. The collapsible wrapper
+   is kept transparent so Infima's grey hover never shows behind a tile —
+   each link carries its own fill. */
+.theme-doc-sidebar-menu .menu__list-item-collapsible,
+.theme-doc-sidebar-menu .menu__list-item-collapsible:hover {
+  background: transparent;
+}
+.theme-doc-sidebar-menu .menu__link {
+  border-radius: 0;
+  margin-bottom: 2px;
+  padding: 6px 12px 7px 15px;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+/* Default (nested pages): pale blue-grey tile, dark text */
+.theme-doc-sidebar-menu .menu__link {
+  background: var(--msd-nav-child-bg);
+  color: #212121;
+  font-weight: 500;
+}
+.theme-doc-sidebar-menu .menu__link:hover {
+  background: var(--msd-nav-child-bg-hover);
+  color: var(--color-accent-110);
+  text-decoration: underline;
+}
+.theme-doc-sidebar-menu .menu__link--active {
+  background: var(--msd-nav-child-bg);
+  color: var(--color-accent-110);
+  font-weight: 700;
+}
+
+/* Root (home) item only: navy "section header" with a rounded top-right
+   corner. Every other link keeps the pale blue-grey tile above. */
+.theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link {
+  background: var(--color-primary-100);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 10px 0 0;
+}
+.theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link:hover,
+.theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link--active,
+.theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link--active:hover {
+  background: var(--color-primary-110);
+  color: #fff;
+  text-decoration: underline;
 }
 
 .react-tooltip {

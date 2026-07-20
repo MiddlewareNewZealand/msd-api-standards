@@ -6,5 +6,5 @@ slug: /
 
 An example template for publishing MSD Collateral.
 
-[**Example Content**](/example-content/ExampleContent)
+[**Example Content**](/ExampleContent)
 

@@ -29,7 +29,7 @@ Below is a example of a table of API rules, that have been created as standards:
 
 You can link to alternative parts of the document as such 
 
-- Follow this link ["Link Text"](/example-content/ExampleContent)
+- Follow this link ["Link Text"](/ExampleContent)
 
 ## Example Images
 
