@@ -24,9 +24,31 @@
   --aa-text-color-rgb: 18, 31, 107 !important;
   --aa-muted-color-rgb: !important;
 
-  /* removes the large whitespace between left nav and content */
-  --ifm-container-width: 95%;
-  --ifm-container-width-xl: 95%;
+  /* Centered, fixed-width layout with white gutters either side, matching the
+     MSD public site (msd.govt.nz uses a 1024px centered container). The whole
+     page — navbar, sidebar + content, footer — is letterboxed into one centered
+     band (see the .navbar__inner / .main-wrapper rules below): --msd-page-width
+     is that outer band, --ifm-container-width the inner reading column. */
+  --msd-page-width: 1320px;
+  --ifm-container-width: 1140px;
+  --ifm-container-width-xl: 1140px;
+
+  /* Remove the grey divider lines between page sections: the navbar's bottom
+     shadow (header/content) and the sidebar/TOC vertical borders (nav/content).
+     The navbar's own border-bottom is cleared in the .navbar rule further down. */
+  --ifm-navbar-shadow: none;
+  --ifm-toc-border-color: transparent;
+}
+
+/* Letterbox the entire site into one centered band, so the navbar, the doc
+   layout (sidebar + content + TOC) and the footer all share the same white
+   left/right gutters — rather than only the doc content being centered. */
+.navbar__inner,
+.main-wrapper,
+.footer .container {
+  max-width: var(--msd-page-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 :root {
@@ -1994,6 +2016,73 @@ h2+.rich-text--highlight {
   color: var(--color-accent-50)
 }
 
+/* MSD public-site breadcrumb bar (msd.govt.nz). The live site renders a plain
+   text trail — "Home > Section > Current" — with a ">" separator, small text,
+   navy underlined links, a near-black current crumb, and a subtle top-border
+   band. This maps that look onto Docusaurus' breadcrumb DOM, which otherwise
+   shows a home icon, chevron separators, and rounded hover/active pills. */
+.theme-doc-breadcrumbs {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  padding-top: 0.625rem;
+  color: var(--color-text)
+}
+
+.theme-doc-breadcrumbs .breadcrumbs {
+  margin-bottom: 0
+}
+
+/* Plain inline links — strip Docusaurus' padded rounded pill. The MSD site
+   renders breadcrumb links as plain near-black underlined text (they inherit
+   the container's #000), with no navy/red accent. */
+.theme-doc-breadcrumbs .breadcrumbs__link {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.2em
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__link:hover {
+  background: none;
+  color: var(--color-text);
+  text-decoration-color: currentColor
+}
+
+/* Current page: near-black, not a link, no pill */
+.theme-doc-breadcrumbs .breadcrumbs__item--active .breadcrumbs__link {
+  background: none;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 700
+}
+
+/* ">" separator in place of the Infima chevron image */
+.theme-doc-breadcrumbs .breadcrumbs__item:not(:last-child)::after {
+  content: ">";
+  background: none;
+  filter: none;
+  opacity: 1;
+  width: auto;
+  height: auto;
+  margin: 0 0.5rem;
+  color: var(--color-text);
+  font-weight: 500
+}
+
+/* Replace the home icon with the word "Home", as the MSD site shows */
+.theme-doc-breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link svg {
+  display: none
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link::after {
+  content: "Home"
+}
+
 .jumplinks {
   margin-bottom: var(--component-spacing)
 }
@@ -3692,10 +3781,10 @@ h2+.rich-text--highlight {
 }
 /* ------------------------------------------------------------------ */
 /* MSD header/navbar polish — approximate msd.govt.nz header chrome:   */
-/* clean white bar, full wordmark logo, subtle bottom separator.       */
+/* clean white bar, full wordmark logo, no divider lines.              */
 /* ------------------------------------------------------------------ */
 .navbar {
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: none;
   box-shadow: none;
 }
 
