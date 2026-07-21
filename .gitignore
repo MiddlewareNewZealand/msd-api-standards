@@ -22,3 +22,5 @@ yarn-error.log*
 # IDE
 .project
 static/assets/msd-api-standards.json
+
+.claude/

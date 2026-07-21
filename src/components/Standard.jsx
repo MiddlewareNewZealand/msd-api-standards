@@ -58,7 +58,6 @@ function Standard({ id, type, toolTip, wrapper, children }) {
         data-extended-text={toolTip}
       >
         {children}
-        <sup>💡</sup>
         <Tooltip id={id} place="bottom" />
       </Component>
     </>

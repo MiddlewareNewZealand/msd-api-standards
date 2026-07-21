@@ -171,6 +171,7 @@ API Keys are a digital authentication mechanism, typically an opaque value such 
 API Keys must be used wherever system-to-system authentication is needed, especially for production-level APIs.
 </Standard>
 | **MAY**  API Keys may be used on their own for simple public APIs that don't need more complex authentication models. |
+| :---- |
 
 The risk is that anyone holding a copy of the API Key can use it as though they were the legitimate API Consumer. All communications must therefore be over TLS to protect the key in transit, and application developers are responsible for protecting their copy of the key.
 
@@ -178,6 +179,7 @@ The risk is that anyone holding a copy of the API Key can use it as though they 
 If the API Key is embedded in the API Consumer, it should be protected.
 </Standard>
 | **INFO** API Keys are recommended because they provide a level of security to public APIs, helping protect against screen-scraping and providing a basis for throttling or billing access to data. MSD should carry out a risk analysis of possible threats against the classification of the data an API exposes, to decide whether API Keys alone are sufficient. |
+| :---- |
 
 #### **Certificate (mutual) authentication**
 
@@ -211,6 +213,7 @@ In many organisations a directory service provides authentication, and directory
 Appropriate scopes must be present in access tokens when accessing APIs.
 </Standard>
 | **MAY**  OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner. |
+| :---- |
 
 Based on the services an API exposes, additional access controls can be applied using scopes — for example, a data service might expose separate read and write scopes, granted to a user based on their directory group. The developer must ensure the minimum privileges are granted to API Consumers needed to complete the requests the user wants carried out.
 
@@ -674,6 +677,7 @@ Four OpenID Connect specifications address session management: OpenID Connect Se
 All communications to or from an API must utilise Transport Layer Security (TLS) 1.3 or higher. *See the New Zealand Information Security Manual (NZISM) for detail.*
 </Standard>
 | **SHOULD**  Other versions of TLS and SSL should be disabled. |
+| :---- |
 | **MUST**  API Consumer applications must validate TLS certificate chains when making requests to protected resources, including checking the Certificate Revocation List. |
 
 Confidentiality and integrity cover the handling of request and response data, both in transit and at rest, protecting payload content from unauthorised access, manipulation or spoofing. An API request needs to be received intact, with validation of its source; an untampered API response needs to be received by the consuming application with confirmation it legitimately came from the API.
@@ -713,6 +717,7 @@ The baseline requirements set out earlier in this Part — authentication, trans
 Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme.
 </Standard>
 | **MUST**  Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems. |
+| :---- |
 | **MUST**  Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them. |
 
 ### **Consent and human oversight**
@@ -729,6 +734,7 @@ Because MCP Servers expose their capability list dynamically rather than through
 An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
 </Standard>
 | **INFO** This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered — for example, to broaden the data it accesses or the actions it performs — without the change being surfaced for re-approval. |
+| :---- |
 
 ### **Untrusted content and indirect prompt injection**
 

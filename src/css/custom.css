@@ -2565,6 +2565,16 @@ h2+.rich-text--highlight {
   padding-bottom: 1rem
 }
 
+/* API standard callout box: matches the bordered/shaded look of the single-row
+   markdown tables that <Standard> elements were converted from. */
+[data-standard-type] {
+  display: block;
+  margin-bottom: var(--ifm-spacing-vertical);
+  padding: var(--ifm-table-cell-padding);
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  background-color: var(--ifm-table-stripe-background);
+}
+
 .moh__elemental__model__tableblock table {
   width: 100%;
   border-spacing: 0;
