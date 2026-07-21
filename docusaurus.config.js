@@ -104,7 +104,7 @@ module.exports = async function createConfig() {
               label: 'Raise issue',
               position: 'right',
               target: '_blank',
-              style: {'font-size': '0.9125rem'}
+              style: {fontSize: '0.9125rem'}
             }
           ]
         },
@@ -171,6 +171,20 @@ module.exports = async function createConfig() {
             hashed: true,
             indexBlog: false,
             docsRouteBasePath: '/',
+          }),
+        ],
+      ],
+      plugins: [
+        [
+          '@docusaurus/plugin-client-redirects',
+          /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+          ({
+            redirects: [
+              {
+                from: '/',
+                to: '/draft',
+              },
+            ],
           }),
         ],
       ],

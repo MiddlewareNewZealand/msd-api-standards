@@ -1,4 +1,8 @@
-  
+---
+title: "API Security"
+sidebar_label: "API Security"
+---
+
 **Ministry of Social Development**
 
 **API Design and Development Standards**
@@ -88,8 +92,9 @@ The components defined remain valid regardless of the API hosting architecture u
 
 These functions can be delivered via discrete applications, bespoke code, commercial off-the-shelf products, or by leveraging existing devices configured to provide them — some functionality may overlap or be combined depending on the vendor. Not every function is required for every API: for example, a purely public, read-only API may only need threat protection (denial-of-service prevention), delivered via an existing service protection capability.
 
-| MUST  API Providers must implement Developer Authentication, together with authentication and authorisation services to control access to APIs (see API Authentication and Authorisation Basics, below). |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION" type="MUST">
+API Providers must implement Developer Authentication, together with authentication and authorisation services to control access to APIs (see API Authentication and Authorisation Basics, below).
+</Standard>
 
 The support stack may also be split, with one set of components supporting internal API usage and a separate set supporting external use, depending on individual circumstances — for example, where API development is outsourced, the ‘internal’ functional stack may sit with the outsourcer.
 
@@ -103,8 +108,9 @@ Authorisation and authentication are intrinsically linked within the OAuth 2.0 f
 
 ## **Authentication**
 
-| MUST  Appropriate authentication must be achieved when accessing APIs. |
-| :---- |
+<Standard id="MSDAS_MUST_APPROPRIATE_AUTHENTICATION_ACHIEVED_ACCESSING_APIS" type="MUST">
+Appropriate authentication must be achieved when accessing APIs.
+</Standard>
 
 When securing APIs, authentication identifies the social sector participants and/or API Consumers who want to access or use an API. Authentication enables the API Provider to identify all consumers of an API and confirm that the consumer requesting access is who they say they are. This doesn't automatically authorise them to access the API or the underlying resources.
 
@@ -125,62 +131,77 @@ MSD APIs may use a range of authentication mechanisms, each suited to a differen
 
 ### **Anonymous authentication**
 
-| SHOULD NOT  Anonymous access should not be used other than for genuinely low-risk, public information. |
-| :---- |
+<Standard id="MSDAS_SHOULD_NOT_ANONYMOUS_ACCESS_USED_OTHER_THAN" type="SHOULD NOT">
+Anonymous access should not be used other than for genuinely low-risk, public information.
+</Standard>
 
 Anonymous authentication is where the client and the API Consumer they're using can access APIs without authenticating in any way.
 
-| MAY  Anonymous access may be used when the risk associated with the API is negligible — for example, an API offering publicly available service-centre location information. |
-| :---- |
+<Standard id="MSDAS_MAY_ANONYMOUS_ACCESS_USED_RISK_ASSOCIATED" type="MAY">
+Anonymous access may be used when the risk associated with the API is negligible — for example, an API offering publicly available service-centre location information.
+</Standard>
 
 The downside of this model is that it makes it difficult to gather effective analytics, and therefore to understand the implications of proposed changes to, or deprecation of, an API.
 
-| MUST  If using the anonymous authentication model, the API must implement appropriate protection against typical API vulnerabilities and threats, as listed on the OWASP API Security site — in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery. |
-| :---- |
+<Standard id="MSDAS_MUST_USING_ANONYMOUS_AUTHENTICATION_MODEL_API" type="MUST">
+If using the anonymous authentication model, the API must implement appropriate protection against typical API vulnerabilities and threats, as listed on the OWASP API Security site — in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery.
+</Standard>
 
 ### **Username and password authentication**
 
-| SHOULD NOT  Username and password (direct) authentication should not be used for production APIs. |
-| :---- |
+<Standard id="MSDAS_SHOULD_NOT_USERNAME_PASSWORD_DIRECT_AUTHENTICATION_USED" type="SHOULD NOT">
+Username and password (direct) authentication should not be used for production APIs.
+</Standard>
 
 In this model — also known as HTTP Basic or Digest Auth — the user authenticates via an identity store using username and password credentials over HTTPS.
 
-| MAY  There are possibly some legacy situations where an API Provider may implement this pattern, but this must be treated as an exception and recorded appropriately. |
-| :---- |
+<Standard id="MSDAS_MAY_THERE_POSSIBLY_SOME_LEGACY_SITUATIONS" type="MAY">
+There are possibly some legacy situations where an API Provider may implement this pattern, but this must be treated as an exception and recorded appropriately.
+</Standard>
 
 This model has significant limitations: it requires a full registration process for every user type; it can't leverage a federated authentication model (no single sign-on); passwords travel and may be stored in ways vulnerable to brute-force attack; and passwords have low entropy, must be reset and managed, and are hard to revoke at a granular level.
 
-| MAY / SHOULD NOT  This model may be used for testing and development purposes but should not be used for production APIs. |
-| :---- |
+<Standard id="MSDAS_MAY_MODEL_USED_TESTING_DEVELOPMENT_PURPOSES" type="MAY">
+This model may be used for testing and development purposes. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_MODEL_USED_PRODUCTION_APIS) below — it should not be used for production APIs.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_NOT_MODEL_USED_PRODUCTION_APIS" type="SHOULD NOT">
+This model should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_MODEL_USED_TESTING_DEVELOPMENT_PURPOSES) above — it may be used for testing and development purposes.
+</Standard>
 
 ### **API Key authentication**
 
-| SHOULD  API Keys should be used, and should be unique, assigned to an application, developer or organisation. |
-| :---- |
+<Standard id="MSDAS_SHOULD_API_KEYS_USED_UNIQUE_ASSIGNED" type="SHOULD">
+API Keys should be used, and should be unique, assigned to an application, developer or organisation.
+</Standard>
 
 API Keys are a digital authentication mechanism, typically an opaque value such as a GUID. The usual practice is for an application developer to obtain a key for their API Consumer from the API Provider, through an onboarding process.
 
-| MUST  API Keys must be used wherever system-to-system authentication is needed, especially for production-level APIs. |
-| :---- |
+<Standard id="MSDAS_MUST_API_KEYS_USED_WHEREVER_SYSTEM" type="MUST">
+API Keys must be used wherever system-to-system authentication is needed, especially for production-level APIs.
+</Standard>
 | **MAY**  API Keys may be used on their own for simple public APIs that don't need more complex authentication models. |
 
 The risk is that anyone holding a copy of the API Key can use it as though they were the legitimate API Consumer. All communications must therefore be over TLS to protect the key in transit, and application developers are responsible for protecting their copy of the key.
 
-| SHOULD  If the API Key is embedded in the API Consumer, it should be protected. |
-| :---- |
+<Standard id="MSDAS_SHOULD_API_KEY_EMBEDDED_API_CONSUMER" type="SHOULD">
+If the API Key is embedded in the API Consumer, it should be protected.
+</Standard>
 | **INFO** API Keys are recommended because they provide a level of security to public APIs, helping protect against screen-scraping and providing a basis for throttling or billing access to data. MSD should carry out a risk analysis of possible threats against the classification of the data an API exposes, to decide whether API Keys alone are sufficient. |
 
 ### **Certificate (mutual) authentication**
 
-| MAY  This model may be used where the API depends on legacy authentication mechanisms requiring mutual certificates. |
-| :---- |
+<Standard id="MSDAS_MAY_MODEL_USED_API_DEPENDS_LEGACY" type="MAY">
+This model may be used where the API depends on legacy authentication mechanisms requiring mutual certificates.
+</Standard>
 
 In mutual (certificate) authentication, both the API Consumer and the API Provider hold a digital certificate issued by a mutually trusted Certificate Authority. When the API Consumer makes a request, the server hosting the API presents its certificate; the consumer verifies it and presents its own certificate in turn. Once both sides verify each other's certificate, mutual trust is established and the API Consumer can use the API.
 
 ## **Authorisation**
 
-| MUST  Appropriate authorisation must be applied. |
-| :---- |
+<Standard id="MSDAS_MUST_APPROPRIATE_AUTHORISATION_APPLIED" type="MUST">
+Appropriate authorisation must be applied.
+</Standard>
 
 Authorisation is the act of performing access control on a resource: defining access rules and policies, and enforcing them. It's the foundation on which a provider grants or denies a consuming application and/or client access to a resource, at whatever level of granularity is appropriate.
 
@@ -188,45 +209,52 @@ Authentication on its own doesn't grant permission to access an API or applicati
 
 ### **Role Based Access Control (RBAC)**
 
-| SHOULD  RBAC should be used. |
-| :---- |
+<Standard id="MSDAS_SHOULD_RBAC_USED" type="SHOULD">
+RBAC should be used.
+</Standard>
 
 In many organisations a directory service provides authentication, and directory groups then provide authorisation — a form of discretionary access control, where access is granted by applying access control lists directly to users or the groups they belong to. Directory (or LDAP) groups are synonymous with roles and can be used to provide coarse-grained authorisation for MSD APIs.
 
 ### **Scopes (limited fine-grained access)**
 
-| MUST  Appropriate scopes must be present in access tokens when accessing APIs. |
-| :---- |
+<Standard id="MSDAS_MUST_APPROPRIATE_SCOPES_PRESENT_ACCESS_TOKENS" type="MUST">
+Appropriate scopes must be present in access tokens when accessing APIs.
+</Standard>
 | **MAY**  OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner. |
 
 Based on the services an API exposes, additional access controls can be applied using scopes — for example, a data service might expose separate read and write scopes, granted to a user based on their directory group. The developer must ensure the minimum privileges are granted to API Consumers needed to complete the requests the user wants carried out.
 
 An API Consumer may invite a client or social sector worker to authorise the application to act on their behalf.
 
-| MUST  In order for this to occur, the API Consumer must provide the authorisation server with the intent of its request. |
-| :---- |
+<Standard id="MSDAS_MUST_ORDER_OCCUR_API_CONSUMER_PROVIDE" type="MUST">
+In order for this to occur, the API Consumer must provide the authorisation server with the intent of its request.
+</Standard>
 
 ### **Attribute Based Access Control (ABAC)**
 
-| MAY  API Providers may utilise ABAC. |
-| :---- |
+<Standard id="MSDAS_MAY_API_PROVIDERS_UTILISE_ABAC" type="MAY">
+API Providers may utilise ABAC.
+</Standard>
 
 ABAC defines an access control process where access is granted based on policies built from attributes — for example, a policy might state that access to a specified resource is only permitted for users in a particular team, who hold a particular role, during business hours. ABAC provides fine-grained authorisation and lets access decisions take account of context, such as the IP address or operating system of the requesting device.
 
-| MAY  API Providers may implement ABAC using XACML, the recognised standard, which provides a reference architecture, a request/response protocol and a policy language built around four services: a Policy Enforcement Point (PEP), Policy Decision Point (PDP), Policy Administration Point (PAP) and Policy Information Point (PIP). |
-| :---- |
+<Standard id="MSDAS_MAY_API_PROVIDERS_IMPLEMENT_ABAC_USING" type="MAY">
+API Providers may implement ABAC using XACML, the recognised standard, which provides a reference architecture, a request/response protocol and a policy language built around four services: a Policy Enforcement Point (PEP), Policy Decision Point (PDP), Policy Administration Point (PAP) and Policy Information Point (PIP).
+</Standard>
 
 ### **API Gateway**
 
-| MAY  API Providers may implement API Gateway technology. |
-| :---- |
+<Standard id="MSDAS_MAY_API_PROVIDERS_IMPLEMENT_API_GATEWAY" type="MAY">
+API Providers may implement API Gateway technology.
+</Standard>
 
 Most API Gateways on the market support OAuth 2.0 and can provide authorisation (and authentication) services via a direct connection to an identity store, an identity access management system, or a policy server.
 
 ### **Developer authentication**
 
-| MUST  API Providers must implement Developer Authentication. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION_2" type="MUST">
+API Providers must implement Developer Authentication.
+</Standard>
 
 Developer authentication should take place at an API Portal (see Security Reference Architecture, above). An API Portal offers an authentication solution for developers to log in with a username and password; once logged in, a developer should be able to browse and discover the APIs available.
 
@@ -285,8 +313,9 @@ This standard applies to all cloud APIs which provide storage and access to MSD 
 
 ## **Requirements**
 
-| MUST  Cloud API designers and developers must ensure the implementation achieves all of the following: robust authentication and authorisation (OAuth 2.0, SSO with OpenID Connect, request-level authorisation); validation of all incoming requests; throttling of API requests and quotas on endpoints that could consume substantial human, compute or data resources; logging of API activity; dependence only on trusted code libraries and packages; a zero-trust model (no session-based authentication such as cookies); filtering of traffic traversing public networks (WAFs and API gateways controlling internet-routed requests); and specific identity and access management policies controlling access to sensitive resources such as credentials, keys and configuration. |
-| :---- |
+<Standard id="MSDAS_MUST_CLOUD_API_DESIGNERS_DEVELOPERS_ENSURE" type="MUST">
+Cloud API designers and developers must ensure the implementation achieves all of the following: robust authentication and authorisation (OAuth 2.0, SSO with OpenID Connect, request-level authorisation); validation of all incoming requests; throttling of API requests and quotas on endpoints that could consume substantial human, compute or data resources; logging of API activity; dependence only on trusted code libraries and packages; a zero-trust model (no session-based authentication such as cookies); filtering of traffic traversing public networks (WAFs and API gateways controlling internet-routed requests); and specific identity and access management policies controlling access to sensitive resources such as credentials, keys and configuration.
+</Standard>
 
 ## **Further reading**
 
@@ -370,39 +399,45 @@ Depending on the grant flow in use, some or all of the following endpoints are e
 | /register | Lets relying parties register a client on the authorisation server. | — |
 | /.well-known/openid-configuration | Returns the API Provider's OAuth 2.0/OIDC configuration and capabilities, including endpoints, algorithms and grant types. | — |
 
-| MUST  API Providers must clearly define and document their API Consumer onboarding process and requirements. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_CLEARLY_DEFINE_DOCUMENT" type="MUST">
+API Providers must clearly define and document their API Consumer onboarding process and requirements.
+</Standard>
 
 ## **OpenID Connect**
 
 OpenID Connect adds two capabilities on top of OAuth 2.0: an ID Token, and a Userinfo endpoint. It's invoked using the openid request scope in the initial authorisation call.
 
-| MUST  OpenID Connect must be used with all APIs that expose IN-CONFIDENCE or more sensitive client and whānau information. |
-| :---- |
+<Standard id="MSDAS_MUST_OPENID_CONNECT_USED_ALL_APIS" type="MUST">
+OpenID Connect must be used with all APIs that expose IN-CONFIDENCE or more sensitive client and whānau information.
+</Standard>
 
 ### **ID Token**
 
-| MUST  The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information. |
-| :---- |
+<Standard id="MSDAS_MUST_ID_TOKEN_USED_ALL_APIS" type="MUST">
+The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information.
+</Standard>
 
 The ID Token is a JWT containing authenticated user information provided by the OpenID Connect server to the API Consumer. It may be used to enforce finer-grained access controls via additional claims; must be signed by an approved algorithm; should include claims that hash the code, state and access token to protect user integrity; may carry additional non-identity metadata (e.g. session details); must have its issuer, audience, nonce and expiry validated by the API Consumer; and may be encrypted.
 
-| MUST  API Providers must ensure only the minimum number of identity attributes needed to meet the API Consumer's request are provided, and must ensure that any ID Token transmitted over TLS via the authorise endpoint does not contain personal or highly sensitive client information (ID Tokens may be returned from the authorise endpoint over TLS, or the token endpoint over mTLS). |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_ENSURE_MINIMUM_NUMBER" type="MUST">
+API Providers must ensure only the minimum number of identity attributes needed to meet the API Consumer's request are provided, and must ensure that any ID Token transmitted over TLS via the authorise endpoint does not contain personal or highly sensitive client information (ID Tokens may be returned from the authorise endpoint over TLS, or the token endpoint over mTLS).
+</Standard>
 
 ### **Userinfo endpoint and scopes**
 
 The Userinfo endpoint may be exposed by the API Provider, callable with an access token to obtain the same claims provided in the ID Token, or configured to provide additional claims. OpenID Connect introduces additional scopes (e.g. profile, name, email) detailing specific attributes that can be presented in an ID Token.
 
-| MUST  The API Provider must ensure consent to share this information has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDER_ENSURE_CONSENT_SHARE" type="MUST">
+The API Provider must ensure consent to share this information has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters.
+</Standard>
 
 ## **Grant types**
 
 OAuth 2.0 and OpenID Connect support two client types — Confidential and Public — and eleven grant/response types, each suited to different situations.
 
-| MUST  The API Provider must limit grant types to those agreed and documented for a given API; the API Consumer indicates its desired grant type via the response\_type parameter in its initial authorisation call. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDER_LIMIT_GRANT_TYPES" type="MUST">
+The API Provider must limit grant types to those agreed and documented for a given API; the API Consumer indicates its desired grant type via the response\_type parameter in its initial authorisation call.
+</Standard>
 
 Confidential clients are websites and services that make secure server-side connections to the OAuth 2.0 server, and can securely store a client secret or JWT; they must be used to secure IN-CONFIDENCE APIs. Public clients — single-page applications, applications running on devices, and applications that cannot protect secrets — may only be used for UNCLASSIFIED APIs.
 
@@ -421,15 +456,17 @@ Confidential clients are websites and services that make secure server-side conn
 
 ### **Authorisation Code Flow with PKCE**
 
-| MUST  The OIDC Authorisation Code flow (code id\_token) with PKCE must be used when securing IN-CONFIDENCE APIs, together with JWT access and refresh tokens. |
-| :---- |
+<Standard id="MSDAS_MUST_OIDC_AUTHORISATION_CODE_FLOW_CODE" type="MUST">
+The OIDC Authorisation Code flow (code id\_token) with PKCE must be used when securing IN-CONFIDENCE APIs, together with JWT access and refresh tokens.
+</Standard>
 
 This is the most frequently used, and most secure, model for public-facing consumer applications, and can also be used for internal APIs. It's a two-step process: the resource owner authenticates to the API Provider and authorises the API Consumer over TLS; the API Consumer receives a temporary authorisation code; and the API Consumer exchanges that code for an access (and refresh) token over a secure back channel, which may use mTLS.
 
 ### **PKCE**
 
-| MUST  PKCE must be used when securing IN-CONFIDENCE APIs. |
-| :---- |
+<Standard id="MSDAS_MUST_PKCE_USED_SECURING_CONFIDENCE_APIS" type="MUST">
+PKCE must be used when securing IN-CONFIDENCE APIs.
+</Standard>
 
 PKCE (Proof Key for Code Exchange) mitigates man-in-the-middle attacks against the authorisation code flow. The API Consumer creates a random code verifier, applies a hash to produce a code challenge, and sends the code challenge (with hash method) to the API Provider, which stores it. When the API Consumer later exchanges the authorisation code for a token, it includes the original code verifier; the API Provider validates this against the stored code challenge before issuing the access token — confirming the token request came from the original client, not an intercepting party.
 
@@ -469,8 +506,13 @@ The jwt-bearer flow may also be used alongside authorisation code flows, in whic
 
 Functionally similar to the JWT flow, but using a SAML assertion in place of a JWT.
 
-| SHOULD NOT / MAY  SAML assertion flows should not be used for server-to-server flows, and should not use a client-created assertion model; they may be used for UNCLASSIFIED APIs, and may be used with authorisation code flows for IN-CONFIDENCE APIs where a SAML token-endpoint authorisation model is specifically required. |
-| :---- |
+<Standard id="MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER" type="SHOULD NOT">
+SAML assertion flows should not be used for server-to-server flows, and should not use a client-created assertion model. Note the related [MAY guidance](#MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS) below for when they may be used.
+</Standard>
+
+<Standard id="MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS" type="MAY">
+SAML assertion flows may be used for UNCLASSIFIED APIs, and may be used with authorisation code flows for IN-CONFIDENCE APIs where a SAML token-endpoint authorisation model is specifically required. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER) above.
+</Standard>
 
 ## **Web application (browser-based) patterns**
 
@@ -478,8 +520,9 @@ Emerging guidance for OAuth 2.0 in browser-based applications — particularly s
 
 ### **Backend for Frontend (BFF)**
 
-| MAY  MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while this guidance remains in draft at the IETF. |
-| :---- |
+<Standard id="MSDAS_MAY_MSD_USE_BACKEND_FRONTEND_PATTERN" type="MAY">
+MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while this guidance remains in draft at the IETF.
+</Standard>
 
 In this pattern, a user interacts with the API Consumer application, which communicates with a Backend for Frontend service sitting within the API Provider's (or the consumer's own) infrastructure. The BFF service requests authorisation from the authorisation server, redirecting the user to grant consent; on receiving an authorisation code, it exchanges this for access and refresh tokens on the user's behalf, then uses the access token to retrieve the requested resource, which it returns to the API Consumer application. This keeps tokens out of the browser entirely, closing off the main risk PKCE alone doesn't fully address for sensitive, IN-CONFIDENCE data.
 
@@ -487,8 +530,9 @@ In this pattern, a user interacts with the API Consumer application, which commu
 
 The role of client authentication in OAuth 2.0 and OpenID Connect is to maintain the integrity and security of the authentication flow, ensuring only authorised API Consumers can interact with API Providers.
 
-| SHOULD  All IN-CONFIDENCE or more sensitive APIs should be secured using Client Authentication to protect the API endpoints. Tokens issued must be bound to the client. |
-| :---- |
+<Standard id="MSDAS_SHOULD_ALL_CONFIDENCE_MORE_SENSITIVE_APIS" type="SHOULD">
+All IN-CONFIDENCE or more sensitive APIs should be secured using Client Authentication to protect the API endpoints. Tokens issued must be bound to the client.
+</Standard>
 
 Four authentication models can be applied to secure the confidential client connection between the API Consumer and the API Provider's token endpoint: Shared Client Secret, JWT-based authentication, Private Key JWT, and Mutual TLS.
 
@@ -514,8 +558,13 @@ Two JWT authentication methods provide a higher level of security than the share
 
 Two variants add mTLS-based trust between the API Consumer and API Provider: self\_signed\_tls\_client\_auth (a self-signed client X.509 certificate) and tls\_client\_auth (a client X.509 certificate issued by a trusted certificate authority). Both add security by establishing two-way trust, at the cost of additional design complexity.
 
-| MAY / SHOULD NOT  self\_signed\_tls\_client\_auth may be used in testing and development environments but should not be used in production. tls\_client\_auth may be used in production with a confidential client. Public clients should not use either mTLS method. |
-| :---- |
+<Standard id="MSDAS_MAY_SELF_SIGNED_TLS_CLIENT_AUTH_USED_TESTING_DEVELOPMENT_ENVIRON" type="MAY">
+self\_signed\_tls\_client\_auth may be used in testing and development environments. tls\_client\_auth may be used in production with a confidential client. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_SELF_SIGNED_TLS_CLIENT_AUTH_USED_PRODUCTION) below on when these methods should not be used.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_NOT_SELF_SIGNED_TLS_CLIENT_AUTH_USED_PRODUCTION" type="SHOULD NOT">
+self\_signed\_tls\_client\_auth should not be used in production. Public clients should not use either mTLS method (self\_signed\_tls\_client\_auth or tls\_client\_auth). Note the related [MAY guidance](#MSDAS_MAY_SELF_SIGNED_TLS_CLIENT_AUTH_USED_TESTING_DEVELOPMENT_ENVIRON) above on when these methods may be used.
+</Standard>
 
 ## **Token protection**
 
@@ -533,8 +582,9 @@ Level of Assurance (LoA) supports the OpenID Connect API security framework by c
 
 An LoA (or acr claim) model helps: mitigate the risk of exposing sensitive data to unauthorised users, by defining a required authorisation strength; provide a stronger authentication model that reduces the attack surface; provide a trust model between API Consumers and API Providers; grant granular access to sensitive data, since higher LoA is required for more sensitive data; and ensure the API Consumer has appropriate authorisation to act on behalf of the client.
 
-| MUST  API Providers must adopt a Level of Assurance model, applied wherever API Consumers access client or whānau records classified as IN-CONFIDENCE or higher, and must indicate the LoA associated with a client's authentication and authorisation process in any issued tokens. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_ADOPT_LEVEL_ASSURANCE" type="MUST">
+API Providers must adopt a Level of Assurance model, applied wherever API Consumers access client or whānau records classified as IN-CONFIDENCE or higher, and must indicate the LoA associated with a client's authentication and authorisation process in any issued tokens.
+</Standard>
 
 ## **LoA claims**
 
@@ -562,8 +612,9 @@ OpenID Connect and the Financial-Grade API (FAPI) profile also define a Level of
 
 It's therefore important that API Providers consider their consumers — and the consumers of those consumers — to determine risks and what information should be accessible via APIs.
 
-| MUST  API designers and implementers must show how they have assessed and managed risks associated with their API solution. This assessment should be conducted during API design and be part of ongoing risk assessment of the API and its products. Records of risk assessment, current status and mitigation should be maintained in MSD's risk management systems. |
-| :---- |
+<Standard id="MSDAS_MUST_API_DESIGNERS_IMPLEMENTERS_SHOW_HOW" type="MUST">
+API designers and implementers must show how they have assessed and managed risks associated with their API solution. This assessment should be conducted during API design and be part of ongoing risk assessment of the API and its products. Records of risk assessment, current status and mitigation should be maintained in MSD's risk management systems.
+</Standard>
 
 This standard calls for API designers and implementers to show they've considered API security risk mitigation — generally demonstrated by design documentation, or, where mitigations are reused from other solutions, by reference to that solution's documentation or certification.
 
@@ -593,8 +644,9 @@ Exposing too much information through generic, one-size-fits-all resource APIs �
 
 Zero trust architecture removes the concept of trusted internal versus untrusted external networks, focusing instead on “never trust, always verify”. The shift to cloud services has brought this model to the fore: every actor — staff, delivery partners and others — requires access controls regardless of location or device.
 
-| SHOULD  MSD should consider the following when planning a Zero Trust architecture: apply strong identification and authentication; build a dynamic digital trust model, valid only for the current session; constantly evaluate and always authenticate; apply contextual authorisation (attributes, consent, location, time, behaviour); build in a digital risk capability that maps to a level of confidence and constantly re-evaluates; incorporate endpoint (device) security; apply transaction-level verification and continuous session validation; apply data security via encryption and user privacy controls, including consent management; implement strong auditing, logging, event reporting and forensics; use automated analytics for threat detection; inject identity context into API traffic (user, application, device); apply fine-grained access control at egress points to modify or block responses; propagate identity through to backend services to inform decisions; and secure all APIs as if they were public. |
-| :---- |
+<Standard id="MSDAS_SHOULD_MSD_CONSIDER_FOLLOWING_PLANNING_ZERO" type="SHOULD">
+MSD should consider the following when planning a Zero Trust architecture: apply strong identification and authentication; build a dynamic digital trust model, valid only for the current session; constantly evaluate and always authenticate; apply contextual authorisation (attributes, consent, location, time, behaviour); build in a digital risk capability that maps to a level of confidence and constantly re-evaluates; incorporate endpoint (device) security; apply transaction-level verification and continuous session validation; apply data security via encryption and user privacy controls, including consent management; implement strong auditing, logging, event reporting and forensics; use automated analytics for threat detection; inject identity context into API traffic (user, application, device); apply fine-grained access control at egress points to modify or block responses; propagate identity through to backend services to inform decisions; and secure all APIs as if they were public.
+</Standard>
 
 # **12\. PAR, JARM and Session Management**
 
@@ -604,20 +656,23 @@ The standard authorisation request sends all parameters in the URL query string,
 
 PAR addresses this by introducing a dedicated PAR endpoint: the API Consumer pushes the authorisation request (as a signed JWT) to this secured back-channel endpoint, and receives a request\_uri in return, which is then used in the (much shorter) authorise request.
 
-| MAY  PAR may be applied for IN-CONFIDENCE APIs, or solutions that require complex authorisation requests. |
-| :---- |
+<Standard id="MSDAS_MAY_PAR_APPLIED_CONFIDENCE_APIS_SOLUTIONS" type="MAY">
+PAR may be applied for IN-CONFIDENCE APIs, or solutions that require complex authorisation requests.
+</Standard>
 
 ## **JWT Secured Authorisation Response Mode (JARM)**
 
 Where PAR addresses the authorise request, JARM addresses the authorise response, letting the API Consumer specify (via a response\_mode parameter) that the response should be returned as a signed — and optionally encrypted — JWT rather than plain query parameters. JARM originates from the banking industry as part of the Financial-Grade API (FAPI) profile.
 
-| MAY  JARM may be used for IN-CONFIDENCE APIs. |
-| :---- |
+<Standard id="MSDAS_MAY_JARM_USED_CONFIDENCE_APIS" type="MAY">
+JARM may be used for IN-CONFIDENCE APIs.
+</Standard>
 
 ## **Session management**
 
-| SHOULD  MSD should implement session management as defined in the relevant OpenID Connect standards. |
-| :---- |
+<Standard id="MSDAS_SHOULD_MSD_IMPLEMENT_SESSION_MANAGEMENT_DEFINED" type="SHOULD">
+MSD should implement session management as defined in the relevant OpenID Connect standards.
+</Standard>
 
 Four OpenID Connect specifications address session management: OpenID Connect Session Management 1.0 (session state); OpenID Connect Front-Channel Logout 1.0 (session and session ID); OpenID Connect Back-Channel Logout 1.0 (logout token); and OpenID Connect RP-Initiated Logout 1.0 (logout endpoint, hosted by the OpenID Provider).
 
@@ -625,8 +680,9 @@ Four OpenID Connect specifications address session management: OpenID Connect Se
 
 ## **Transport security**
 
-| MUST  All communications to or from an API must utilise Transport Layer Security (TLS) 1.3 or higher. *See the New Zealand Information Security Manual (NZISM) for detail.* |
-| :---- |
+<Standard id="MSDAS_MUST_ALL_COMMUNICATIONS_API_UTILISE_TRANSPORT" type="MUST">
+All communications to or from an API must utilise Transport Layer Security (TLS) 1.3 or higher. *See the New Zealand Information Security Manual (NZISM) for detail.*
+</Standard>
 | **SHOULD**  Other versions of TLS and SSL should be disabled. |
 | **MUST**  API Consumer applications must validate TLS certificate chains when making requests to protected resources, including checking the Certificate Revocation List. |
 
@@ -639,8 +695,9 @@ Confidentiality and integrity cover the handling of request and response data, b
 
 Content signing assures content integrity and proof of authorship, and can apply to an entire payload or to specific elements (for example, bank account details). Signing has a lower computational overhead than encryption but can still affect performance, so should be used only where needed.
 
-| MUST  Where bearer tokens are used, they must be JSON Web Tokens (JWT) signed using JSON Web Signature. |
-| :---- |
+<Standard id="MSDAS_MUST_BEARER_TOKENS_USED_THEY_JSON" type="MUST">
+Where bearer tokens are used, they must be JSON Web Tokens (JWT) signed using JSON Web Signature.
+</Standard>
 
 While TLS protects the payload in transit, it only applies point-to-point (for example, mobile app to API gateway). Where transit components aren't fully under MSD's control, payload encryption may be worthwhile — for example, encrypting bank account details passed between an API Consumer and MSD's backend systems. Data-at-rest encryption is generally good practice and commonly offered as standard by cloud providers; see the NZISM for detail. Encryption is only worth implementing where data sensitivity or protection requirements drive it, since it can be computationally intensive and can make it harder for protection mechanisms such as API gateways to validate and transform content.
 
@@ -648,8 +705,9 @@ While TLS protects the payload in transit, it only applies point-to-point (for e
 
 MSD handles large volumes of highly sensitive personal information about clients and whānau — including information about income, employment, housing, family circumstances and, in some cases, care and protection. The primary reference for classification in these standards is the New Zealand Government Protective Security Requirements (PSR), which classifies information according to the harm its unauthorised disclosure would cause.
 
-| MUST  API Providers must correctly classify the information exposed by an API using the PSR classification levels (e.g. UNCLASSIFIED, IN-CONFIDENCE, SENSITIVE, RESTRICTED), applying the appropriate endorsement where MSD- or social-sector-specific handling requirements apply. |
-| :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_CORRECTLY_CLASSIFY_INFORMATION" type="MUST">
+API Providers must correctly classify the information exposed by an API using the PSR classification levels (e.g. UNCLASSIFIED, IN-CONFIDENCE, SENSITIVE, RESTRICTED), applying the appropriate endorsement where MSD- or social-sector-specific handling requirements apply.
+</Standard>
 
 Where information is classified above UNCLASSIFIED, unauthorised disclosure won't be permitted unless the client (or their authorised representative) has consented, another person is authorised to receive it, or disclosure is authorised by statute or a legal instrument such as an Approved Information Sharing Agreement (AISA) under Part 9A of the Privacy Act 2020\.
 
@@ -661,22 +719,25 @@ The baseline requirements set out earlier in this Part — authentication, trans
 
 ## **Authentication and authorisation**
 
-| MUST  Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme. |
-| :---- |
+<Standard id="MSDAS_MUST_REMOTE_MCP_SERVERS_AUTHENTICATION_REQUIRED" type="MUST">
+Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme.
+</Standard>
 | **MUST**  Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems. |
 | **MUST**  Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them. |
 
 ## **Consent and human oversight**
 
-| SHOULD  Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution — particularly where the action is difficult to reverse, such as issuing a payment or closing a case. |
-| :---- |
+<Standard id="MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL" type="SHOULD">
+Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution — particularly where the action is difficult to reverse, such as issuing a payment or closing a case.
+</Standard>
 
 Because MCP Servers expose their capability list dynamically rather than through a specification a developer reviews in advance, the practical safeguard against unintended tool use shifts from design-time review to runtime consent and confirmation.
 
 ## **Tool integrity (“rug-pull” protection)**
 
-| MUST  An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again. |
-| :---- |
+<Standard id="MSDAS_MUST_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY" type="MUST">
+An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
+</Standard>
 | **INFO** This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered — for example, to broaden the data it accesses or the actions it performs — without the change being surfaced for re-approval. |
 
 ## **Untrusted content and indirect prompt injection**
@@ -687,8 +748,9 @@ Because MCP Servers expose their capability list dynamically rather than through
 
 ## **Audit logging**
 
-| MUST  All tool invocations that access or modify client or whānau data must be logged with sufficient detail to identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally. |
-| :---- |
+<Standard id="MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY" type="MUST">
+All tool invocations that access or modify client or whānau data must be logged with sufficient detail to identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally.
+</Standard>
 
 # **15\. Related Standards**
 

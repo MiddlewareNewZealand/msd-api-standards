@@ -1,4 +1,8 @@
-  
+---
+title: "API Publishing"
+sidebar_label: "API Publishing"
+---
+
 **Ministry of Social Development**
 
 **API Design and Development Standards**
@@ -53,8 +57,9 @@ Publishing APIs through a managed process lets MSD maintain control over how its
 
 An API specification is the blueprint for an API: a document, or collection of documents, describing how it functions and how applications can interact with it. It's both a technical reference for API Consumer developers and a design, implementation and testing artefact for the API Provider.
 
-| MUST | API Providers MUST follow a specification-driven development approach (see Part C, API Design). |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_FOLLOW_SPECIFICATION_DRIVEN" type="MUST">
+API Providers MUST follow a specification-driven development approach (see Part C, API Design).
+</Standard>
 
 See OpenAPI Specifications and AsyncAPI Specifications below.
 
@@ -64,47 +69,55 @@ An API specification goes a long way toward documenting an API, but consumers ty
 
 ### **Business context**
 
-| MUST | API Providers MUST capture the business context of a published API — how it fits into MSD's broader business processes and use cases — to help consumers use it effectively. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_CAPTURE_BUSINESS_CONTEXT" type="MUST">
+API Providers MUST capture the business context of a published API — how it fits into MSD's broader business processes and use cases — to help consumers use it effectively.
+</Standard>
 
-| SHOULD | Business context SHOULD be available via a web experience, e.g. the MSD Developer Portal. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_BUSINESS_CONTEXT_AVAILABLE_VIA_WEB" type="SHOULD">
+Business context SHOULD be available via a web experience, e.g. the MSD Developer Portal.
+</Standard>
 
 ### **Diagrams**
 
-| MUST | API Providers MUST provide diagrams describing an API Consumer's journey when interacting with the published API. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_PROVIDE_DIAGRAMS_DESCRIBING" type="MUST">
+API Providers MUST provide diagrams describing an API Consumer's journey when interacting with the published API.
+</Standard>
 
 The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. Diagrams SHOULD be available via a web experience.
 
 ### **Developer documentation**
 
-| MUST | API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_PUBLISH_DEVELOPER_DOCUMENTATION" type="MUST">
+API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
+</Standard>
 
 For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required. Developer documentation SHOULD be available via a web experience.
 
 ## **Terms and conditions**
 
-| MUST | API Providers MUST publish terms and conditions that set out the rules API Consumers must agree to when using the API. These SHOULD be available via a web experience. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_PUBLISH_TERMS_CONDITIONS" type="MUST">
+API Providers MUST publish terms and conditions that set out the rules API Consumers must agree to when using the API. These SHOULD be available via a web experience.
+</Standard>
 
 ## **Developer onboarding**
 
-| MUST | API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_PROVIDE_DEVELOPER_ONBOARDING" type="MUST">
+API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs.
+</Standard>
 
 This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
 
 ## **Service level agreements (SLA)**
 
-| MUST | API Providers MUST publish service level agreements defining their commitments and the corresponding expectations for API Consumers. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_PUBLISH_SERVICE_LEVEL" type="MUST">
+API Providers MUST publish service level agreements defining their commitments and the corresponding expectations for API Consumers.
+</Standard>
 
 Common SLAs include: API availability (uptime); latency; and request throughput (requests permitted in a given timeframe).
 
-| MAY | API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration. |
-| :---: | :---- |
+<Standard id="MSDAS_MAY_API_PROVIDERS_OFFER_SLA_TIERING" type="MAY">
+API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
+</Standard>
 
 SLAs SHOULD be available via a web experience.
 
@@ -122,8 +135,9 @@ OpenAPI Specification Structure:
 
 ## **Servers property**
 
-| MUST | The servers property, defining the list of endpoints where the API can be accessed, MUST be included. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_SERVERS_PROPERTY_DEFINING_LIST_ENDPOINTS" type="MUST">
+The servers property, defining the list of endpoints where the API can be accessed, MUST be included.
+</Standard>
 
 | servers:   \- url: https://api.msd.govt.nz/income-support/v1     description: MSD Income Support API   \- url: https://api-test.msd.govt.nz/income-support/v1     description: MSD Income Support API (test) |
 | :---- |
@@ -143,8 +157,9 @@ The info section of an OpenAPI specification contains details on the API Provide
 
 ## **External documentation**
 
-| SHOULD | The externalDocs property, referencing supporting documentation for the API, SHOULD be included. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_EXTERNALDOCS_PROPERTY_REFERENCING_SUPPORTING_DOCUMENTATION" type="SHOULD">
+The externalDocs property, referencing supporting documentation for the API, SHOULD be included.
+</Standard>
 
 ## **Paths section**
 
@@ -162,8 +177,9 @@ The paths section is a parent property containing the resource paths in the API 
 
 ### **Security**
 
-| MUST | OpenAPI Specifications MUST define appropriate security mechanisms. Security schemes MUST be defined in components.securitySchemes and referenced in all API operations. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_OPENAPI_SPECIFICATIONS_DEFINE_APPROPRIATE_SECURITY" type="MUST">
+OpenAPI Specifications MUST define appropriate security mechanisms. Security schemes MUST be defined in components.securitySchemes and referenced in all API operations.
+</Standard>
 
 Even a public operation (e.g. a health-check or metadata endpoint) SHOULD still carry a security property, set explicitly to empty.
 
@@ -200,8 +216,9 @@ components:
 
 ### **Responses**
 
-| SHOULD | `{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code, and MUST include error responses, referring to an error schema where possible. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_PATH_VERB_RESPONSES_INCLUDE_ALL" type="SHOULD">
+`{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code, and MUST include error responses, referring to an error schema where possible.
+</Standard>
 
 ```yaml
 responses:
@@ -225,20 +242,23 @@ responses:
           $ref: '#/components/schemas/Error'
 ```
 
-| SHOULD NOT | API Providers SHOULD NOT include a default response. Although OpenAPI supports it, an explicit, complete response list is preferred. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_NOT_API_PROVIDERS_INCLUDE_DEFAULT_RESPONSE" type="SHOULD NOT">
+API Providers SHOULD NOT include a default response. Although OpenAPI supports it, an explicit, complete response list is preferred.
+</Standard>
 
 ### **Request body**
 
-| MUST | Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property, which SHOULD reference a schema defined in components. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_OPENAPI_SPECIFICATION_DEFINES_POST_PUT" type="MUST">
+Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property, which SHOULD reference a schema defined in components.
+</Standard>
 
 ## **Components section**
 
 ### **Parameters**
 
-| SHOULD | OpenAPI specifications SHOULD define reusable parameters under components.parameters. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_DEFINE_REUSABLE_PARAMETERS" type="SHOULD">
+OpenAPI specifications SHOULD define reusable parameters under components.parameters.
+</Standard>
 
 ```yaml
 components:
@@ -254,13 +274,15 @@ components:
 
 ### **Schemas**
 
-| SHOULD | OpenAPI specifications SHOULD use schema references under components.schemas to define content, and MAY use nested schema references for reusable elements. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_USE_SCHEMA_REFERENCES" type="SHOULD">
+OpenAPI specifications SHOULD use schema references under components.schemas to define content, and MAY use nested schema references for reusable elements.
+</Standard>
 
 ### **Examples**
 
-| SHOULD | OpenAPI specifications SHOULD define reusable examples under components.examples. |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_DEFINE_REUSABLE_EXAMPLES" type="SHOULD">
+OpenAPI specifications SHOULD define reusable examples under components.examples.
+</Standard>
 
 ## **Property descriptions**
 
@@ -268,8 +290,9 @@ Property descriptions are for API Consumer developers to understand the purpose 
 
 ## **OpenAPI validation**
 
-| MUST | The OpenAPI document MUST pass validation against the OpenAPI specification, e.g. using the Swagger Editor or an equivalent tool, ideally as part of an automated pipeline or developer IDE integration. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_OPENAPI_DOCUMENT_PASS_VALIDATION_AGAINST" type="MUST">
+The OpenAPI document MUST pass validation against the OpenAPI specification, e.g. using the Swagger Editor or an equivalent tool, ideally as part of an automated pipeline or developer IDE integration.
+</Standard>
 
 # **4\. AsyncAPI Specifications**
 
@@ -284,8 +307,9 @@ AsyncAPI specification structure:
 
 ## **AsyncAPI section**
 
-| MUST | The asyncapi property, indicating the specification version in use, MUST be included. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_ASYNCAPI_PROPERTY_INDICATING_SPECIFICATION_VERSION" type="MUST">
+The asyncapi property, indicating the specification version in use, MUST be included.
+</Standard>
 
 ## **Info section**
 
@@ -318,13 +342,15 @@ Holds the relative paths to individual channels and their operations — channel
 
 ## **External docs section**
 
-| MUST | externalDocs.url, a link to further documentation about the API, MUST be provided. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_EXTERNALDOCS_URL_LINK_FURTHER_DOCUMENTATION" type="MUST">
+externalDocs.url, a link to further documentation about the API, MUST be provided.
+</Standard>
 
 ## **AsyncAPI validation**
 
-| MUST | The AsyncAPI document MUST pass validation against the AsyncAPI specification, ideally as part of an automated pipeline or developer IDE integration. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_ASYNCAPI_DOCUMENT_PASS_VALIDATION_AGAINST" type="MUST">
+The AsyncAPI document MUST pass validation against the AsyncAPI specification, ideally as part of an automated pipeline or developer IDE integration.
+</Standard>
 
 # **5\. Diagrams**
 
@@ -349,8 +375,9 @@ The table below sets out an example use case for an MSD Entitlement Status API, 
 | MSD Case Management System | The system used by the case manager | Publishes entitlement status change events to the API |
 | Entitlement Status API | Interface for accessing entitlement status information | The MSD API exposing entitlement status to authorised consumers |
 
-| SHOULD | The diagram type is at the API Provider's discretion, though UML sequence diagrams are recommended (see Publishing Components, Diagrams). |
-| :---: | :---- |
+<Standard id="MSDAS_SHOULD_DIAGRAM_TYPE_AT_API_PROVIDER" type="SHOULD">
+The diagram type is at the API Provider's discretion, though UML sequence diagrams are recommended (see Publishing Components, Diagrams).
+</Standard>
 
 **\*\*\*\*add sequence diagram example**
 
@@ -373,8 +400,9 @@ MCP Servers (see Part C, MCP APIs) don't have a static specification artefact in
 
 ## **Capability catalogue**
 
-| MUST | API Providers of an MCP Server MUST publish a capability catalogue — a human-readable listing of available Tools, Resources and Prompts, each with its purpose, required scopes, and any side effects (particularly for Tools that write data or trigger real-world actions) — via the MSD Developer Portal, in addition to the protocol's own machine-readable discovery. |
-| :---: | :---- |
+<Standard id="MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH_2" type="MUST">
+API Providers of an MCP Server MUST publish a capability catalogue — a human-readable listing of available Tools, Resources and Prompts, each with its purpose, required scopes, and any side effects (particularly for Tools that write data or trigger real-world actions) — via the MSD Developer Portal, in addition to the protocol's own machine-readable discovery.
+</Standard>
 
 The catalogue serves the same purpose for MCP that an OpenAPI specification serves for a REST API: it lets a prospective integrator or reviewer understand what the Server can do, and what it would mean to grant an agent access to it, without needing to connect a live Client first.
 

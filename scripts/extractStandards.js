@@ -97,7 +97,7 @@ function processDirectory(directoryPath, excludeDraft = false) {
   return data;
 }
 
-function writeOutput(data, outputFilePath) {
+function writeOutput(data, outputFilePath, baseUrl) {
   console.log(`Writing output to ${outputFilePath}`);
   if (!data.length) {
     console.log("No data to write.");
@@ -114,7 +114,7 @@ function writeOutput(data, outputFilePath) {
     if (!groupedData[standardType]) {
       groupedData[standardType] = [];
     }
-    const link = filePath.replace("build", "").replace("/index.html", "") + `#${id}`;
+    const link = baseUrl + filePath.replace("build", "").replace("/index.html", "") + `#${id}`;
     groupedData[standardType].push({ standardType, content, id, link });
   });
 
@@ -122,13 +122,16 @@ function writeOutput(data, outputFilePath) {
   fs.writeFileSync(outputFilePath, jsonData);
 }
 
-function main() {
-  
+async function main() {
+
   try {
+    const config = await require("../docusaurus.config.js")();
+    const baseUrl = config.baseUrl.replace(/\/$/, "");
+
     // Process the main build directory, excluding the draft folder
     const mainData = processDirectory(sourceDir, true);
 
-    if (duplicates.size > 0) { 
+    if (duplicates.size > 0) {
       console.log(`Duplicate Standards ID found: ${[...duplicates].join("\n")}`);
     }
     if (invalid.size > 0) {
@@ -138,12 +141,12 @@ function main() {
       throw new Error("Duplicate or invalid Standards ID found. Please fix the issues before proceeding.");
     }
 
-    writeOutput(mainData, outputFilePath);
+    writeOutput(mainData, outputFilePath, baseUrl);
 
     // Process the draft directory
     const draftData = processDirectory(draftDir);
 
-    if (draftDuplicates.size > 0) { 
+    if (draftDuplicates.size > 0) {
       console.log(`Duplicate Standards ID found: ${[...duplicates].join("\n")}`);
     }
     if (draftInvalid.size > 0) {
@@ -153,7 +156,7 @@ function main() {
       throw new Error("Duplicate or invalid Standards ID found. Please fix the issues before proceeding.");
     }
 
-    writeOutput(draftData, draftOutputFilePath);
+    writeOutput(draftData, draftOutputFilePath, baseUrl);
   } catch (error) {
     console.error(`Error during processing: ${error.message}`);
   }

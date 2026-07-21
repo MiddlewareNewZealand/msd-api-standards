@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 const RFC_DEFINITIONS = {
   MUST: 'This word, or the terms "REQUIRED" or "SHALL", mean that the definition is an absolute requirement of the specification.',
@@ -20,16 +21,15 @@ const StandardsChecklist = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentSection, setCurrentSection] = useState('All sections');
+  const draftAssetUrl = useBaseUrl('/draft/assets/api-standards.json');
+  const assetUrl = useBaseUrl('/assets/api-standards.json');
 
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const baseUrl = window.location.href;
-        const path = baseUrl.includes('/draft/') ? '/draft/assets/msd-api-standards.json' : '/assets/msd-api-standards.json';
-        console.log(path);
+        const path = window.location.href.includes('/draft/') ? draftAssetUrl : assetUrl;
         const response = await fetch(path);
-        console.log(response);
         const jsonData = await response.json();
         setData(jsonData);
         setIsLoading(false);

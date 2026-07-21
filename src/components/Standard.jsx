@@ -2,6 +2,7 @@ import { parse } from "node-html-parser";
 import React, { useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Tooltip } from "react-tooltip";
+import useBrokenLinks from "@docusaurus/useBrokenLinks";
 
 const extractText = (Component) => {
   const markup = ReactDOMServer.renderToStaticMarkup(Component);
@@ -34,6 +35,8 @@ function Standard({ id, type, toolTip, wrapper, children }) {
   if (toolTip === undefined) {
     toolTip = extractText(children);
   }
+
+  useBrokenLinks().collectAnchor(id);
 
   const Component = wrapper === undefined ? "p" : wrapper;
 

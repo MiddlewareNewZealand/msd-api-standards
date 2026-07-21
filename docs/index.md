@@ -1,8 +1,7 @@
 ---
-title: "Ministry of Social Development | Te Manatū Whakahiato Ora Collateral Publishing Template"
+title: "Ministry of Social Development API Standards"
 sidebar_position: 1
 slug: /
 ---
 
-An example template for publishing MSD Collateral.
-
+Ministry of Social Development API Standards
