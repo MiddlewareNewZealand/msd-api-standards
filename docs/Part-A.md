@@ -60,7 +60,7 @@ Part D is aimed primarily at API providers, and sets out guidance and standards 
 
 To improve precision and consistency, these standards adopt the terminology defined in RFC 2119\. The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119\.
 
-# **Part A: API Concepts**
+## **Part A: API Concepts**
 
 Welcome to MSD's API Design and Development Standards. This section is informational and introduces the high-level concepts used throughout the rest of the standards.
 
@@ -74,15 +74,15 @@ This section is relevant to you if you are:
 
 * an Application Developer
 
-# **1\. Introduction**
+### **1\. Introduction**
 
 The intent of this section is to provide the high-level introductory concepts used throughout these standards.
 
-## **Scope**
+#### **Scope**
 
 This section contains the business context for API standards and their use within MSD. It describes the value of API standards in supporting consistent, joined-up service delivery across the social sector.
 
-## **Target audience**
+#### **Target audience**
 
 This section is aimed at technical and non-technical people who are developing, or planning to develop, software for MSD and the wider social sector, including:
 
@@ -94,9 +94,9 @@ This section is aimed at technical and non-technical people who are developing, 
 
 * Application Developers
 
-## **Definitions**
+#### **Definitions**
 
-### **API**
+##### **API**
 
 An API is an interface that allows one software application to communicate with another. The communication protocol of APIs is usually agnostic, but the APIs discussed in this document are either:
 
@@ -107,11 +107,11 @@ An API is an interface that allows one software application to communicate with 
 | INFO An API should not be confused with a service. Web services are APIs, but not all APIs are web services. This document is concerned with web APIs that support interoperability, not with software engineering principles generally. |
 | :---- |
 
-### **Interoperability**
+##### **Interoperability**
 
 Service delivery across the social sector improves when information is provided or shared seamlessly between the agencies, providers and community organisations working with the same clients and whānau. Interoperability is a key enabler of the connected government New Zealand is building towards. It supports information about a client or whānau being accessible — with appropriate authorisation — to the right people, in the right service, at the right time, reducing the number of times a person has to retell their story to different parts of government. API’s are a key tool to achieve interoperability.
 
-### **Standards**
+##### **Standards**
 
 A standard is a documented set of the following items that, when used consistently, ensure that products, processes and services developed are fit for purpose and aligned with others across the sector:
 
@@ -127,11 +127,11 @@ A standard is a documented set of the following items that, when used consistent
 
 Standards can be compulsory when referenced in Acts, regulations, or other legislative instruments.
 
-# **2\. Why use standards?**
+### **2\. Why use standards?**
 
 Standards exist because people across an industry or sector have got together and asked: “what is the best way to do this?” They are developed and agreed so that everyone building supplies, products, processes and services shares the same references, tools, language and taxonomy.
 
-## **Benefits**
+#### **Benefits**
 
 Widespread adoption and use of standards:
 
@@ -157,7 +157,7 @@ The best standards are:
 
 * Adaptive to present and future needs.
 
-## **Outcomes**
+#### **Outcomes**
 
 People are empowered by evidence-based standards with explicit expectations embedded in them, changing behaviour and practice to achieve better outcomes, including:
 
@@ -169,47 +169,47 @@ People are empowered by evidence-based standards with explicit expectations embe
 
 * Encouraging environmental sustainability and meeting climate resilience priorities.
 
-# **3\. Value of API standards**
+### **3\. Value of API standards**
 
 The full value of API standards is realised when everyone is aligned to them — which is why MSD, its delivery partners and the wider social and government sector need to work together on their adoption.
 
 Facilitating seamless co-operation on providing services via technology is a key enabler  for improving outcomes across the social sector, and for meeting MSD's obligations as a steward of highly sensitive personal data.
 
-## **MSD's standards kaitiaki**
+#### **MSD's standards kaitiaki**
 
 * Add content here about the entity which governs these standards
 
 
-## **Alignment with cross-government interoperability initiatives**
+#### **Alignment with cross-government interoperability initiatives**
 
 Add content here about alignment
 
-# **4\. Partners**
+### **4\. Partners**
 
-## **Standards bodies and agencies**
+#### **Standards bodies and agencies**
 
 | Partner | Description |
 | :---- | :---- |
 | Government Digital Delivery Agency (GDDA) | Sits within the Public Service Commission and holds the Government Chief Digital Officer (GCDO) function (transitioned from the Department of Internal Affairs on 1 April 2026). Sets government-wide digital and data standards, including the Government API Standards and Guidelines that these MSD standards align with. |
 
-## **Pivotal standards and frameworks**
+#### **Pivotal standards and frameworks**
 
 | Framework | Description |
 | :---- | :---- |
 | New Zealand Government API Standards and Guidelines | Cross-government standards for designing, securing and publishing APIs, maintained by the Government Digital Delivery Agency (GDDA), which now holds the Government Chief Digital Officer (GCDO) function. These MSD standards are a sector-specific implementation of that guidance. |
 | Protective Security Requirements (PSR) / NZISM | Baseline government security requirements that inform MSD's approach to API and information security (see Part B). |
 
-## **Products and tools**
+#### **Products and tools**
 
 | Product / tool | Description |
 | :---- | :---- |
 | Add standards chosen here |  |
 
-# **5\. Standards Component Definitions**
+### **5\. Standards Component Definitions**
 
 This section provides a list of common API standards components and their associated definitions, adapted for an MSD and social sector context.
 
-## **API Provider**
+#### **API Provider**
 
 An API Provider, in the context of these standards, is a software application:
 
@@ -219,7 +219,7 @@ An API Provider, in the context of these standards, is a software application:
 
 * That has completed an appropriate API Provider onboarding process.
 
-## **API Consumer**
+#### **API Consumer**
 
 An API Consumer, in the context of these standards, is a software application:
 
@@ -227,27 +227,27 @@ An API Consumer, in the context of these standards, is a software application:
 
 * That has completed an approved API Consumer onboarding and certification process.
 
-## **Social Sector Clients and Whānau**
+#### **Social Sector Clients and Whānau**
 
 A social sector client, in the context of these standards, is a person interacting — via a software application — with an API Consumer that is consuming an API published on the MSD Developer Portal or equivalent sector capability. This includes individuals accessing income support, employment services, housing assistance or care and protection services, and their whānau.
 
-## **Social Sector Organisations**
+#### **Social Sector Organisations**
 
 A social sector organisation, in the context of these standards, is any organisation that provides or supports social services. This includes government agencies, community and iwi providers, NGOs, and contracted service providers. Participants in these organisations may use a software application that consumes API’s on behalf of a client or whanau.
 
-## **Social Sector Workers**
+#### **Social Sector Workers**
 
 A social sector worker, in the context of these standards, is any person who provides or supports social services. This includes case managers, employment consultants, social workers, community support workers, and other frontline and back-office MSD and partner-agency staff.
 
-## **API Designers**
+#### **API Designers**
 
 An API Designer, in the context of these standards, is a software developer or architect who specialises in designing APIs. API designers work to create APIs that are easy to use, efficient and secure, and typically have a strong understanding of software development principles as well as a good working knowledge of the business context they're designing for.
 
-## **API Developers**
+#### **API Developers**
 
 An API Developer, in the context of these standards, is a software engineer who designs, builds and maintains APIs — the sets of rules that allow different software applications to communicate with each other. API developers create APIs that let other developers access data and functionality without needing to know the underlying implementation.
 
-## **Application Developers**
+#### **Application Developers**
 
 An Application Developer, in the context of these standards, is a software engineer who designs, develops, tests and deploys software applications, typically specialising in a particular type of development such as mobile, web or enterprise software.
 
@@ -257,11 +257,11 @@ An Application Developer, in the context of these standards, is a software engin
 | Audience | Other developers | Social sector workers, clients and whānau |
 | Example tasks | Design and develop new APIs; maintain and update existing APIs; create API documentation | Gather and analyse user requirements; design and develop software applications; write and test code; debug and fix defects; deploy and maintain applications |
 
-## **Message Producer**
+#### **Message Producer**
 
 A Message Producer, in the context of these standards, is a software application that publishes data to API Consumers using Asynchronous APIs — for example, publishing an event when a client's case status changes.
 
-## **How these components relate**
+#### **How these components relate**
 
 At a social sector organisation, an API Developer builds and operates an API Provider; an Application Developer builds and operates an API Consumer. The API Developer works through the MSD Developer Portal to publish their API, which is then discoverable and consumable by Application Developers across MSD and its delivery partners.
 
