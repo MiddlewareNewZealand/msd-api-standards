@@ -1,21 +1,13 @@
 ---
 title: "API Security"
 sidebar_label: "API Security"
+sidebar_position: 3
 ---
-
-**Ministry of Social Development**
-
-**API Design and Development Standards**
-
-Part B: API Security
+# Part B: API Security
 
 *DRAFT v0.1*
 
 *Adapted from the Health New Zealand | Te Whatu Ora API Standards (HISO 10107), modernised and re-contextualised for MSD's social sector API programme.*
-
-# **Contents**
-
-# **Part B: API Security**
 
 This section is aimed at API Providers and API Consumers. It provides detailed standards to help teams build and publish secure APIs, and sets out the rules for API consumption.
 

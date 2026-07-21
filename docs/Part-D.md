@@ -1,19 +1,11 @@
 ---
 title: "API Publishing"
 sidebar_label: "API Publishing"
+sidebar_position: 5
 ---
-
-**Ministry of Social Development**
-
-**API Design and Development Standards**
-
-Part D: API Publishing
+# Part D: API Publishing
 
 *DRAFT v0.1*
-
-# **Contents**
-
-# **Part D: API Publishing**
 
 This section is aimed primarily at API Providers, and sets out guidance and standards for appropriately publishing APIs so that API Consumers — across MSD, delivery partners, and the wider social sector — can discover, understand and safely integrate with them.
 

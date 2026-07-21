@@ -1,19 +1,12 @@
 ---
 title: "API Concepts and Management"
 sidebar_label: "API Concepts and Management"
+sidebar_position: 2
 ---
-
-**Ministry of Social Development**
-
-**API Design and Development Standards**
-
-Part A: API Concepts and Management
+# Part A: API Concepts and Management
 
 *DRAFT v0.1*
 
-# **Contents**
-
-# **Ministry of Social Development API Standards**
 
 These standards give MSD's API providers and API consumers a shared, practical reference for designing, building, securing and publishing APIs. They exist to help teams across MSD — and the partner agencies, community providers and vendors who integrate with us — build APIs that are consistent, secure, easy to consume and fit for a social sector context.
 

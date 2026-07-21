@@ -86,7 +86,7 @@ module.exports = async function createConfig() {
           respectPrefersColorScheme: false,
         },
         navbar: {
-          title: 'API Standards',
+          title: '',
           hideOnScroll: false,
           logo: {
             alt: 'Ministry of Social Development | Te Manatū Whakahiato Ora logo',

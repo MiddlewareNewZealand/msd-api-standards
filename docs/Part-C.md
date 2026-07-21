@@ -1,19 +1,11 @@
 ---
 title: "API Development"
 sidebar_label: "API Development"
+sidebar_position: 4
 ---
-
-**Ministry of Social Development**
-
-**API Design and Development Standards**
-
-Part C: API Development
+# Part C: API Development
 
 *DRAFT v0.1*
-
-# **Contents**
-
-# **Part C: API Development**
 
 This section is aimed at API Providers and API Consumers building on MSD's API platform. It provides detailed standards to guide the development of consistent, well-designed APIs, and the rules that consuming applications should follow.
 
