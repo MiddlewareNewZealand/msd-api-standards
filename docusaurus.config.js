@@ -92,6 +92,7 @@ module.exports = async function createConfig() {
             alt: 'Ministry of Social Development | Te Manatū Whakahiato Ora logo',
             src: '/msd-api-standards/img/msd-logo-light.svg',
             srcDark: '/msd-api-standards/img/msd-logo-dark.svg',
+            href: '/draft/',
           },
           items: [
             {
@@ -121,14 +122,6 @@ module.exports = async function createConfig() {
                   href: 'https://www.msd.govt.nz/',
                 },
                 {
-                  label: 'Example Contact',
-                  href: '/contact',
-                },
-                {
-                  label: 'Example Terms of use',
-                  href: '/terms-of-use',
-                },
-                {
                   label: 'Legal and copyright',
                   href: 'https://www.msd.govt.nz/',
                 },
@@ -152,10 +145,6 @@ module.exports = async function createConfig() {
                 {
                   label: 'Ministry of Social Development',
                   href: 'https://www.msd.govt.nz',
-                },
-                {
-                  label: 'Contributors',
-                  href: '/Examplecontributors'
                 },
               ],
             },
