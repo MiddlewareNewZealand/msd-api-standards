@@ -3797,10 +3797,78 @@ h2+.rich-text--highlight {
   width: auto;
 }
 
-/* MSD search button uses their teal (#308091) accent */
+/* ------------------------------------------------------------------ */
+/* MSD search widget — matches msd.govt.nz's #header #tools .search:   */
+/* a white 40px-tall pill (border 1px #7a7a7a, radius 9px) with a      */
+/* teal button overlapping its right edge carrying the same white      */
+/* magnifying-glass icon, and MSD's purple accessible focus outline.   */
+/* ------------------------------------------------------------------ */
+.navbar__search {
+  position: relative;
+}
+
+.navbar__search-input {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #7a7a7a;
+  border-radius: 9px;
+  box-sizing: border-box;
+  color: #000;
+  font-size: 1rem;
+  height: 2.5rem;
+  padding: 0 3.4375rem 0 0.625rem;
+  width: 15.625rem;
+}
+
+/* MSD's own search box carries no placeholder text — keep it blank to match */
+.navbar__search-input::placeholder {
+  color: transparent;
+}
+
+/* MSD's widget has no keyboard-shortcut hint badge; hide the plugin's
+   "ctrl K" hint so it doesn't collide with the teal button, and to match
+   MSD's plain box. The shortcut itself still works, only the hint is hidden. */
+.navbar__search [class*="searchHintContainer"] {
+  display: none;
+}
+
 .navbar__search-input:focus {
-  outline: 2px solid var(--msd-teal);
-  outline-offset: 1px;
+  outline: 2px solid #b53cde;
+  outline-offset: 0.2em;
+}
+
+.navbar__search::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.8125rem;
+  height: 2.5rem;
+  border-radius: 0 9px 9px 0;
+  background-color: var(--msd-teal);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.375rem 1.375rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.03 19.029'%3E%3Cpath fill='%23FFFFFF' d='M17.566,19.029c-0.389,0-0.766-0.16-1.029-0.434l-3.923-3.911c-1.338,0.926-2.939,1.418-4.563,1.418C3.602,16.102,0,12.5,0,8.051S3.602,0,8.051,0s8.051,3.602,8.051,8.051c0,1.624-0.492,3.225-1.418,4.563l3.922,3.923c0.263,0.263,0.423,0.641,0.423,1.029C19.03,18.366,18.366,19.029,17.566,19.029z M8.051,2.928c-2.825,0-5.123,2.299-5.123,5.123s2.299,5.123,5.123,5.123s5.123-2.299,5.123-5.123S10.876,2.928,8.051,2.928z'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.navbar__search:hover::after {
+  background-color: var(--msd-teal-dark);
+}
+
+/* Below 576px the search-local plugin collapses the input to an icon-only
+   affordance when unfocused; keep the teal button hidden until then so it
+   doesn't overhang the shrunken input, matching MSD's own icon-first mobile
+   pattern. */
+@media (max-width: 576px) {
+  .navbar__search::after {
+    display: none;
+  }
+
+  .navbar__search:has(.navbar__search-input:focus)::after {
+    display: block;
+  }
 }
 
 /* Footer NZ Government logo sits on charcoal now — keep it legible */
