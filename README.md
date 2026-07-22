@@ -155,45 +155,36 @@ We have defined a component called a "standard"; essentially a rule that follows
 
 ### "Standard" Component Attributes
 
-- `id`: A unique identifier for the rule. It follows the pattern `MSDAS_<RULE_TYPE>_<SHORT_DESCRIPTION>`.
+- `id`: A unique identifier for the rule. It follows the pattern `MSDAS_<RULE_TYPE>_<SHORT_DESCRIPTION>`. Not required for the non-normative `INFO`/`EXAMPLE`/`NOTE` types (see below).
 
-- `type`: The type of rule, such as MUST, SHOULD, MAY, SHOULD_NOT, MUST_NOT.
+- `type`: The RFC 2119 keyword, such as `MUST`, `SHOULD`, `MAY`, `SHOULD_NOT`, `MUST_NOT` (or a synonym like `REQUIRED`/`SHALL`), or a non-normative `INFO`, `EXAMPLE`, `NOTE`.
 
-- `toolTip`: A brief description that appears as a tooltip when hovering over the rule.
+- `toolTip`: A brief description that appears as a tooltip when hovering over the rule. Optional for the block form (defaults to the rule text); **required** for `inline` usage.
 
-- `wrapper`: The HTML tag used to wrap the text, commonly `li` for list items or `span` for inline text.
+- `inline`: Boolean. Renders the keyword inline within a sentence instead of a standalone box — see below.
 
-- `dupe`: A boolean (true/false) attribute that indicates if the rule is a duplicate of another rule. This is used to prevent the rule from being included twice in the master checklist.
-
+For the full authoring guide (both forms, formatting pitfalls, id conventions) see [CONTRIBUTING.md](./CONTRIBUTING.md#authoring-standard-tags). Run `npm run validate:standards` to check your changes before pushing — it also runs in pre-commit and CI.
 
 ### Basic Usage
 
-To wrap a piece of text in an `Standard` component, use the following structure:
+To wrap a piece of text in a `Standard` component, use the following structure. Put the tag, content, and closing tag each on their own line — content crammed onto the same line as `<Standard>` can break the build.
 
 Note that the `Standard id=` value must match the following regular expression
 
 `^MSDAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[\w_]+$`
 
 ```jsx
-
-<Standard id="UNIQUE_ID" type="RULE_TYPE" toolTip="Description of the rule." wrapper="li">
-
-  Your text here
-
+<Standard id="UNIQUE_ID" type="RULE_TYPE" toolTip="Description of the rule.">
+Your text here
 </Standard>
-
 ```
 
 ### Example
 
 ```jsx
-
-<Standard id="MSDAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
-
-  All communications to or from an API **MUST** use TLS 1.3 or higher.
-
+<Standard id="MSDAS_MUST_USE_TLS" type="MUST">
+All communications to or from an API **MUST** use TLS 1.3 or higher.
 </Standard>
-
 ```
 
 ## Trends and Common Patterns
@@ -204,7 +195,7 @@ When documenting simple rules, wrap the rule text in an `Standard` component:
 
 ```jsx
 
-<Standard id="MSDAS_SHOULD_HAVE_HOME_PAGE" type="SHOULD" toolTip="A FHIR IG should have a home page with a clear high level description of the implementation." wrapper="li">
+<Standard id="MSDAS_SHOULD_HAVE_HOME_PAGE" type="SHOULD" toolTip="A FHIR IG should have a home page with a clear high level description of the implementation.">
 
   A FHIR IG **SHOULD** have a home page: "A clear high level description of the implementation"
 
@@ -218,7 +209,7 @@ For more complex rules that span multiple sentences, ensure each sentence is cle
 
 ```jsx
 
-<Standard id="MSDAS_MUST_PUBLISH_CAPABILITY_STATEMENT" type="MUST" toolTip="FHIR APIs MUST publish a CapabilityStatement resource at the {{API_URL}}/metadata endpoint." wrapper="li">
+<Standard id="MSDAS_MUST_PUBLISH_CAPABILITY_STATEMENT" type="MUST" toolTip="FHIR APIs MUST publish a CapabilityStatement resource at the {{API_URL}}/metadata endpoint.">
 
   FHIR APIs **MUST** publish a **CapabilityStatement** resource at the `{{API_URL}}/metadata` endpoint.
 
@@ -232,13 +223,13 @@ When listing multiple requirements, each item should be wrapped individually:
 
 ```jsx
 
-<Standard id="MSDAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher." wrapper="li">
+<Standard id="MSDAS_MUST_USE_TLS" type="MUST" toolTip="All communications to or from an API MUST use TLS 1.3 or higher.">
 
   All communications to or from an API **MUST** use TLS 1.3 or higher.
 
 </Standard>
 
-<Standard id="MSDAS_MUST_ENCRYPT_TOKENS" type="MUST" toolTip="Tokens MUST be encrypted." wrapper="li">
+<Standard id="MSDAS_MUST_ENCRYPT_TOKENS" type="MUST" toolTip="Tokens MUST be encrypted.">
 
   Tokens **MUST** be encrypted.
 

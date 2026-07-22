@@ -42,7 +42,11 @@ Diagrams SHOULD be available via a web experience.
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  <Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD"> Developer documentation SHOULD be available via a web experience.</Standard>
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.
+
+<Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD">
+Developer documentation SHOULD be available via a web experience.
+</Standard>
 
 ## **Terms and conditions**
 

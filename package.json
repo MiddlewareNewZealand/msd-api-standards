@@ -16,6 +16,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "spellcheck": "cspell \"docs/**/*.md\"",
+    "validate:standards": "node scripts/validateStandardTags.js",
     "prepare": "husky"
   },
   "dependencies": {
@@ -53,7 +54,8 @@
   "lint-staged": {
     "docs/**/*.md": [
       "cspell lint",
-      "markdownlint --fix"
+      "markdownlint --fix",
+      "node scripts/validateStandardTags.js"
     ]
   },
   "browserslist": {

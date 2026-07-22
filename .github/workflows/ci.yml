@@ -19,6 +19,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Validate Standard tags
+        run: npm run validate:standards
       - name: Spellcheck
         run: npm run spellcheck
       - name: Markdown lint
