@@ -147,10 +147,10 @@ async function main() {
     const draftData = processDirectory(draftDir);
 
     if (draftDuplicates.size > 0) {
-      console.log(`Duplicate Standards ID found: ${[...duplicates].join("\n")}`);
+      console.log(`Duplicate Standards ID found: ${[...draftDuplicates].join("\n")}`);
     }
     if (draftInvalid.size > 0) {
-      console.log(`Invalid Standards ID found: ${[...invalid].join("\n")}`);
+      console.log(`Invalid Standards ID found: ${[...draftInvalid].join("\n")}`);
     }
     if (draftDuplicates.size > 0 || draftInvalid.size > 0) {
       throw new Error("Duplicate or invalid Standards ID found. Please fix the issues before proceeding.");
@@ -159,6 +159,7 @@ async function main() {
     writeOutput(draftData, draftOutputFilePath, baseUrl);
   } catch (error) {
     console.error(`Error during processing: ${error.message}`);
+    process.exitCode = 1;
   }
 }
 
