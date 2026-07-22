@@ -369,10 +369,15 @@ Sub-resources MUST appear under the resource they relate to (/resource/id/sub-re
 Example: https://api.msd.govt.nz/v2/clients/33245/entitlements/E100782
 
 **Sub-resource ownership**
+
 A URI resolving successfully doesn't confirm that a sub-resource actually belongs to the parent resource in the path, or that the requesting user is authorised to access both — for example, `/clients/33245/entitlements/E100782` returning a 200 doesn't by itself guarantee entitlement `E100782` belongs to client `33245`, rather than to a different client entirely.
-<Standard id="API_IMPLEMENTATION_MUST_VERIFY_THE_SUBRESOURCE" type="MUST">
+
+<Standard id="MSDAS_MUST_API_IMPLEMENTATION_VERIFY_SUBRESOURCE_OWNERSHIP" type="MUST">
 The API implementation MUST verify both that the requested sub-resource genuinely belongs to the specified parent resource, and that the authenticated caller is authorised to access both, before returning a response.
-</Standard> The API implementation MUST verify both that the requested sub-resource genuinely belongs to the specified parent resource, and that the authenticated caller is authorised to access both, before returning a response. A sub-resource request for a resource the caller isn't authorised to access MUST be treated as if the resource doesn't exist (404), not as a distinct authorisation failure (403) that would confirm the resource's existence to an unauthorised caller — see Error Handling.
+</Standard>
+
+A sub-resource request for a resource the caller isn't authorised to access MUST be treated as if the resource doesn't exist (404), not as a distinct authorisation failure (403) that would confirm the resource's existence to an unauthorised caller — see Error Handling.
+
 This check is typically an **application-layer concern, not a gateway concern**: it usually requires a state lookup (confirming the actual parent-child relationship in the underlying data) that an API Gateway, operating only on the URI and token, isn't positioned to perform. Gateway-level authorisation (see Part B: API Security) can confirm a caller is allowed to call the *endpoint*; it generally can't confirm the caller is allowed to access *this specific instance* of a sub-resource. That confirmation has to happen in the API implementation itself, at the point it resolves the relationship.
 
 #### **Word separation**
@@ -422,13 +427,21 @@ Query arguments filter or modify a result set. The general rule: if it changes t
 X- notation headers are deprecated per RFC 6648 and SHOULD NOT be used. Define a plain custom header name instead (e.g. Request-Id rather than X-Request-Id).
 </Standard>
 
-Distributed tracing
+#### **Distributed tracing**
+
 A single client-initiated request often triggers a chain of internal calls across multiple services — API Gateway, backend application, downstream partner system. Without a consistent tracing mechanism, diagnosing where in that chain a failure or slowdown occurred becomes guesswork, particularly across the service and organisational boundaries typical of MSD's delivery-partner integrations.
-<Standard id="APIS_SHOULD_PROPAGATE_DISTRIBUTED_TRACING_CONTENT" type="SHOULD">APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard</Standard>
- APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard: the `traceparent` header (carrying the trace ID, parent span ID, and trace flags) and, where needed, the `tracestate` header (vendor-specific tracing system state). Where an incoming request carries a `traceparent` header, it MUST be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.
-<Standard id="APIS_SHOULD_GENERATE_TRACEPARENT_HEADER" type="SHOULD">Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream</Standard>
- Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream, so a trace exists even when the originating consumer doesn't support tracing itself.
-This is distinct from the Request tracking header referenced earlier in this section: a request-tracking ID identifies one request/response pair for logging and support purposes, while a trace ID identifies the whole causally-related chain of calls that request triggered.
+
+<Standard id="MSDAS_SHOULD_APIS_PROPAGATE_DISTRIBUTED_TRACING_CONTEXT" type="SHOULD">
+APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard
+</Standard>
+
+This is done via the `traceparent` header (carrying the trace ID, parent span ID, and trace flags) and, where needed, the `tracestate` header (vendor-specific tracing system state). Where an incoming request carries a `traceparent` header, it MUST be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.
+
+<Standard id="MSDAS_SHOULD_APIS_GENERATE_TRACEPARENT_HEADER_WHEN_ABSENT" type="SHOULD">
+Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream
+</Standard>
+
+This ensures a trace exists even when the originating consumer doesn't support tracing itself. This is distinct from the Request tracking header referenced earlier in this section: a request-tracking ID identifies one request/response pair for logging and support purposes, while a trace ID identifies the whole causally-related chain of calls that request triggered.
 
 #### **Authorization**
 
@@ -699,15 +712,18 @@ HTTP/1.1 200 OK
 ```
 
 Search inputs are a common target for injection attacks, and the correct defence is to use the parameterisation and sanitisation mechanisms provided by the platform's own data access and templating libraries, rather than attempting to detect malicious input by matching against specific characters or keywords — text-matching approaches are trivially bypassed (e.g. case variation, encoding, alternative syntax) and produce false positives against legitimate content (a client's name or address may legitimately contain characters that overlap with blocklisted patterns).
-<Standard id="DATA_ACCESS_CODE_MUST_USE_PARAMETERISED_QUERIES" type="MUST">
+
+<Standard id="MSDAS_MUST_DATA_ACCESS_CODE_USE_PARAMETERISED_QUERIES" type="MUST">
 Data access code MUST use parameterised queries or an equivalent safe data-access mechanism
 </Standard>
- Data access code MUST use parameterised queries or an equivalent safe data-access mechanism (e.g. parameterised `SqlCommand`/Entity Framework in .NET, prepared statements in JDBC, parameterised ORM queries) for any user-supplied input reaching a data store. Concatenating user input directly into a query string, in any form, MUST NOT be used.
-<Standard id="OUTPUT_RENDERED_MUST_BE_NATIVELY_ENCODED" type="MUST">
+
+This applies to any user-supplied input reaching a data store (e.g. parameterised `SqlCommand`/Entity Framework in .NET, prepared statements in JDBC, parameterised ORM queries). Concatenating user input directly into a query string, in any form, MUST NOT be used.
+
+<Standard id="MSDAS_MUST_OUTPUT_RENDERED_USE_NATIVE_ENCODING" type="MUST">
 Output rendered into any HTML, script, or markup context MUST be encoded using the rendering framework's built-in output-encoding mechanism
 </Standard>
- Output rendered into any HTML, script, or markup context MUST be encoded using the rendering framework's built-in output-encoding mechanism, appropriate to the context (HTML body, attribute, URL, JavaScript) it's rendered into.
-See the OWASP SQL Injection Prevention and Cross-Site Scripting Prevention Cheat Sheets for library-specific guidance.
+
+The specific encoding used MUST be appropriate to the context (HTML body, attribute, URL, JavaScript) it's rendered into. See the OWASP SQL Injection Prevention and Cross-Site Scripting Prevention Cheat Sheets for library-specific guidance.
 
 Pagination behaviour SHOULD be consistent with the interaction described in URIs, Query Arguments, and can be implemented as page number/size, offset/limit, or a continuation token, depending on the scale and volatility of the search results. Since the HTTP protocol treats POST as unsafe, POST search results aren't cacheable — even with a Cache-Control header present — so consider the performance impact for high-volume search operations.
 
