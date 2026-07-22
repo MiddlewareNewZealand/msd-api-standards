@@ -31,7 +31,9 @@ Business context SHOULD be available via a web experience, e.g. the MSD Develope
 API Providers MUST provide diagrams describing an API Consumer's journey when interacting with the published API.
 </Standard>
 
-The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. Diagrams <Standard inline id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="API diagrams should be available via a web experience.">SHOULD</Standard> be available via a web experience.
+The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. 
+<Standard id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD"> Diagrams SHOULD be available via a web experience.
+ </Standard> 
 
 ### **Developer documentation**
 
@@ -39,11 +41,11 @@ The API Provider can choose the diagram type that best represents their API, tho
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required. Developer documentation <Standard inline id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD" toolTip="Developer documentation should be available via a web experience.">SHOULD</Standard> be available via a web experience.
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  <Standard inline id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD" toolTip="Developer documentation should be available via a web experience.">Developer documentation SHOULD be available via a web experience.</Standard> 
 
 ## **Terms and conditions**
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_PUBLISH_TERMS_CONDITIONS" type="MUST">
+<Standard id="MSDAS_MUST_API_PROVIDERS_PUBLISH_TERMS" type="MUST">
 API Providers MUST publish terms and conditions that set out the rules API Consumers must agree to when using the API. These SHOULD be available via a web experience.
 </Standard>
 
@@ -83,4 +85,5 @@ Throttling thresholds SHOULD be available via the same web experience as the res
 API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
 </Standard>
 
-SLAs <Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">SHOULD</Standard> be available via a web experience.
+<Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">SLA's SHOULD be available via a web experience 
+</Standard>
