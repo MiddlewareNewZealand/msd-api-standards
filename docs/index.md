@@ -5,6 +5,7 @@ sidebar_position: 1
 slug: /
 ---
 
+<!-- markdownlint-disable-next-line MD036 -->
 *DRAFT v0.1*
 
 These standards give MSD's API providers and API consumers a shared, practical reference for designing, building, securing and publishing APIs. They exist to help teams across MSD — and the partner agencies, community providers and vendors who integrate with us — build APIs that are consistent, secure, easy to consume and fit for a social sector context.

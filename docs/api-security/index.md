@@ -2,6 +2,7 @@
 title: "API Security"
 ---
 
+<!-- markdownlint-disable-next-line MD036 -->
 *DRAFT v0.1*
 
 This section is aimed at API Providers and API Consumers. It provides detailed standards to help teams build and publish secure APIs, and sets out the rules for API consumption.

@@ -27,9 +27,9 @@ The info section of an OpenAPI specification contains details on the API Provide
 
 | Property | Description | Requirement |
 | --- | --- | --- |
-| info.title |  | MUST |
+| info.title | | MUST |
 | info.description | See Property Descriptions. | MUST |
-| info.license |  | info.license.name MUST; info.license.url MUST |
+| info.license | | info.license.name MUST; info.license.url MUST |
 | info.version | The version of the OpenAPI document (not the API or OpenAPI spec version). | MUST |
 | info.contact | Mechanism for contacting the API Provider. | info.contact.name MUST; info.contact.url MUST |
 | info.termsOfService | Link to the API's terms of service. | SHOULD |

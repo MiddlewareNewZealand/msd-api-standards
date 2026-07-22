@@ -64,7 +64,7 @@ Sub-resources MUST appear under the resource they relate to (/resource/id/sub-re
 
 Example: `https://api.msd.govt.nz/v2/clients/33245/entitlements/E100782`
 
-**Sub-resource ownership**
+### **Sub-resource ownership**
 
 A URI resolving successfully doesn't confirm that a sub-resource actually belongs to the parent resource in the path, or that the requesting user is authorised to access both — for example, `/clients/33245/entitlements/E100782` returning a 200 doesn't by itself guarantee entitlement `E100782` belongs to client `33245`, rather than to a different client entirely.
 
