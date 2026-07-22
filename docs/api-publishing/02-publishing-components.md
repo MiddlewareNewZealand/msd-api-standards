@@ -41,7 +41,7 @@ The API Provider can choose the diagram type that best represents their API, tho
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  <Standard inline id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD" toolTip="Developer documentation should be available via a web experience.">Developer documentation SHOULD be available via a web experience.</Standard> 
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  <Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD"> Developer documentation SHOULD be available via a web experience.</Standard> 
 
 ## **Terms and conditions**
 
@@ -55,7 +55,7 @@ API Providers MUST publish terms and conditions that set out the rules API Consu
 API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs.
 </Standard>
 
-This <Standard inline id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD"> This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+<Standard id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD"> This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
 </Standard> 
 
 ## **Service level agreements (SLA)**
