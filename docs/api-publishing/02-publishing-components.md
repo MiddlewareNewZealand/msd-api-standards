@@ -1,7 +1,6 @@
 ---
-title: "Publishing Components"
+title: Publishing Components
 ---
-
 ## **API specification**
 
 An API specification is the blueprint for an API: a document, or collection of documents, describing how it functions and how applications can interact with it. It's both a technical reference for API Consumer developers and a design, implementation and testing artefact for the API Provider.
@@ -54,7 +53,8 @@ API Providers MUST publish terms and conditions that set out the rules API Consu
 API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs.
 </Standard>
 
-This <Standard inline id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD" toolTip="The developer onboarding function should be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.">SHOULD</Standard> be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+This <Standard inline id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD"> This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+</Standard> 
 
 ## **Service level agreements (SLA)**
 
@@ -63,6 +63,21 @@ API Providers MUST publish service level agreements defining their commitments a
 </Standard>
 
 Common SLAs include: API availability (uptime); latency; and request throughput (requests permitted in a given timeframe).
+
+### **Throttling thresholds**
+Publishing a throughput figure isn't sufficient on its own — API Consumers need to know the specific mechanics of how it is enforced, so they work within those limits rather than discovering them through failed calls in production.
+<Standard id="API_THROTTLING_PUBLISH_QUOTA" type="MUST">
+Where an API applies request throttling, the API Provider MUST publish: the request quota (e.g. requests per minute/hour) the threshold applies to; whether burst traffic above the sustained quota is permitted, and by how much; and the consumer identity the quota is scoped to (e.g. per client credential, per IP, or per end-user token) — since these produce materially different integration patterns.
+</Standard>
+
+<Standard id="API_THROTTLING_REJECTION_HTTP429" type="MUST">
+When a request is rejected for exceeding a throttling threshold, the API MUST return an HTTP 429 (Too Many Requests) response, and SHOULD include a `Retry-After` header indicating how long the consumer should wait before retrying.
+</Standard>
+
+<Standard id="API_INCLUDE_RESPONSE_HEADERS" type="SHOULD">
+Where an API supports it, response headers indicating current quota consumption  SHOULD be returned on every response, letting well-behaved consumers self-throttle before hitting the limit rather than after.
+Throttling thresholds SHOULD be available via the same web experience as the rest of an API's SLA (see above), and MAY vary by SLA tier where tiering is offered.
+</Standard>
 
 <Standard id="MSDAS_MAY_API_PROVIDERS_OFFER_SLA_TIERING" type="MAY">
 API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
