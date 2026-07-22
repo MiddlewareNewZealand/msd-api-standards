@@ -19,8 +19,9 @@ This section is relevant to you if you are:
 
 * an Application Developer
 
-| INFO A client or whānau member may be using an MSD self-service channel directly, interacting with MSD staff in person or via a communication channel, using an external self-service API consumer application, or interacting with an external person who uses an external API consumer application.    |
-| :---- |
+<Standard type="INFO">
+A client or whānau member may be using an MSD self-service channel directly, interacting with MSD staff in person or via a communication channel, using an external self-service API consumer application, or interacting with an external person who uses an external API consumer application.
+</Standard>
 
 ## **1\. Introduction to API Security**
 
@@ -156,7 +157,7 @@ This model may be used for testing and development purposes. Note the related [S
 </Standard>
 
 <Standard id="MSDAS_SHOULD_NOT_MODEL_USED_PRODUCTION_APIS" type="SHOULD NOT">
-This model should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_MODEL_USED_TESTING_DEVELOPMENT_PURPOSES) above — it may be used for testing and development purposes.
+This model should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_MODEL_USED_TESTING_DEVELOPMENT_PURPOSES) above — it may be used for testing and development purposs.
 </Standard>
 
 #### **API Key authentication**
@@ -170,16 +171,20 @@ API Keys are a digital authentication mechanism, typically an opaque value such 
 <Standard id="MSDAS_MUST_API_KEYS_USED_WHEREVER_SYSTEM" type="MUST">
 API Keys must be used wherever system-to-system authentication is needed, especially for production-level APIs.
 </Standard>
-| **MAY**  API Keys may be used on their own for simple public APIs that don't need more complex authentication models. |
-| :---- |
+
+<Standard id="MSDAS_MAY_API_KEYS_USED_SIMPLE_PUBLIC_APIS" type="MAY">
+API Keys may be used on their own for simple public APIs that don't need more complex authentication models.
+</Standard>
 
 The risk is that anyone holding a copy of the API Key can use it as though they were the legitimate API Consumer. All communications must therefore be over TLS to protect the key in transit, and application developers are responsible for protecting their copy of the key.
 
 <Standard id="MSDAS_SHOULD_API_KEY_EMBEDDED_API_CONSUMER" type="SHOULD">
 If the API Key is embedded in the API Consumer, it should be protected.
 </Standard>
-| **INFO** API Keys are recommended because they provide a level of security to public APIs, helping protect against screen-scraping and providing a basis for throttling or billing access to data. MSD should carry out a risk analysis of possible threats against the classification of the data an API exposes, to decide whether API Keys alone are sufficient. |
-| :---- |
+
+<Standard type="INFO">
+API Keys are recommended because they provide a level of security to public APIs, helping protect against screen-scraping and providing a basis for throttling or billing access to data. MSD should carry out a risk analysis of possible threats against the classification of the data an API exposes, to decide whether API Keys alone are sufficient.
+</Standard>
 
 #### **Certificate (mutual) authentication**
 
@@ -212,8 +217,10 @@ In many organisations a directory service provides authentication, and directory
 <Standard id="MSDAS_MUST_APPROPRIATE_SCOPES_PRESENT_ACCESS_TOKENS" type="MUST">
 Appropriate scopes must be present in access tokens when accessing APIs.
 </Standard>
-| **MAY**  OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner. |
-| :---- |
+
+<Standard id="MSDAS_MAY_OAUTH_SCOPES_LIMIT_AUTHORISATION" type="MAY">
+OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner.
+</Standard>
 
 Based on the services an API exposes, additional access controls can be applied using scopes — for example, a data service might expose separate read and write scopes, granted to a user based on their directory group. The developer must ensure the minimum privileges are granted to API Consumers needed to complete the requests the user wants carried out.
 
@@ -295,8 +302,9 @@ The following are recommended reading for anyone new to API implementation: the 
 
 ## **5\. Cloud API Security**
 
-| INFO ‘Cloud API’ here means any API which is intended to handle MSD client or whānau information and provides or exposes cloud-deployed data or functions. |
-| :---- |
+<Standard type="INFO">
+‘Cloud API’ here means any API which is intended to handle MSD client or whānau information and provides or exposes cloud-deployed data or functions.
+</Standard>
 
 A cloud API's primary purpose may be to expose a specific commercial service, serve as a cross-platform integration point across diverse cloud services, or proxy for an application or service running in a legacy environment. Regardless of purpose, cloud APIs generally involve communication between an API Provider implementation running on shared, as-a-service public infrastructure, and API Consumers sending requests across a public network — which is why the measures below are needed to mitigate the risks inherent in cloud API provision and consumption.
 
@@ -475,8 +483,9 @@ CIBA adds a “decoupled” authorisation flow: rather than redirecting through 
 
 In CIBA, the initial authorisation call goes to the backchannel authentication endpoint (/bc-authorize); the authorisation server then delegates authentication and consent to the user's authentication device, which accepts or denies the request. The resulting token can be delivered to the client via one of three sub-flows: Poll (the client polls the authorisation server until approval is received), Ping (the client waits to be notified, then requests the token), or Push (the authorisation server pushes the tokens to the client once approval is received).
 
-| INFO CIBA is not yet widely used, and is included here as forward guidance. It's likely to become more common — it's already used in the Payments NZ API Centre Standards — and MSD should watch for adoption in other parts of the NZ public and financial sectors as a signal for when to invest in it. |
-| :---- |
+<Standard type="INFO">
+CIBA is not yet widely used, and is included here as forward guidance. It's likely to become more common — it's already used in the Payments NZ API Centre Standards — and MSD should watch for adoption in other parts of the NZ public and financial sectors as a signal for when to invest in it.
+</Standard>
 
 ## **8\. Alternative OAuth 2.0 Grant Flow Extensions and Web Application Patterns**
 
@@ -567,7 +576,10 @@ A major risk with OAuth 2.0 and OpenID Connect is token theft — where a captur
 | :---- | :---- |
 | JWK-based Proof of Possession | The API Consumer generates a public/private key pair and a signed DPoP JWT containing its public key. This is sent alongside the token request; the returned access token carries token\_type \= DPoP, binding it to the consumer's public key. The consumer includes a fresh DPoP header (plus the Authorization header) on each resource request, which the provider validates. |
 | Certificate-based Proof of Possession | The API Consumer establishes mTLS with the API Provider when requesting the access token; the provider validates the client certificate and issues the token with a claim containing a hash of that certificate. The resource server validates both the token and the client's certificate on each call. This offers a higher level of security than JWK-based PoP, since it also requires mTLS. |
-| **MAY**  A DPoP model may be used when protecting IN-CONFIDENCE APIs. Selection of certificate-based or JWK-based PoP should be based on a risk assessment that accounts for the sensitivity of the information exposed by the API. |  |
+
+<Standard id="MSDAS_MAY_DPOP_MODEL_PROTECTING_IN_CONFIDENCE" type="MAY">
+A DPoP model may be used when protecting IN-CONFIDENCE APIs. Selection of certificate-based or JWK-based PoP should be based on a risk assessment that accounts for the sensitivity of the information exposed by the API.
+</Standard>
 
 ## **10\. Level of Assurance**
 
@@ -591,8 +603,9 @@ Issued tokens can carry the following claims relating to the strength of user au
 
 ### **Aotearoa New Zealand LoA standards**
 
-| INFO MSD should apply the Department of Internal Affairs' Identification Management Standards directly, since these are whole-of-government standards rather than sector-specific. This avoids the need for a bespoke MSD assurance framework and keeps MSD aligned with the rest of the public sector. |
-| :---- |
+<Standard type="INFO">
+MSD should apply the Department of Internal Affairs' Identification Management Standards directly, since these are whole-of-government standards rather than sector-specific. This avoids the need for a bespoke MSD assurance framework and keeps MSD aligned with the rest of the public sector.
+</Standard>
 
 Two key Level of Assurance standards are in use in Aotearoa: the New Zealand Department of Internal Affairs' Identification Management Standards, which define four components — Information Assurance (IA), Binding Assurance (BA), Authentication Assurance (AA) and Federation Assurance (FA); and the US National Institute of Standards and Technology (NIST) Digital Identity Guidelines, which define three levels of confidence — Identity Assurance Level, Authenticator Assurance Level, and Federation Assurance Level.
 
@@ -600,8 +613,9 @@ OpenID Connect and the Financial-Grade API (FAPI) profile also define a Level of
 
 ## **11\. Consideration of Risks**
 
-| INFO An API offers a direct channel into part of an organisation's resources and information. Most organisations are accustomed to exposing a website with good control over what information is released via that interface; API access is not as visible, so it cannot as easily be observed when information is being incorrectly exposed. |
-| :---- |
+<Standard type="INFO">
+An API offers a direct channel into part of an organisation's resources and information. Most organisations are accustomed to exposing a website with good control over what information is released via that interface; API access is not as visible, so it cannot as easily be observed when information is being incorrectly exposed.
+</Standard>
 
 It's therefore important that API Providers consider their consumers — and the consumers of those consumers — to determine risks and what information should be accessible via APIs.
 
@@ -632,8 +646,9 @@ Exposing too much information through generic, one-size-fits-all resource APIs �
 
 ### **Towards zero trust and decoupled environments**
 
-| INFO Zero trust (ZT) describes an evolving set of cybersecurity paradigms that move defences from static, network-based perimeters to focus on users, assets and resources. A zero trust architecture assumes no implicit trust is granted to assets or accounts based solely on physical or network location, or on asset ownership. (Definition adapted from NIST.) |
-| :---- |
+<Standard type="INFO">
+Zero trust (ZT) describes an evolving set of cybersecurity paradigms that move defences from static, network-based perimeters to focus on users, assets and resources. A zero trust architecture assumes no implicit trust is granted to assets or accounts based solely on physical or network location, or on asset ownership. (Definition adapted from NIST.)
+</Standard>
 
 Zero trust architecture removes the concept of trusted internal versus untrusted external networks, focusing instead on “never trust, always verify”. The shift to cloud services has brought this model to the fore: every actor — staff, delivery partners and others — requires access controls regardless of location or device.
 
@@ -676,16 +691,21 @@ Four OpenID Connect specifications address session management: OpenID Connect Se
 <Standard id="MSDAS_MUST_ALL_COMMUNICATIONS_API_UTILISE_TRANSPORT" type="MUST">
 All communications to or from an API must utilise Transport Layer Security (TLS) 1.3 or higher. *See the New Zealand Information Security Manual (NZISM) for detail.*
 </Standard>
-| **SHOULD**  Other versions of TLS and SSL should be disabled. |
-| :---- |
-| **MUST**  API Consumer applications must validate TLS certificate chains when making requests to protected resources, including checking the Certificate Revocation List. |
+<Standard id="MSDAS_SHOULD_OTHER_VERSIONS_TLS_SSL_DISABLED" type="SHOULD">
+Other versions of TLS and SSL should be disabled.
+</Standard>
+
+<Standard id="MSDAS_MUST_API_CONSUMER_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST">
+API Consumer applications must validate TLS certificate chains when making requests to protected resources, including checking the Certificate Revocation List.
+</Standard>
 
 Confidentiality and integrity cover the handling of request and response data, both in transit and at rest, protecting payload content from unauthorised access, manipulation or spoofing. An API request needs to be received intact, with validation of its source; an untampered API response needs to be received by the consuming application with confirmation it legitimately came from the API.
 
 ### **Content encryption and signing**
 
-| REQUIRED  Any content encryption must adhere to the standard algorithms set out in the New Zealand Information Security Manual (HMAC algorithms). |
-| :---- |
+<Standard id="MSDAS_MUST_CONTENT_ENCRYPTION_ADHERE_STANDARD_ALGORITHMS" type="REQUIRED">
+Any content encryption must adhere to the standard algorithms set out in the New Zealand Information Security Manual (HMAC algorithms).
+</Standard>
 
 Content signing assures content integrity and proof of authorship, and can apply to an entire payload or to specific elements (for example, bank account details). Signing has a lower computational overhead than encryption but can still affect performance, so should be used only where needed.
 
@@ -716,9 +736,13 @@ The baseline requirements set out earlier in this Part — authentication, trans
 <Standard id="MSDAS_MUST_REMOTE_MCP_SERVERS_AUTHENTICATION_REQUIRED" type="MUST">
 Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme.
 </Standard>
-| **MUST**  Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems. |
-| :---- |
-| **MUST**  Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them. |
+<Standard id="MSDAS_MUST_ACCESS_TOKENS_MCP_AUDIENCE_RESTRICTED" type="MUST">
+Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems.
+</Standard>
+
+<Standard id="MSDAS_MUST_MCP_TOOLS_SCOPED_MINIMUM_DATA_ACTIONS" type="MUST">
+Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them.
+</Standard>
 
 ### **Consent and human oversight**
 
@@ -733,14 +757,20 @@ Because MCP Servers expose their capability list dynamically rather than through
 <Standard id="MSDAS_MUST_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY" type="MUST">
 An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
 </Standard>
-| **INFO** This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered — for example, to broaden the data it accesses or the actions it performs — without the change being surfaced for re-approval. |
-| :---- |
+
+<Standard type="INFO">
+This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered — for example, to broaden the data it accesses or the actions it performs — without the change being surfaced for re-approval.
+</Standard>
 
 ### **Untrusted content and indirect prompt injection**
 
-| SECURITY NOTE Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action, such as exfiltrating other clients' data. |
-| :---- |
-| **MUST**  MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to correctly enforce an access control decision that the server itself is capable of enforcing directly. |
+<Standard type="NOTE">
+Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action, such as exfiltrating other clients' data.
+</Standard>
+
+<Standard id="MSDAS_MUST_MCP_SERVERS_TREAT_CONTENT_UNTRUSTED" type="MUST">
+MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to correctly enforce an access control decision that the server itself is capable of enforcing directly.
+</Standard>
 
 ### **Audit logging**
 

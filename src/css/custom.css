@@ -2565,14 +2565,63 @@ h2+.rich-text--highlight {
   padding-bottom: 1rem
 }
 
-/* API standard callout box: matches the bordered/shaded look of the single-row
-   markdown tables that <Standard> elements were converted from. */
-[data-standard-type] {
-  display: block;
+/* API standard callout box (<Standard> component). Two columns: a coloured
+   keyword cell (the RFC 2119 keyword, which carries the anchor) and the prose.
+   Keyword-cell colour is set by the .standard--{must,should,may,info} modifier. */
+.standard {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
   margin-bottom: var(--ifm-spacing-vertical);
-  padding: var(--ifm-table-cell-padding);
   border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
-  background-color: var(--ifm-table-stripe-background);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.standard__keyword {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ifm-table-cell-padding);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--color-white);
+  /* Anchor offset so #id jumps clear the sticky navbar. */
+  scroll-margin-top: 6rem;
+}
+
+.standard__prose {
+  padding: var(--ifm-table-cell-padding);
+}
+
+.standard__prose > *:last-child {
+  margin-bottom: 0;
+}
+
+.standard--must .standard__keyword {
+  background-color: #990000;
+}
+
+.standard--should .standard__keyword {
+  background-color: #b45309;
+}
+
+.standard--may .standard__keyword {
+  background-color: #2e7d32;
+}
+
+.standard--info .standard__keyword {
+  background-color: #5c5c5c;
+}
+
+/* Inline normative keyword: stays in the sentence, shown in the H1 red + bold,
+   and carries the anchor + extraction data attributes. */
+.standard-inline {
+  color: #990000;
+  font-weight: 700;
+  scroll-margin-top: 6rem;
 }
 
 .moh__elemental__model__tableblock table {

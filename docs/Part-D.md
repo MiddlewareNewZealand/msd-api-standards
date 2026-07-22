@@ -75,7 +75,7 @@ Business context SHOULD be available via a web experience, e.g. the MSD Develope
 API Providers MUST provide diagrams describing an API Consumer's journey when interacting with the published API.
 </Standard>
 
-The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. Diagrams SHOULD be available via a web experience.
+The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. Diagrams <Standard inline id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="API diagrams should be available via a web experience.">SHOULD</Standard> be available via a web experience.
 
 #### **Developer documentation**
 
@@ -83,7 +83,7 @@ The API Provider can choose the diagram type that best represents their API, tho
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required. Developer documentation SHOULD be available via a web experience.
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required. Developer documentation <Standard inline id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD" toolTip="Developer documentation should be available via a web experience.">SHOULD</Standard> be available via a web experience.
 
 ### **Terms and conditions**
 
@@ -97,7 +97,7 @@ API Providers MUST publish terms and conditions that set out the rules API Consu
 API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs.
 </Standard>
 
-This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+This <Standard inline id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD" toolTip="The developer onboarding function should be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.">SHOULD</Standard> be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
 
 ### **Service level agreements (SLA)**
 
@@ -111,12 +111,13 @@ Common SLAs include: API availability (uptime); latency; and request throughput 
 API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
 </Standard>
 
-SLAs SHOULD be available via a web experience.
+SLAs <Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">SHOULD</Standard> be available via a web experience.
 
 ## **3\. OpenAPI Specifications**
 
-| INFO All components of the OpenAPI Specification are supported by this standard and should be interpreted as a MAY unless stated otherwise below. |
-| :---- |
+<Standard type="INFO">
+All components of the OpenAPI Specification are supported by this standard and should be interpreted as a MAY unless stated otherwise below.
+</Standard>
 
 OpenAPI Specification Structure:
 
@@ -173,7 +174,7 @@ The paths section is a parent property containing the resource paths in the API 
 OpenAPI Specifications MUST define appropriate security mechanisms. Security schemes MUST be defined in components.securitySchemes and referenced in all API operations.
 </Standard>
 
-Even a public operation (e.g. a health-check or metadata endpoint) SHOULD still carry a security property, set explicitly to empty.
+Even a public operation (e.g. a health-check or metadata endpoint) <Standard inline id="MSDAS_SHOULD_PUBLIC_OPERATION_CARRY_SECURITY_PROPERTY" type="SHOULD" toolTip="Even a public operation (e.g. a health-check or metadata endpoint) should still carry a security property, set explicitly to empty.">SHOULD</Standard> still carry a security property, set explicitly to empty.
 
 ```yaml
 paths:
@@ -278,7 +279,7 @@ OpenAPI specifications SHOULD define reusable examples under components.examples
 
 ### **Property descriptions**
 
-Property descriptions are for API Consumer developers to understand the purpose of a specification property. Description fields support CommonMark syntax, which SHOULD be used, as it renders correctly in most OpenAPI tooling.
+Property descriptions are for API Consumer developers to understand the purpose of a specification property. Description fields support CommonMark syntax, which <Standard inline id="MSDAS_SHOULD_DESCRIPTION_FIELDS_USE_COMMONMARK" type="SHOULD" toolTip="Description fields support CommonMark syntax, which should be used, as it renders correctly in most OpenAPI tooling.">SHOULD</Standard> be used, as it renders correctly in most OpenAPI tooling.
 
 ### **OpenAPI validation**
 
@@ -326,11 +327,11 @@ The asyncapi property, indicating the specification version in use, MUST be incl
 
 Holds the relative paths to individual channels and their operations — channels are also known as topics, routing keys, event types, or paths (see Part C, Topics and Subscriptions). Note that the structure of this section changed significantly between AsyncAPI versions 2 and 3\.
 
-* The address field (v3+) MUST contain the topic name. In v2, this MUST be included in the description field instead.
+* The address field (v3+) <Standard inline id="MSDAS_MUST_ADDRESS_FIELD_CONTAIN_TOPIC_NAME" type="MUST" toolTip="The address field (v3+) must contain the topic name. In v2, this must be included in the description field instead.">MUST</Standard> contain the topic name. In v2, this <Standard inline id="MSDAS_MUST_ADDRESS_TOPIC_NAME_V2_DESCRIPTION_FIELD" type="MUST" toolTip="In AsyncAPI v2, the topic name must be included in the description field instead of the address field.">MUST</Standard> be included in the description field instead.
 
-* The servers field MUST indicate which servers the channel is available on.
+* The servers field <Standard inline id="MSDAS_MUST_SERVERS_FIELD_INDICATE_CHANNEL_SERVERS" type="MUST" toolTip="The servers field must indicate which servers the channel is available on.">MUST</Standard> indicate which servers the channel is available on.
 
-* The messages field (v3+) MUST represent the messages published to a channel. In v2, the message field under publish or subscribe MUST be used.
+* The messages field (v3+) <Standard inline id="MSDAS_MUST_MESSAGES_FIELD_REPRESENT_PUBLISHED_MESSAGES" type="MUST" toolTip="The messages field (v3+) must represent the messages published to a channel.">MUST</Standard> represent the messages published to a channel. In v2, the message field under publish or subscribe <Standard inline id="MSDAS_MUST_MESSAGE_FIELD_V2_PUBLISH_SUBSCRIBE" type="MUST" toolTip="In AsyncAPI v2, the message field under publish or subscribe must be used to represent the messages published to a channel.">MUST</Standard> be used.
 
 ### **External docs section**
 
@@ -383,8 +384,9 @@ The business context section of an API's documentation sets out the business out
 
 The following illustrates business context provided alongside an MSD Client Support Plan API.
 
-| EXAMPLE This project established an API to serve as the system of record for Client Support Plans and related case management resources. The API stores information for clients receiving a planned, tailored programme of employment or income support — covering the core resource types Client, SupportPlan, CaseNote, and Consent. Support Plans are authored by case managers, starting from a standard MSD baseline plan template then tailored to the specific needs of the client and their circumstances. Once stored, the Support Plan can be accessed by other members of the client's case team as needed, via any system or application authorised to consume the API. The initial source of this data is MSD's core Case Management System. |
-| :---- |
+<Standard type="EXAMPLE">
+This project established an API to serve as the system of record for Client Support Plans and related case management resources. The API stores information for clients receiving a planned, tailored programme of employment or income support — covering the core resource types Client, SupportPlan, CaseNote, and Consent. Support Plans are authored by case managers, starting from a standard MSD baseline plan template then tailored to the specific needs of the client and their circumstances. Once stored, the Support Plan can be accessed by other members of the client's case team as needed, via any system or application authorised to consume the API. The initial source of this data is MSD's core Case Management System.
+</Standard>
 
 ## **7\. Publishing MCP Servers**
 
