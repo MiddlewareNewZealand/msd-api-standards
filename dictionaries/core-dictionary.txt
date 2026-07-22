@@ -1,8 +1,11 @@
+AISA
 Aotearoa
 Apanui
 apistandards
 Arawa
 FHIR
+GCDO
+GDDA
 Hauora
 HIPC
 Hira
@@ -16,8 +19,10 @@ kaupapa
 Kawanatanga
 Korokii
 Manaaki
+MSDAS
 multiword
 Ngāpuhi
+Ngata
 Ngātahi
 Ngāti
 NZBN
@@ -26,6 +31,7 @@ NZST
 NZULM
 omnichannel
 Ora
+parameterised
 Parameterisation
 Porou
 productionised
