@@ -1,7 +1,6 @@
 ---
-title: "OpenAPI Specifications"
+title: OpenAPI Specifications
 ---
-
 <Standard type="INFO">
 All components of the OpenAPI Specification are supported by this standard and should be interpreted as a MAY unless stated otherwise below.
 </Standard>
@@ -9,7 +8,7 @@ All components of the OpenAPI Specification are supported by this standard and s
 OpenAPI Specification Structure:
 
 | Component | Description | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | OpenAPI specification | The core specification. | All mandatory fields defined in the specification itself |
 | Property descriptions | Human-readable description of each property. Should be verbose enough for a reader to understand the property's purpose. | MUST be provided for all properties |
 
@@ -19,18 +18,18 @@ OpenAPI Specification Structure:
 The servers property, defining the list of endpoints where the API can be accessed, MUST be included.
 </Standard>
 
-| servers:   \- url: `https://api.msd.govt.nz/income-support/v1`     description: MSD Income Support API   \- url: `https://api-test.msd.govt.nz/income-support/v1`     description: MSD Income Support API (test) |
-| :---- |
+| servers:   - url: `https://api.msd.govt.nz/income-support/v1`     description: MSD Income Support API   - url: `https://api-test.msd.govt.nz/income-support/v1`     description: MSD Income Support API (test) |
+| --- |
 
 ## **Info section**
 
 The info section of an OpenAPI specification contains details on the API Provider.
 
 | Property | Description | Requirement |
-| :---- | :---- | :---- |
-| info.title | | MUST |
+| --- | --- | --- |
+| info.title |  | MUST |
 | info.description | See Property Descriptions. | MUST |
-| info.license | | info.license.name MUST; info.license.url MUST |
+| info.license |  | info.license.name MUST; info.license.url MUST |
 | info.version | The version of the OpenAPI document (not the API or OpenAPI spec version). | MUST |
 | info.contact | Mechanism for contacting the API Provider. | info.contact.name MUST; info.contact.url MUST |
 | info.termsOfService | Link to the API's terms of service. | SHOULD |
@@ -46,7 +45,7 @@ The externalDocs property, referencing supporting documentation for the API, SHO
 The paths section is a parent property containing the resource paths in the API and the properties associated with each.
 
 | Property | Description | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | `{path}.summary` | Short, human-readable summary of the resource's purpose. | MUST |
 | `{path}.description` | See Property Descriptions. | MUST |
 | `{path}.{verb}.summary` | Short summary of the operation's purpose. | MUST |
