@@ -3818,6 +3818,20 @@ h2+.rich-text--highlight {
   font-weight: 700;
 }
 
+/* Expand/collapse caret button: it's a separate flex item next to the
+   category link, not covered by the link's own fill, so left to Infima's
+   defaults it shows up as a bare white/rounded square next to the tile.
+   Give it the same pale blue-grey fill (and square corners) as the tile
+   beside it so the row reads as one continuous piece. */
+.theme-doc-sidebar-menu .menu__list-item-collapsible .menu__caret {
+  background: var(--msd-nav-child-bg);
+  border-radius: 0;
+  margin-bottom: 2px;
+}
+.theme-doc-sidebar-menu .menu__list-item-collapsible .menu__caret:hover {
+  background: var(--msd-nav-child-bg-hover);
+}
+
 /* Root (home) item only: navy "section header" with a rounded top-right
    corner. Every other link keeps the pale blue-grey tile above. */
 .theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link {
