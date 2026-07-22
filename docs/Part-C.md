@@ -1,6 +1,6 @@
 ---
-title: "API Development"
-sidebar_label: "API Development"
+title: API Development
+sidebar_label: API Development
 sidebar_position: 4
 ---
 # Part C: API Development
@@ -29,7 +29,7 @@ An API is an interface that enables one software application to communicate with
 
 This section covers the design and development of synchronous, request/response-style APIs — typically REST APIs consumed over HTTP.
 
-### **1\. API Design**
+### **1. API Design**
 
 This section sets out the standards required to support MSD and its delivery partners in designing, developing and governing APIs. It's aimed at API developers and API designers.
 
@@ -39,25 +39,25 @@ When reading this section, consider the implications for your team. Fundamentall
 
 The default reaction to a requirement for capability has often been to develop a web application. This is gravitating towards APIs as the default. Below are some situations where an API may be more appropriate than a standalone web application:
 
-* When applications are screen-scraping data from a website
+- When applications are screen-scraping data from a website
 
-* When MSD holds a single authoritative source of truth for the information
+- When MSD holds a single authoritative source of truth for the information
 
-* Where there is a need for real or near-real-time information exchange with a delivery partner
+- Where there is a need for real or near-real-time information exchange with a delivery partner
 
-* When parts of a business process are (or may be) outsourced
+- When parts of a business process are (or may be) outsourced
 
-* When MSD data or a service can be included as part of a larger, cross-agency business process
+- When MSD data or a service can be included as part of a larger, cross-agency business process
 
-* When there's a requirement for internal systems to interact with cloud-based SaaS solutions
+- When there's a requirement for internal systems to interact with cloud-based SaaS solutions
 
-* Where clients, whānau or providers require easy access to public information
+- Where clients, whānau or providers require easy access to public information
 
-* Where community or delivery partner organisations want to build capability into their own applications that benefits clients (mobile/web apps)
+- Where community or delivery partner organisations want to build capability into their own applications that benefits clients (mobile/web apps)
 
-* If other parties are expected to act as agents or intermediaries for services MSD provides
+- If other parties are expected to act as agents or intermediaries for services MSD provides
 
-* When multiple service delivery channels are in use
+- When multiple service delivery channels are in use
 
 Developing a bespoke application for each of these situations would be expensive and time-consuming. Developing an API instead lets MSD focus on access, quality, integrity and security of its data, while other teams and delivery partners develop applications specific to their own needs. This represents a shift in thinking, from building functionality and applications, to making data available for others to build with.
 
@@ -66,15 +66,15 @@ Developing a bespoke application for each of these situations would be expensive
 There are several different types of API, and the type chosen may depend on the technical use case applied to both consumption and provision.
 
 | API type | Description | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | REST | The most common and well-understood API type; an architectural style for building distributed, hypermedia-driven systems, typically with a strongly typed OpenAPI schema. Best suited to synchronous interactions and resource creation/modification (POST, PUT, DELETE) at medium latency. | MAY support |
 | GraphQL | An open query and manipulation language letting consumers request exactly the data they need, avoiding REST's tendency to “over-fetch” a whole resource. Well suited to a widely distributed client set with varying data needs, particularly high-read (GET) clients. | MAY support |
 | AsyncAPI (Asynchronous APIs) | An open initiative bringing OpenAPI-style standardisation and tooling to event-driven APIs. Suited to asynchronous interactions, event-driven architectures, and APIs fronting workflows or long-running orchestrations — see Part C.2, Asynchronous APIs. | MAY support |
 | gRPC | A high-performance RPC framework using Protocol Buffers by default, letting a client call a method on a remote server as if it were local, via a formal Interface Definition Language. | MUST NOT support |
-| SOAP | An XML-based protocol from the late 1990s, still in some use. Suited to stateful operations needing contextual and conversational state management, via the WS\* structure (security, transactions, coordination) — which a REST approach would otherwise require custom-building. | MAY support, but is deprecated for new NZ Government work — see API Development Industry Standards |
+| SOAP | An XML-based protocol from the late 1990s, still in some use. Suited to stateful operations needing contextual and conversational state management, via the WS* structure (security, transactions, coordination) — which a REST approach would otherwise require custom-building. | MAY support, but is deprecated for new NZ Government work — see API Development Industry Standards |
 
 | SCOPE The requirements in this table govern the API surface MSD exposes to API Consumers — the protocol a consuming application is required to speak to integrate with an MSD API. They don't reach into the internal implementation of an API Provider's backend. For example, if a platform vendor's internal event-streaming mechanism happens to use gRPC behind the scenes, that's an internal implementation detail of the platform and isn't itself a breach of the gRPC prohibition — the prohibition applies to MSD publishing a gRPC interface for API Consumers to call directly. Where a platform's only consumer-facing option for a given capability is a protocol this table marks MUST NOT, that capability needs to be fronted by an API Gateway or facade presenting a compliant interface (see API Consumption Patterns, Proxy) rather than exposed as-is. |
-| :---- |
+| --- |
 
 #### **API design principles**
 
@@ -155,7 +155,7 @@ As a general rule, using APIs as an orchestration tool isn't recommended, due to
 #### **Software Development Kits (SDKs)**
 
 | RECOMMENDED | It's recommended that API Providers offer an SDK to developers of consuming applications. |
-| :---: | :---- |
+| --- | --- |
 
 An SDK is the implementation toolset for using MSD's APIs: it lets developers build applications faster without needing to understand every detail of the API, and should include sample code demonstrating the API's functionality.
 
@@ -163,26 +163,26 @@ An SDK is the implementation toolset for using MSD's APIs: it lets developers bu
 Once an API is in a fit state to be offered to consumers, the API definition SHOULD be published to the MSD Developer Portal or equivalent social sector capability. The primary way developers discover an API is via this catalogue, so an external API MUST be well documented there, with accurate and up-to-date guidance.
 </Standard>
 
-### **2\. API Artefacts**
+### **2. API Artefacts**
 
 <Standard id="MSDAS_MUST_ALL_API_ARTEFACTS_MAINTAINED_SYSTEM" type="MUST">
 All API artefacts MUST be maintained in a system that supports change tracking.
 </Standard>
 
 | API artefact | Requirement | Format | Description |
-| :---- | :---- | :---- | :---- |
+| --- | --- | --- | --- |
 | Interface specification | MUST | OpenAPI 3.x | A machine-readable API specification document describing the API at a technical level. |
 | Published documentation | MUST | — | Human-readable documentation describing the technical aspects of the API, example use cases, and any supporting business documentation. MUST be published via an easily consumable mechanism, preferably the web. |
 | API policies | MUST | — | A set of policies applied to all APIs published via the MSD Developer Portal or equivalent social sector capability. |
 | Tests | MUST | Dependent on implementation | A full set of unit, integration and functional tests for the API. These MUST be automated and a test report available. |
 | Service Level Agreement (SLA) | MUST | — | An approved SLA defining minimum availability and performance service levels for the API, accessible via the MSD Developer Portal — see Part D: API Publishing. |
 
-### **3\. API Architectural Patterns**
+### **3. API Architectural Patterns**
 
 The table below identifies architectural and deployment patterns that bear further investigation for MSD's API landscape. There are vendor-specific implementations of most of these; this standard does not recommend any particular one.
 
 | Pattern | Description |
-| :---- | :---- |
+| --- | --- |
 | Microservices | Independently deployable services, each exposing a narrow, well-defined API, composed to deliver broader capability. |
 | API Management | The combined discipline of API gateways and API managers used to publish, secure and govern APIs — see Part B: API Security, Security Reference Architecture. |
 | Observability | Structured approaches to monitoring, logging and tracing that let API Providers understand the real-world behaviour of a distributed API landscape. |
@@ -190,10 +190,10 @@ The table below identifies architectural and deployment patterns that bear furth
 | Hybrid Deployments | Patterns for APIs that span on-premises and multiple cloud environments. |
 | Service Mesh | Infrastructure-layer handling of service-to-service communication (routing, retries, encryption) independent of application code, typically used within microservice architectures. |
 
-### **4\. API Consumption Patterns**
+### **4. API Consumption Patterns**
 
 | INFO The patterns documented here reflect a small number of patterns MSD is expected to use initially. This list is expected to grow as MSD's API programme matures. |
-| :---- |
+| --- |
 
 #### **Direct**
 
@@ -205,14 +205,14 @@ An API service hosted and published by an external delivery partner, using API m
 
 The Proxy pattern lets MSD present a consistent, governed front door to consumers even where the underlying capability is actually delivered by a delivery partner, community provider, or other agency system.
 
-### **5\. HTTP Verbs**
+### **5. HTTP Verbs**
 
 <Standard id="MSDAS_MUST_ACCESS_REST_APIS_VIA_STANDARD" type="MUST">
 Access to REST APIs MUST be via the standard HTTP verbs: GET, PUT, POST, DELETE, in line with the W3C Standard.
 </Standard>
 
 | Verb | Common usage |
-| :---- | :---- |
+| --- | --- |
 | GET | Retrieval of information. Use where the interaction is a safe, read-only operation such as a query. |
 | POST | Create a resource, or trigger an action. Use where the interaction changes resource state in a way the consumer would perceive, or where the consumer should be held accountable for the result. |
 | PUT | Update or replace an existing resource item. |
@@ -305,7 +305,7 @@ PATCH is a valid HTTP verb but its use is discouraged due to complexity, except 
 The response to a HEAD request MUST NOT contain a body. If a response body is returned it MUST be ignored.
 </Standard>
 
-### **6\. Uniform Resource Identifiers (URI)**
+### **6. Uniform Resource Identifiers (URI)**
 
 URI construction matters: it's the door through which consumers access API resources, and should be intuitive enough that a developer can guess what an endpoint does just from the URI and HTTP verb.
 
@@ -316,8 +316,8 @@ Endpoint URLs SHOULD advertise resources, and avoid verbs.
 #### **URI structure**
 
 | Level | Name | Cardinality |
-| :---- | :---- | :---- |
-| 0 | \[basePath\] | 1..1 MUST be provided |
+| --- | --- | --- |
+| 0 | [basePath] | 1..1 MUST be provided |
 | 1 | namespace | 0..1 SHOULD be provided |
 | 2 | version | 0..1 MAY be provided |
 | 3 | resource | 1..1 MUST be provided |
@@ -325,12 +325,12 @@ Endpoint URLs SHOULD advertise resources, and avoid verbs.
 | 5 | sub-resource | 0..1 MUST be provided when interacting with a sub-resource |
 | 6 | sub-resource-id | 0..1 MUST be provided when interacting with a sub-resource instance |
 
-Examples: \[basePath\]/v2/clients/33245/entitlements, \[basePath\]/v1/case-managers/43265/caseloads
+Examples: [basePath]/v2/clients/33245/entitlements, [basePath]/v1/case-managers/43265/caseloads
 
 #### **API offering**
 
 | RECOMMENDED | It's recommended that the URL makes it clear that it's an API, e.g. https://api.msd.govt.nz or https://msd.govt.nz/api. |
-| :---: | :---- |
+| --- | --- |
 
 #### **Version**
 
@@ -368,6 +368,13 @@ Sub-resources MUST appear under the resource they relate to (/resource/id/sub-re
 
 Example: https://api.msd.govt.nz/v2/clients/33245/entitlements/E100782
 
+**Sub-resource ownership**
+A URI resolving successfully doesn't confirm that a sub-resource actually belongs to the parent resource in the path, or that the requesting user is authorised to access both — for example, `/clients/33245/entitlements/E100782` returning a 200 doesn't by itself guarantee entitlement `E100782` belongs to client `33245`, rather than to a different client entirely.
+<Standard id="API_IMPLEMENTATION_MUST_VERIFY_THE_SUBRESOURCE" type="MUST">
+The API implementation MUST verify both that the requested sub-resource genuinely belongs to the specified parent resource, and that the authenticated caller is authorised to access both, before returning a response.
+</Standard> The API implementation MUST verify both that the requested sub-resource genuinely belongs to the specified parent resource, and that the authenticated caller is authorised to access both, before returning a response. A sub-resource request for a resource the caller isn't authorised to access MUST be treated as if the resource doesn't exist (404), not as a distinct authorisation failure (403) that would confirm the resource's existence to an unauthorised caller — see Error Handling.
+This check is typically an **application-layer concern, not a gateway concern**: it usually requires a state lookup (confirming the actual parent-child relationship in the underlying data) that an API Gateway, operating only on the URI and token, isn't positioned to perform. Gateway-level authorisation (see Part B: API Security) can confirm a caller is allowed to call the *endpoint*; it generally can't confirm the caller is allowed to access *this specific instance* of a sub-resource. That confirmation has to happen in the API implementation itself, at the point it resolves the relationship.
+
 #### **Word separation**
 
 <Standard id="MSDAS_SHOULD_PATH_QUERY_STRING_PARAMETERS_LOWER" type="SHOULD">
@@ -378,18 +385,18 @@ Path and query string parameters SHOULD be lower case with hyphen separators for
 
 Query arguments filter or modify a result set. The general rule: if it changes the behaviour of the result set, it SHOULD be a query argument; if it changes the behaviour of the API, it SHOULD be in the path.
 
-* Sorting or ordering — e.g. sort-order=ascending
+- Sorting or ordering — e.g. sort-order=ascending
 
-* Pagination — the response SHOULD point consumers to previous/next result pages using hypermedia links (see Content, HATEOAS)
+- Pagination — the response SHOULD point consumers to previous/next result pages using hypermedia links (see Content, HATEOAS)
 
-* Field selection — e.g. filtering a client record down to specific fields; use sparingly, and consider GraphQL where this flexibility is a core requirement
+- Field selection — e.g. filtering a client record down to specific fields; use sparingly, and consider GraphQL where this flexibility is a core requirement
 
-### **7\. HTTP Headers**
+### **7. HTTP Headers**
 
 #### **Request headers**
 
 | Header | Usage | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Accept | Desired response format. 406 if unsupported. | MUST |
 | Content-Type | Format of the request payload. 415 if unsupported. | MUST (POST/PUT) |
 | Authorization | Authorization type and token. 401 if invalid. | MUST, unless a public API |
@@ -401,7 +408,7 @@ Query arguments filter or modify a result set. The general rule: if it changes t
 #### **Response headers**
 
 | Header | Usage | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Content-Type | Format of the response. | MUST |
 | Location | Absolute URI of a newly created resource, or redirect target. | MUST for 201/30x |
 | Content-Location | Absolute URI of the requested resource. | SHOULD |
@@ -414,6 +421,14 @@ Query arguments filter or modify a result set. The general rule: if it changes t
 <Standard id="MSDAS_SHOULD_NOT_X_NOTATION_HEADERS_DEPRECATED_PER" type="SHOULD NOT">
 X- notation headers are deprecated per RFC 6648 and SHOULD NOT be used. Define a plain custom header name instead (e.g. Request-Id rather than X-Request-Id).
 </Standard>
+
+Distributed tracing
+A single client-initiated request often triggers a chain of internal calls across multiple services — API Gateway, backend application, downstream partner system. Without a consistent tracing mechanism, diagnosing where in that chain a failure or slowdown occurred becomes guesswork, particularly across the service and organisational boundaries typical of MSD's delivery-partner integrations.
+<Standard id="APIS_SHOULD_PROPAGATE_DISTRIBUTED_TRACING_CONTENT" type="SHOULD">APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard</Standard>
+ APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard: the `traceparent` header (carrying the trace ID, parent span ID, and trace flags) and, where needed, the `tracestate` header (vendor-specific tracing system state). Where an incoming request carries a `traceparent` header, it MUST be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.
+<Standard id="APIS_SHOULD_GENERATE_TRACEPARENT_HEADER" type="SHOULD">Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream</Standard>
+ Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream, so a trace exists even when the originating consumer doesn't support tracing itself.
+This is distinct from the Request tracking header referenced earlier in this section: a request-tracking ID identifies one request/response pair for logging and support purposes, while a trace ID identifies the whole causally-related chain of calls that request triggered.
 
 #### **Authorization**
 
@@ -435,7 +450,7 @@ To ensure APIs perform at scale, the Cache-Control header MUST be used.
 
 Key directives: private/public (whether the response may be cached in a shared cache), no-cache, no-store, max-age, s-max-age, must-revalidate and proxy-revalidate. See Caching for MSD-specific guidance on response and object caching.
 
-### **8\. Content**
+### **8. Content**
 
 #### **Formats**
 
@@ -447,7 +462,7 @@ REST APIs SHOULD, by default, return content in JSON format, and SHOULD be human
 The response format for a GET request MUST be indicated by the consumer using the Accept header; the request format for POST/PUT MUST be indicated using the Content-Type header.
 </Standard>
 
-Where JSON is used, it MUST conform to RFC 7159\. Textual content SHOULD be UTF-8 encoded. Binary data such as images SHOULD NOT be returned directly in API responses — prefer a hyperlink to the image instead.
+Where JSON is used, it MUST conform to RFC 7159. Textual content SHOULD be UTF-8 encoded. Binary data such as images SHOULD NOT be returned directly in API responses — prefer a hyperlink to the image instead.
 
 #### **Layout**
 
@@ -468,23 +483,23 @@ Responses SHOULD be a JSON object (not a bare array) by default, so metadata and
 
 #### **JSON property names**
 
-* Property names SHOULD be meaningful, with defined semantics.
+- Property names SHOULD be meaningful, with defined semantics.
 
-* Property names MUST be camel-case ASCII strings, e.g. exampleProperty.
+- Property names MUST be camel-case ASCII strings, e.g. exampleProperty.
 
-* The first character MUST be a letter or underscore.
+- The first character MUST be a letter or underscore.
 
-* Reserved JavaScript keywords SHOULD be avoided.
+- Reserved JavaScript keywords SHOULD be avoided.
 
 #### **Consistency**
 
-* Preserve backwards compatibility by returning expected fields and sensible defaults for missing fields.
+- Preserve backwards compatibility by returning expected fields and sensible defaults for missing fields.
 
-* Keep terminology consistent throughout, e.g. don't repurpose a 'status' field to mean something different between resources.
+- Keep terminology consistent throughout, e.g. don't repurpose a 'status' field to mean something different between resources.
 
 #### **Singletons vs. collections**
 
-A single-item GET (e.g. /clients/12345) returns the fundamental details of that resource; a collection GET (e.g. /clients) returns an array plus related metadata. If a queried collection legitimately has no results (e.g. no appointments scheduled for a given client), the correct response is 200 with an empty array — not 404\.
+A single-item GET (e.g. /clients/12345) returns the fundamental details of that resource; a collection GET (e.g. /clients) returns an array plus related metadata. If a queried collection legitimately has no results (e.g. no appointments scheduled for a given client), the correct response is 200 with an empty array — not 404.
 
 <Standard id="MSDAS_SHOULD_NOT_COLLECTION_RESOURCES_CONTAIN_BINARY_ATTACHMENTS" type="SHOULD NOT">
 Collection resources SHOULD NOT contain binary attachments or other content that would lead to large response payloads.
@@ -506,7 +521,7 @@ Hypermedia as the Engine of Application State (HATEOAS) is the principle of retu
 }
 ```
 
-### **9\. API State**
+### **9. API State**
 
 #### **Consideration of state**
 
@@ -526,7 +541,7 @@ RESTful APIs that embody a process workflow MUST provide a mechanism for the API
 
 Since process flows are typically specific to the business domain an API supports, it's prudent to implement the specific state model and flow logic in a single logical component — a service orchestrator — for ease of testing and maintenance. The service orchestrator dispatches requests to the services appropriate for the current process position, and keeps track of overall process state; the API itself becomes a facade over the orchestrator. A consumer initiating a process receives a Location header pointing to a status resource; querying that resource at any point returns the current state of the process, however many internal services the orchestrator has since dispatched work to.
 
-### **10\. Bulk APIs**
+### **10. Bulk APIs**
 
 #### **Bulk API handling**
 
@@ -541,7 +556,7 @@ Bulk handling MAY be achieved by bundling multiple sub-requests into the same AP
 When handling bulk requests, consider troubleshooting and recovery: log all sub-requests with accurate timestamps so monitoring tools can visualise transaction progress.
 
 | REQUIRED | Sub-request identifiers (see HTTP Headers, Request headers) are REQUIRED in bulk API calls, to ensure sub-requests are traceable end-to-end. |
-| :---: | :---- |
+| --- | --- |
 
 Where legacy system impact is a concern, it may be appropriate to provide an asynchronous batch capability instead — for example, bulk creation of client records from a batch event in a consuming legacy application. It's preferable for the consuming application to treat each record as a unique event and POST it individually, since this lets each success or error be handled in its own right and reported back to the consumer. Where that's not possible due to a system constraint, multiple records may be POSTed together asynchronously; this type of interaction SHOULD NOT be attempted synchronously, since large batches will tie up HTTP threads and may require client/server timeout handling.
 
@@ -593,7 +608,7 @@ HTTP/1.1 207 Multi-Status
 
 Where intended bulk payloads are too large for timely synchronous processing, the API SHOULD support the application/json-seq Content-Type, indicating the JSON payload is a sequenced data set. The API can then process each record individually and respond asynchronously with a Location header pointing to the transaction's process detail/status — following the same pattern as State in process APIs, above.
 
-### **11\. Versioning APIs**
+### **11. Versioning APIs**
 
 #### **Semantic versioning**
 
@@ -627,7 +642,7 @@ Non-breaking changes include: adding new properties; adding new resources; addin
 API Providers MUST implement a concurrency control mechanism to handle situations where two consumers attempt to update the same resource at the same time — for example, two case managers updating the same client record concurrently.
 
 | Feature | Optimistic concurrency | Pessimistic concurrency |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Locks resource before update | No | Yes |
 | Checks for conflicts before update | Yes | No |
 | Performance when conflicts rare | Good | Poor |
@@ -635,21 +650,21 @@ API Providers MUST implement a concurrency control mechanism to handle situation
 
 Optimistic concurrency is typically preferred for MSD APIs due to its simplicity and scalability; pessimistic concurrency should be reserved for cases where data consistency is paramount and conflicts are frequent.
 
-### **12\. Search APIs**
+### **12. Search APIs**
 
 Search capability is an important component of many REST APIs, used to find resources within a collection (see Content, Singletons vs. collections) that meet the API Consumer's requirements. There are two common ways to search a collection: GET with query parameters, or POST with query parameters in a request body. Both are supported by this standard, but the choice carries real security implications.
 
 |  | GET | POST |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Description | Retrieve resources from a collection matching parameters in a query string, e.g. GET /clients?status=active | Retrieve resources from a collection matching parameters in a request body, e.g. `POST /clients {"status":"active"}` |
-| Considerations | Generally considered less secure than POST, since components in the HTTP(S) path (browsers, proxy servers) can log or cache full URLs. Very complex searches may hit URL/query-string length limits (server- and client-dependent, e.g. \~8KB Apache, \~16KB IIS, \~2KB in many browsers) — if this happens, POST SHOULD be used instead. | Generally considered more secure, since request-body parameters are encrypted in transit under HTTPS, preventing intermediary components from decrypting and logging them. Use when the search query itself contains sensitive or personal identifying information. |
+| Considerations | Generally considered less secure than POST, since components in the HTTP(S) path (browsers, proxy servers) can log or cache full URLs. Very complex searches may hit URL/query-string length limits (server- and client-dependent, e.g. ~8KB Apache, ~16KB IIS, ~2KB in many browsers) — if this happens, POST SHOULD be used instead. | Generally considered more secure, since request-body parameters are encrypted in transit under HTTPS, preventing intermediary components from decrypting and logging them. Use when the search query itself contains sensitive or personal identifying information. |
 
 <Standard id="MSDAS_MUST_NOT_SEARCH_QUERY_PARAMETERS_CONTAIN_PERSONAL" type="MUST NOT">
-Search query parameters MUST NOT contain personal identifiable or sensitive information, e.g. GET /clients?lastName=Ngata\&mobileNumber=0221112222.
+Search query parameters MUST NOT contain personal identifiable or sensitive information, e.g. GET /clients?lastName=Ngata&mobileNumber=0221112222.
 </Standard>
 
 <Standard id="MSDAS_MUST_POST_MECHANISM_USED_SENSITIVE_SEARCH" type="MUST">
-Where the POST mechanism is used for a sensitive search, the API MUST have a distinct search resource (e.g. /clients/\_search) so the API can clearly distinguish a search from a resource-creation request.
+Where the POST mechanism is used for a sensitive search, the API MUST have a distinct search resource (e.g. /clients/_search) so the API can clearly distinguish a search from a resource-creation request.
 </Standard>
 
 Template: `POST /{version}/{namespace}/{search-resource}`
@@ -683,11 +698,20 @@ HTTP/1.1 200 OK
 }
 ```
 
-Other considerations include special characters or filters that add complexity through URL encoding — for example, supporting “\<” or “\>” operators, or non-English characters. Structured query language (SQL) keywords should also be handled carefully, since common threat-detection filters may block requests containing words like ‘DROP’, ‘ALTER’ or ‘DELETE’ on the assumption they indicate a SQL injection attempt — see the OWASP Cross-Site Scripting and SQL Injection Prevention Cheat Sheets for detail.
+Search inputs are a common target for injection attacks, and the correct defence is to use the parameterisation and sanitisation mechanisms provided by the platform's own data access and templating libraries, rather than attempting to detect malicious input by matching against specific characters or keywords — text-matching approaches are trivially bypassed (e.g. case variation, encoding, alternative syntax) and produce false positives against legitimate content (a client's name or address may legitimately contain characters that overlap with blocklisted patterns).
+<Standard id="DATA_ACCESS_CODE_MUST_USE_PARAMETERISED_QUERIES" type="MUST">
+Data access code MUST use parameterised queries or an equivalent safe data-access mechanism
+</Standard>
+ Data access code MUST use parameterised queries or an equivalent safe data-access mechanism (e.g. parameterised `SqlCommand`/Entity Framework in .NET, prepared statements in JDBC, parameterised ORM queries) for any user-supplied input reaching a data store. Concatenating user input directly into a query string, in any form, MUST NOT be used.
+<Standard id="OUTPUT_RENDERED_MUST_BE_NATIVELY_ENCODED" type="MUST">
+Output rendered into any HTML, script, or markup context MUST be encoded using the rendering framework's built-in output-encoding mechanism
+</Standard>
+ Output rendered into any HTML, script, or markup context MUST be encoded using the rendering framework's built-in output-encoding mechanism, appropriate to the context (HTML body, attribute, URL, JavaScript) it's rendered into.
+See the OWASP SQL Injection Prevention and Cross-Site Scripting Prevention Cheat Sheets for library-specific guidance.
 
 Pagination behaviour SHOULD be consistent with the interaction described in URIs, Query Arguments, and can be implemented as page number/size, offset/limit, or a continuation token, depending on the scale and volatility of the search results. Since the HTTP protocol treats POST as unsafe, POST search results aren't cacheable — even with a Cache-Control header present — so consider the performance impact for high-volume search operations.
 
-### **13\. Caching**
+### **13. Caching**
 
 Caching enables faster API responses and reduces backend load. It's well suited to information that's frequently requested but doesn't change often — for example, a list of MSD service centre locations or reference/lookup codes.
 
@@ -705,7 +729,7 @@ For example: a client requests service centre opening hours; the gateway checks 
 
 An object cache holds objects fundamental to an API's function that don't change often — for example, a reference table of benefit or entitlement codes used to validate incoming requests. Rather than querying the reference database on every request, the API layer caches these codes with a time-to-live (TTL) and refers to the cache until it expires or is explicitly invalidated (for example, when an administrator updates the reference data).
 
-### **14\. Error Handling**
+### **14. Error Handling**
 
 API Consumers see an API as a black box; when something goes wrong they need clear, actionable information — without the response leaking details about the provider's internal systems.
 
@@ -716,7 +740,7 @@ When an error occurs, the response body MUST contain: the HTTP status code; an A
 #### **HTTP status codes**
 
 | Code | Meaning | Typical use |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | 200 | OK | Successful GET, or successful PUT with response body |
 | 201 | Created | Successful POST that created a resource |
 | 204 | No Content | Successful request with no response body (e.g. DELETE) |
@@ -749,43 +773,43 @@ API Providers MUST document their errors in a machine-readable schema, published
 
 Human-readable error messages SHOULD be informative without exposing internal system details (component names, stack traces) that could help a malicious actor, and MUST NOT confirm or deny sensitive information such as whether a specific client ID exists.
 
-### **15\. API Governance**
+### **15. API Governance**
 
 API governance ensures MSD's APIs are built proactively to achieve specific goals and deliver value to both providers and consumers. It also helps MSD make informed decisions about its API programme and establish consistent practice for building, deploying and consuming APIs.
 
 MSD API governance should include:
 
-* Specification and resource definitions — governing API contracts and resource definitions to improve consistency and reuse.
+- Specification and resource definitions — governing API contracts and resource definitions to improve consistency and reuse.
 
-* Style and pattern guidelines — standardising API design so APIs remain consistent and usable.
+- Style and pattern guidelines — standardising API design so APIs remain consistent and usable.
 
-* Automation — templates and pipelines that make it easier to comply with policy than not (for example, scaffolding that automatically wires in security and audit logging, or pipelines that enforce coding standards and security scans).
+- Automation — templates and pipelines that make it easier to comply with policy than not (for example, scaffolding that automatically wires in security and audit logging, or pipelines that enforce coding standards and security scans).
 
-* Lifecycle management — governing an API from publication through versioning, deprecation and retirement.
+- Lifecycle management — governing an API from publication through versioning, deprecation and retirement.
 
-* Tracking and analytics — visibility into where APIs are deployed, who is using them and how.
+- Tracking and analytics — visibility into where APIs are deployed, who is using them and how.
 
-* A robust code review process — development using a branch strategy with at least one peer review required before merge and deployment.
+- A robust code review process — development using a branch strategy with at least one peer review required before merge and deployment.
 
 Governance works best as a collaborative process: the more aligned MSD's API designers and developers are on these standards, the more efficient and successful the API programme will be. This is particularly important given MSD's API programme spans multiple business groups (income support, employment, housing, and care and protection) and delivery partners.
 
-\*\*\*\*\*\* Include this in governance playbook section as well as reference architecture
+****** Include this in governance playbook section as well as reference architecture
 
 Dogfooding is a well-established, practical principle which earns its place for concrete reasons:
 
-* **Quality forcing function** — if MSD's own case management tools have to consume the same client/entitlement APIs as external delivery partners, any friction, gap or bad design gets felt and fixed internally before it becomes a delivery partner's problem.  
-* **Holistic demand management** — if internal traffic bypasses the gateway (e.g. direct database or service calls), MSD loses visibility into true combined load, and capacity/throttling decisions made against external-only metrics will be wrong.  
-* **No back-door security posture** — internal consumption through the same authenticated, audited path as external consumption means there's one security model to reason about, not two.  
-* **Better prioritisation signal** — usage analytics (Part D, Publishing Components) actually reflect total demand, not just external demand, which matters for SLA and roadmap decisions.
+- **Quality forcing function** — if MSD's own case management tools have to consume the same client/entitlement APIs as external delivery partners, any friction, gap or bad design gets felt and fixed internally before it becomes a delivery partner's problem.  
+- **Holistic demand management** — if internal traffic bypasses the gateway (e.g. direct database or service calls), MSD loses visibility into true combined load, and capacity/throttling decisions made against external-only metrics will be wrong.  
+- **No back-door security posture** — internal consumption through the same authenticated, audited path as external consumption means there's one security model to reason about, not two.  
+- **Better prioritisation signal** — usage analytics (Part D, Publishing Components) actually reflect total demand, not just external demand, which matters for SLA and roadmap decisions.
 
-\*\*\*\*\*\*\*
+*******
 
-### **16\. API Development Industry Standards**
+### **16. API Development Industry Standards**
 
 In addition to the standards captured in API Design and Part B: API Security, the table below sets out current API and web standards that should be considered as part of MSD's API strategy.
 
 | Standard or standards organisation | Description |
-| :---- | :---- |
+| --- | --- |
 | OpenAPI | Defines a standard, language-agnostic interface to RESTful APIs, letting both humans and computers discover and understand a service's capabilities without access to source code, documentation, or network traffic inspection. |
 | AsyncAPI | An open initiative to improve the state of event-driven architectures, aiming to make working with them as easy as working with REST APIs. |
 | HTTP | Hyper Text Transfer Protocol — the transport layer most RESTful APIs rely on, using HTTP verbs such as POST, GET, PUT and DELETE. |
@@ -813,14 +837,14 @@ A typical synchronous REST interaction is a request/response exchange: an API Co
 An asynchronous interaction is different: it's typically a “fire and forget” model, where an API Provider publishes an event to an intermediary — a message broker or queue — and one or more API Consumers process that event later, often in near real-time. The API Provider publishes once; the broker is responsible for routing the event to every interested consumer.
 
 | RECOMMENDED | For MSD's social sector data-sharing use cases, the Publish/Subscribe pattern is the recommended default — see Async Patterns. |
-| :---: | :---- |
+| --- | --- |
 
 ### **Messaging concepts**
 
 Asynchronous and event-driven architecture uses terminology that can mean different things in other contexts. This glossary defines how these terms are used throughout this section.
 
 | Concept | Description |
-| :---- | :---- |
+| --- | --- |
 | Message | A packet of data transmitted over a channel, containing data such as an event. |
 | Message Producer | A software application which publishes messages to API Consumers using Asynchronous APIs. |
 | Event | A message containing information about something that has occurred — for example, a benefit payment being issued, or a client updating their address. |
@@ -845,7 +869,7 @@ When publishing integration events there's a balance to strike between publishin
 A “thin” message contains no data, or the minimum needed to inform a consumer that an event occurred. Interested consumers can contact the API Provider (typically via REST) for further detail.
 
 <Standard id="MSDAS_MAY_THIN_EVENTS_INCLUDE_POINTER_URL" type="MAY">
-Thin events MAY include a pointer (URL or identifier) back to the resource that triggered the notification. If no pointer is supplied, the data source MUST allow subscribers to query specifically for changed resources (e.g. lastUpdatedTime \> `{last query time}`).
+Thin events MAY include a pointer (URL or identifier) back to the resource that triggered the notification. If no pointer is supplied, the data source MUST allow subscribers to query specifically for changed resources (e.g. lastUpdatedTime > `{last query time}`).
 </Standard>
 
 ```json
@@ -911,7 +935,7 @@ Delta events can reduce processing effort for consumers who don't otherwise know
 Message headers (sometimes called message metadata) let a message broker perform routing and logging without inspecting the full payload. Where the CloudEvents specification is used, this metadata is expressed as Context Attributes — id, source, specversion and type are mandatory. Where a specification like CloudEvents isn't in use, the following minimal header set is suggested:
 
 | Header | Example value | Description |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Content-Type | application/json | Indicates the content type of the message. |
 | Correlation-Id | 63841126-0aba-4e21-... | Unique identifier for the interaction. |
 | Event-Id | 54e7587e-5a38-4c85-... | Unique identifier for this event, used for idempotency. |
@@ -923,7 +947,7 @@ API Providers SHOULD aim to support as many transport protocols as reasonably po
 </Standard>
 
 | Protocol | Description | Requirement |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | MQTT | Lightweight protocol for low-bandwidth, high-latency networks; supports all Async Patterns below. | SHOULD support |
 | AMQP | Open-standard protocol for reliable, high-performance, interoperable messaging via brokers. | SHOULD support |
 | WebSockets | Bidirectional, real-time communication over a single long-lived HTTP connection. | SHOULD support |
@@ -932,7 +956,7 @@ API Providers SHOULD aim to support as many transport protocols as reasonably po
 | JMS (Java Message Service) | Common Java interface for creating, sending and receiving messages. | MAY be offered |
 
 | RECOMMENDED | It's recommended to publish messages using JSON as the data serialisation format, given its low barrier to entry, human readability, and broad native language support, over alternatives like Protocol Buffers or FlatBuffers. |
-| :---: | :---- |
+| --- | --- |
 
 ### **Topics and subscriptions**
 
@@ -945,25 +969,25 @@ Topic design MUST be applied consistently once agreed, and root levels of a topi
 A general topic design pattern: `{domain}/{action}/{identifier}` — for example:
 
 | Topic level | Description | Example |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Domain | The domain of the event. | entitlement, client, case |
 | Action | The past-tense action that occurred. Avoid HTTP-verb style naming. | issued, updated, reassigned, closed |
 | Identifier | An identifier for the subject of the event. | clientId, caseId |
 
-Consider an entitlement\_status\_changed event. Multiple parties are likely interested — for example, a central reporting system that wants every such event, and a specific service centre that only wants events for its own caseload. A flat topic like entitlement/status-changed doesn't let the service centre filter to just its own clients. A richer hierarchy does:
+Consider an entitlement_status_changed event. Multiple parties are likely interested — for example, a central reporting system that wants every such event, and a specific service centre that only wants events for its own caseload. A flat topic like entitlement/status-changed doesn't let the service centre filter to just its own clients. A richer hierarchy does:
 
 ```
 entitlement/status-changed/{serviceCentreId}/{clientId}
 ```
 
-A service centre could then subscribe using a filter such as entitlement/status-changed/porirua-sc/\*, receiving only events for its own clients, while a central reporting system subscribes more broadly to entitlement/status-changed/\> to receive everything. These specific wildcard characters (+, \# and \* are common examples) are illustrative of the capability required, not a mandate to use MQTT or any other specific broker technology — see the note below.
+A service centre could then subscribe using a filter such as entitlement/status-changed/porirua-sc/*, receiving only events for its own clients, while a central reporting system subscribes more broadly to entitlement/status-changed/> to receive everything. These specific wildcard characters (+, # and * are common examples) are illustrative of the capability required, not a mandate to use MQTT or any other specific broker technology — see the note below.
 
 <Standard id="MSDAS_MUST_MESSAGE_PRODUCER_PROVIDE_MECHANISM_API" type="MUST">
 A Message Producer MUST provide a mechanism for API Consumers to subscribe and unsubscribe from available channels, and MUST provide a way for a consumer to filter the topic hierarchy down to a relevant subset (e.g. events for one service centre only) rather than being limited to “all events on this topic” or “no events on this topic”. Whatever filtering mechanism the chosen broker technology provides to achieve this MUST be documented alongside the API.
 </Standard>
 
-| NOTE This requirement is about the filtering capability an API Consumer needs, not about mandating a specific broker or wildcard syntax. MQTT-style wildcards (+, \#) are one common way of meeting it, but other mechanisms — for example, correlation or SQL-style subscription filters, as used by Azure Service Bus, or subject-prefix filters, as used by Azure Event Grid — satisfy the same requirement and are equally acceptable. API Providers should choose whichever mechanism their broker technology supports, document it clearly, and ensure it lets consumers subscribe to a meaningful subset of a topic hierarchy rather than only the whole of it. |
-| :---- |
+| NOTE This requirement is about the filtering capability an API Consumer needs, not about mandating a specific broker or wildcard syntax. MQTT-style wildcards (+, #) are one common way of meeting it, but other mechanisms — for example, correlation or SQL-style subscription filters, as used by Azure Service Bus, or subject-prefix filters, as used by Azure Event Grid — satisfy the same requirement and are equally acceptable. API Providers should choose whichever mechanism their broker technology supports, document it clearly, and ensure it lets consumers subscribe to a meaningful subset of a topic hierarchy rather than only the whole of it. |
+| --- |
 
 ### **API Design and Documentation**
 
@@ -974,7 +998,7 @@ API Providers of an Asynchronous API MUST document the API using a combination o
 AsyncAPI extends the same design thinking as OpenAPI to cover asynchronous, event-driven interactions, which may not always use HTTP as the underlying transport.
 
 | RECOMMENDED | APIs published by MSD are recommended to use the CloudEvents specification to structure event messages, giving consumers a consistent envelope (type, source, subject, etc.) across all published events. |
-| :---: | :---- |
+| --- | --- |
 
 Using a consistent, well-documented event schema allows API Consumers and Publishers to design against a known message structure, accelerating integration on both sides. API Providers SHOULD validate outgoing messages against their published JSON Schema before publishing them.
 
@@ -987,7 +1011,7 @@ API Providers MAY choose to offer an event catalog or schema registry, published
 Data consistency describes how uniform, accurate and coherent data is across API Producers and Consumers. The right consistency model depends heavily on the use case — not just the type of data.
 
 | EXAMPLE Scenario: a client is assessed as being at risk of serious harm, and a case manager flags a safety alert on their file. At the point of decision, other case managers and duty staff who might interact with that client MUST see this alert immediately — this calls for strong consistency. But if the same event is being used six months later for policy analysis of risk-assessment patterns, eventual consistency is perfectly sufficient. |
-| :---- |
+| --- |
 
 #### **Eventual consistency**
 
@@ -1027,7 +1051,7 @@ Use this pattern when: there's only ever one consumer; fault tolerance matters, 
 
 #### **Request/reply**
 
-Used for “command” messages, where the sender expects a result or confirmation back. An API Consumer publishes a request (for example, generate\_client\_summary) to a request channel; a service processes it and publishes the result to a corresponding reply channel, which the original consumer subscribes to.
+Used for “command” messages, where the sender expects a result or confirmation back. An API Consumer publishes a request (for example, generate_client_summary) to a request channel; a service processes it and publishes the result to a corresponding reply channel, which the original consumer subscribes to.
 
 This is well suited to processing that may take longer than a typical HTTP request duration — for example, generating a complex case summary that aggregates data from multiple systems — or to downstream services that are rate-limited and can only process a constrained level of concurrency.
 
@@ -1036,7 +1060,7 @@ This is well suited to processing that may take longer than a typical HTTP reque
 A growing category of integration doesn't fit the human-application-to-API model that Synchronous and Asynchronous APIs are designed for: AI agents and assistants that need to discover and invoke capabilities dynamically, on behalf of a case manager or other MSD staff member, in the course of a conversation or task. The Model Context Protocol (MCP) is the emerging standard for this kind of integration.
 
 | INFO MCP is a young, fast-moving specification and is currently under active, sometimes substantial, revision. This section deliberately sets out durable principles rather than mechanism-level detail (specific message names, transport names, or endpoint paths), since those details are likely to change between specification revisions. Before building or updating an MCP Server, MSD API Developers MUST check the current published MCP specification for the exact mechanism in force at the time — message formats, transport requirements, session/statefulness model, and authorisation flow have all changed materially between revisions and should be expected to change again. |  |
-| ----- | :---- |
+| --- | --- |
 | **SHOULD** | MCP SHOULD be used when the integration's primary consumer is an AI agent or assistant that needs to select and invoke capabilities dynamically. Where the consumer is a conventional application performing a known, fixed sequence of calls, a Synchronous or Asynchronous API remains the appropriate choice. |
 
 ### **Core concepts**
@@ -1044,7 +1068,7 @@ A growing category of integration doesn't fit the human-application-to-API model
 MCP defines three roles, which remain stable across specification revisions even as the mechanics of how they communicate evolve:
 
 | Role | Description |
-| :---- | :---- |
+| --- | --- |
 | MCP Host | The AI application a user interacts with directly — for example, an AI assistant embedded in a case management tool. The Host embeds one or more MCP Clients. |
 | MCP Client | Connects to a single MCP Server on behalf of the Host, handling capability discovery and message exchange. |
 | MCP Server | Exposes capabilities to Clients. An MSD MCP Server is analogous to an API Provider in Parts A–C, but exposes capabilities an agent selects dynamically, rather than a fixed contract a developer codes against in advance. |
@@ -1052,7 +1076,7 @@ MCP defines three roles, which remain stable across specification revisions even
 Servers typically expose capabilities through a small set of primitives, which have been broadly consistent across specification revisions to date:
 
 | Primitive | Description |
-| :---- | :---- |
+| --- | --- |
 | Tools | Functions the agent can invoke to take action or retrieve information — for example, get-client-entitlements or create-case-note. Each tool declares a schema for its input and, where possible, its output. |
 | Resources | Addressable data the agent can read — for example, a client's current support plan document. |
 | Prompts | Reusable, parameterised prompt templates a Host can surface to a user — for example, a template for drafting a case review summary in MSD's standard format. |
@@ -1146,7 +1170,7 @@ Tools that write data or trigger real-world actions on a client's record SHOULD 
 </Standard>
 
 | SECURITY NOTE Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action. MCP Servers SHOULD treat all resource content and tool output as untrusted input from the agent's perspective, and MUST NOT rely on the agent alone to enforce access control decisions that the Server itself is capable of enforcing. |  |
-| ----- | :---- |
+| --- | --- |
 | **MUST** | MCP Servers MUST NOT silently change a previously approved Tool's behaviour or description after a Client has connected, without notifying the Client of the change and, where the change is material, requiring the Host to re-confirm consent (guarding against so-called “rug-pull” attacks where a trusted tool's behaviour is altered post-approval). |
 
 <Standard id="MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY_2" type="MUST">
