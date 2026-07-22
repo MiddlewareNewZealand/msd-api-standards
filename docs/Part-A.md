@@ -1,6 +1,6 @@
 ---
-title: "API Concepts and Management"
-sidebar_label: "API Concepts and Management"
+title: API Concepts and Management
+sidebar_label: API Concepts and Management
 sidebar_position: 2
 ---
 # Part A: API Concepts and Management
@@ -32,9 +32,9 @@ Part D sets out standards and guidance for publishing APIs, including onboarding
 
 These standards and guidelines:
 
-* are intended to apply to all API standards and protocols used at MSD, though much of the detailed guidance is oriented towards REST (Representational State Transfer) APIs;
+- are intended to apply to all API standards and protocols used at MSD, though much of the detailed guidance is oriented towards REST (Representational State Transfer) APIs;
 
-* use hypothetical or illustrative use cases from the social sector — income support, employment services, housing assistance, care and protection — to demonstrate practical application of the concepts described. Examples do not represent MSD's actual API design or data content, and are for illustration only.
+- use hypothetical or illustrative use cases from the social sector — income support, employment services, housing assistance, care and protection — to demonstrate practical application of the concepts described. Examples do not represent MSD's actual API design or data content, and are for illustration only.
 
 ## **Target audience**
 
@@ -58,7 +58,7 @@ Part D is aimed primarily at API providers, and sets out guidance and standards 
 
 ## **Documentation terminology**
 
-To improve precision and consistency, these standards adopt the terminology defined in RFC 2119\. The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119\.
+To improve precision and consistency, these standards adopt the terminology defined in RFC 2119. The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
 
 ## **Part A: API Concepts**
 
@@ -66,15 +66,15 @@ Welcome to MSD's API Design and Development Standards. This section is informati
 
 This section is relevant to you if you are:
 
-* an API Provider
+- an API Provider
 
-* an API Consumer
+- an API Consumer
 
-* an API Developer
+- an API Developer
 
-* an Application Developer
+- an Application Developer
 
-### **1\. Introduction**
+### **1. Introduction**
 
 The intent of this section is to provide the high-level introductory concepts used throughout these standards.
 
@@ -86,13 +86,13 @@ This section contains the business context for API standards and their use withi
 
 This section is aimed at technical and non-technical people who are developing, or planning to develop, software for MSD and the wider social sector, including:
 
-* API Providers
+- API Providers
 
-* API Consumers
+- API Consumers
 
-* API Developers
+- API Developers
 
-* Application Developers
+- Application Developers
 
 #### **Definitions**
 
@@ -100,12 +100,12 @@ This section is aimed at technical and non-technical people who are developing, 
 
 An API is an interface that allows one software application to communicate with another. The communication protocol of APIs is usually agnostic, but the APIs discussed in this document are either:
 
-* Web APIs, or
+- Web APIs, or
 
-* APIs accessed via the http(s) protocol.
+- APIs accessed via the http(s) protocol.
 
 | INFO An API should not be confused with a service. Web services are APIs, but not all APIs are web services. This document is concerned with web APIs that support interoperability, not with software engineering principles generally. |
-| :---- |
+| --- |
 
 ##### **Interoperability**
 
@@ -115,19 +115,19 @@ Service delivery across the social sector improves when information is provided 
 
 A standard is a documented set of the following items that, when used consistently, ensure that products, processes and services developed are fit for purpose and aligned with others across the sector:
 
-* Requirements
+- Requirements
 
-* Specifications
+- Specifications
 
-* Agreed terms, rules and definitions
+- Agreed terms, rules and definitions
 
-* Guidelines
+- Guidelines
 
-* Characteristics
+- Characteristics
 
 Standards can be compulsory when referenced in Acts, regulations, or other legislative instruments.
 
-### **2\. Why use standards?**
+### **2. Why use standards?**
 
 Standards exist because people across an industry or sector have got together and asked: “what is the best way to do this?” They are developed and agreed so that everyone building supplies, products, processes and services shares the same references, tools, language and taxonomy.
 
@@ -135,41 +135,41 @@ Standards exist because people across an industry or sector have got together an
 
 Widespread adoption and use of standards:
 
-* Allows technology to work seamlessly across MSD, partner agencies and community providers.
+- Allows technology to work seamlessly across MSD, partner agencies and community providers.
 
-* Establishes a common language to measure and evaluate performance.
+- Establishes a common language to measure and evaluate performance.
 
-* Means agreements don't just span one team or business unit, but are consistent across MSD and, where relevant, across government.
+- Means agreements don't just span one team or business unit, but are consistent across MSD and, where relevant, across government.
 
-* Helps ensure MSD is not creating bespoke or proprietary technologies that are costly to maintain and hard to integrate with.
+- Helps ensure MSD is not creating bespoke or proprietary technologies that are costly to maintain and hard to integrate with.
 
-* Makes interoperability between components built by different teams, vendors and agencies possible.
+- Makes interoperability between components built by different teams, vendors and agencies possible.
 
-* Protects clients and whānau by embedding best practice around safety, privacy and quality.
+- Protects clients and whānau by embedding best practice around safety, privacy and quality.
 
 The best standards are:
 
-* Focused on people.
+- Focused on people.
 
-* Supportable.
+- Supportable.
 
-* Appropriate to the context they're applied in.
+- Appropriate to the context they're applied in.
 
-* Adaptive to present and future needs.
+- Adaptive to present and future needs.
 
 #### **Outcomes**
 
 People are empowered by evidence-based standards with explicit expectations embedded in them, changing behaviour and practice to achieve better outcomes, including:
 
-* Partnering with clients and whānau.
+- Partnering with clients and whānau.
 
-* Working with partner agencies, community and iwi providers, the software industry, and international jurisdictions where relevant.
+- Working with partner agencies, community and iwi providers, the software industry, and international jurisdictions where relevant.
 
-* Honouring Te Tiriti o Waitangi and its principles of tino rangatiratanga, equity, active protection, options and partnership in the design and governance of data and digital services.
+- Honouring Te Tiriti o Waitangi and its principles of tino rangatiratanga, equity, active protection, options and partnership in the design and governance of data and digital services.
 
-* Encouraging environmental sustainability and meeting climate resilience priorities.
+- Encouraging environmental sustainability and meeting climate resilience priorities.
 
-### **3\. Value of API standards**
+### **3. Value of API standards**
 
 The full value of API standards is realised when everyone is aligned to them — which is why MSD, its delivery partners and the wider social and government sector need to work together on their adoption.
 
@@ -177,35 +177,35 @@ Facilitating seamless co-operation on providing services via technology is a key
 
 #### **MSD's standards kaitiaki**
 
-* Add content here about the entity which governs these standards
+- Add content here about the entity which governs these standards
 
 
 #### **Alignment with cross-government interoperability initiatives**
 
 Add content here about alignment
 
-### **4\. Partners**
+### **4. Partners**
 
 #### **Standards bodies and agencies**
 
 | Partner | Description |
-| :---- | :---- |
+| --- | --- |
 | Government Digital Delivery Agency (GDDA) | Sits within the Public Service Commission and holds the Government Chief Digital Officer (GCDO) function (transitioned from the Department of Internal Affairs on 1 April 2026). Sets government-wide digital and data standards, including the Government API Standards and Guidelines that these MSD standards align with. |
 
 #### **Pivotal standards and frameworks**
 
 | Framework | Description |
-| :---- | :---- |
+| --- | --- |
 | New Zealand Government API Standards and Guidelines | Cross-government standards for designing, securing and publishing APIs, maintained by the Government Digital Delivery Agency (GDDA), which now holds the Government Chief Digital Officer (GCDO) function. These MSD standards are a sector-specific implementation of that guidance. |
 | Protective Security Requirements (PSR) / NZISM | Baseline government security requirements that inform MSD's approach to API and information security (see Part B). |
 
 #### **Products and tools**
 
 | Product / tool | Description |
-| :---- | :---- |
+| --- | --- |
 | Add standards chosen here |  |
 
-### **5\. Standards Component Definitions**
+### **5. Standards Component Definitions**
 
 This section provides a list of common API standards components and their associated definitions, adapted for an MSD and social sector context.
 
@@ -213,19 +213,19 @@ This section provides a list of common API standards components and their associ
 
 An API Provider, in the context of these standards, is a software application:
 
-* That produces a REST or Asynchronous API.
+- That produces a REST or Asynchronous API.
 
-* That can be published via the MSD Developer Portal or an equivalent sector capability.
+- That can be published via the MSD Developer Portal or an equivalent sector capability.
 
-* That has completed an appropriate API Provider onboarding process.
+- That has completed an appropriate API Provider onboarding process.
 
 #### **API Consumer**
 
 An API Consumer, in the context of these standards, is a software application:
 
-* That consumes a REST, Asynchronous or MCP AP provided by MSD.
+- That consumes a REST, Asynchronous or MCP AP provided by MSD.
 
-* That has completed an approved API Consumer onboarding and certification process.
+- That has completed an approved API Consumer onboarding and certification process.
 
 #### **Social Sector Clients and Whānau**
 
@@ -252,7 +252,7 @@ An API Developer, in the context of these standards, is a software engineer who 
 An Application Developer, in the context of these standards, is a software engineer who designs, develops, tests and deploys software applications, typically specialising in a particular type of development such as mobile, web or enterprise software.
 
 | Characteristic | API Developer | Application Developer |
-| :---- | :---- | :---- |
+| --- | --- | --- |
 | Primary focus | Developing APIs | Developing software applications |
 | Audience | Other developers | Social sector workers, clients and whānau |
 | Example tasks | Design and develop new APIs; maintain and update existing APIs; create API documentation | Gather and analyse user requirements; design and develop software applications; write and test code; debug and fix defects; deploy and maintain applications |
