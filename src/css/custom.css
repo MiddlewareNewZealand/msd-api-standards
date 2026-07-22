@@ -275,7 +275,7 @@ body {
 
 @media(min-width: 48em) {
   body {
-    font-size: 1.25rem
+    font-size: 1.1rem
   }
 }
 
@@ -3777,10 +3777,18 @@ h2+.rich-text--highlight {
 /* Flush tiles: drop Infima's list padding and per-item top spacing */
 .theme-doc-sidebar-menu.menu__list,
 .theme-doc-sidebar-menu .menu__list {
+  padding-top: 10px;
   padding-left: 0;
 }
-.theme-doc-sidebar-menu .menu__list .menu__list {
+.theme-doc-sidebar-menu.menu__list .menu__list {
   padding-left: 0.75rem; /* indent children like MSD (15px -> 30px) */
+  /* Infima adds margin-top: 0.25rem here, and the padding-top: 10px above
+     also inherits down (descendant selector matches nested lists too) —
+     stacked together that made the gap between a parent and its first
+     child much bigger than the 2px gap between two sibling tiles. Zero
+     both out so expanded children sit flush, matching sibling spacing. */
+  margin-top: 0;
+  padding-top: 0;
 }
 .theme-doc-sidebar-menu .menu__list-item:not(:first-child) {
   margin-top: 0;
@@ -3814,8 +3822,21 @@ h2+.rich-text--highlight {
 }
 .theme-doc-sidebar-menu .menu__link--active {
   background: var(--msd-nav-child-bg);
-  color: var(--color-accent-110);
+  color: #212121;
   font-weight: 700;
+}
+/* Infima forces category links (the expandable "sublist" ones) to
+   background: none !important both when active and on hover, so the row
+   doesn't double up with the collapsible wrapper's own fill. That leaves
+   every Part/section tile flashing transparent (white) on hover instead of
+   keeping the same blue family as leaf links. Override both cases with
+   matching specificity + !important so every category tile — open,
+   closed, or hovered — behaves like a normal tile. */
+.theme-doc-sidebar-menu .menu__list-item-collapsible .menu__link--active {
+  background: var(--msd-nav-child-bg) !important;
+}
+.theme-doc-sidebar-menu .menu__list-item-collapsible .menu__link:hover {
+  background: var(--msd-nav-child-bg-hover) !important;
 }
 
 /* Expand/collapse caret button: it's a separate flex item next to the
@@ -3863,7 +3884,7 @@ h2+.rich-text--highlight {
 
 /* Give the full MSD wordmark lockup room to breathe */
 .navbar__logo {
-  height: 2.25rem;
+  height: 3.7rem;
 }
 .navbar__logo img {
   height: 100%;
