@@ -1,26 +1,13 @@
 ---
-title: "Introduction"
+title: Introduction
 ---
+API publishing is the process of making an API available to API Consumers — developers, delivery partners, and third-party providers — for consumption. It means exposing the functionality of a system or service in a structured, accessible way, so other applications can interact with it programmatically. If an API is not published well, it is much less likely to be successfully used by API Consumers who are not forced to do so.
 
-API publishing is the process of making an API available to API Consumers — developers, delivery partners, and third-party providers — for consumption. It means exposing the functionality of a system or service in a structured, accessible way, so other applications can interact with it programmatically.
-
-Publishing an API well matters for several reasons:
-
-## **Interoperability**
-
-APIs let different and multiple systems communicate regardless of their underlying technology, promoting the integrated, cohesive social sector digital ecosystem MSD is building towards.
-
-## **Scalability and flexibility**
-
-Exposing functionality through APIs lets MSD and its delivery partners scale services more efficiently — adapting and evolving offerings by building on existing infrastructure rather than redesigning systems from scratch.
+The following benefits are particularly enabled by well-published API's
 
 ## **Innovation and collaboration**
 
 Publishing APIs empowers developers — within MSD, at partner agencies, and at community and iwi providers — to build new applications and services on existing capability, fostering collaboration and faster delivery.
-
-## **Improved client and staff experience**
-
-APIs enable richer, more joined-up experiences for clients, whānau and frontline staff by combining functionality from multiple sources into a single interface or application.
 
 ## **Delivery partner ecosystem**
 
