@@ -43,7 +43,17 @@ module.exports = async function createConfig() {
             },
           ],
           theme: {
-            primaryColor: '#1890ff',
+            primaryColor: '#121f6b',
+            theme: {
+              typography: {
+                code: {
+                  wrap: true,
+                },
+              },
+              rightPanel: {
+                width: '44%',
+              },
+            },
           },
         },
       ],
