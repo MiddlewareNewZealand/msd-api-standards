@@ -19,6 +19,7 @@ kaupapa
 Kawanatanga
 Korokii
 Manaaki
+Manatū
 MSDAS
 multiword
 Ngāpuhi
@@ -51,6 +52,7 @@ tino
 Tiriti
 Tupua
 WADL
+Whakahiato
 Whanau
 whānau
 Whatu
