@@ -2573,7 +2573,7 @@ h2+.rich-text--highlight {
   grid-template-columns: auto 1fr;
   align-items: stretch;
   margin-bottom: var(--ifm-spacing-vertical);
-  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  border: 2px solid var(--ifm-table-border-color);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -2600,16 +2600,32 @@ h2+.rich-text--highlight {
   margin-bottom: 0;
 }
 
+.standard--must {
+  border-color: #990000;
+}
+
 .standard--must .standard__keyword {
   background-color: #990000;
+}
+
+.standard--should {
+  border-color: #b45309;
 }
 
 .standard--should .standard__keyword {
   background-color: #b45309;
 }
 
+.standard--may {
+  border-color: #2e7d32;
+}
+
 .standard--may .standard__keyword {
   background-color: #2e7d32;
+}
+
+.standard--info {
+  border-color: #5c5c5c;
 }
 
 .standard--info .standard__keyword {
