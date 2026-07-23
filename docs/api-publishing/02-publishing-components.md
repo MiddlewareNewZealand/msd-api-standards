@@ -32,7 +32,8 @@ API Providers MUST provide diagrams describing an API Consumer's journey when in
 </Standard>
 
 The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. 
-<Standard id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD"> Diagrams SHOULD be available via a web experience.
+<Standard id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD"> 
+Diagrams SHOULD be available via a web experience.
  </Standard> 
 
 ### **Developer documentation**
@@ -41,7 +42,9 @@ The API Provider can choose the diagram type that best represents their API, tho
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  <Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD"> Developer documentation SHOULD be available via a web experience.</Standard> 
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  
+<Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD"> Developer documentation SHOULD be available via a web experience.
+</Standard> 
 
 ## **Terms and conditions**
 
@@ -85,5 +88,6 @@ Throttling thresholds SHOULD be available via the same web experience as the res
 API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
 </Standard>
 
-<Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">SLA's SHOULD be available via a web experience 
+<Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">
+SLA's SHOULD be available via a web experience 
 </Standard>
