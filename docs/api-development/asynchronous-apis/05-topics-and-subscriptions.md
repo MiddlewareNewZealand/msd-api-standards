@@ -18,7 +18,7 @@ A general topic design pattern: `{domain}/{action}/{identifier}` — for example
 
 Consider an entitlement_status_changed event. Multiple parties are likely interested — for example, a central reporting system that wants every such event, and a specific service centre that only wants events for its own caseload. A flat topic like entitlement/status-changed doesn't let the service centre filter to just its own clients. A richer hierarchy does:
 
-```
+```text
 entitlement/status-changed/{serviceCentreId}/{clientId}
 ```
 

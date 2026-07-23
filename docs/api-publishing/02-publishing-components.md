@@ -31,10 +31,10 @@ Business context SHOULD be available via a web experience, e.g. the MSD Develope
 API Providers MUST provide diagrams describing an API Consumer's journey when interacting with the published API.
 </Standard>
 
-The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended. 
-<Standard id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD"> 
+The API Provider can choose the diagram type that best represents their API, though UML sequence diagrams are recommended.
+<Standard id="MSDAS_SHOULD_DIAGRAMS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD">
 Diagrams SHOULD be available via a web experience.
- </Standard> 
+</Standard>
 
 ### **Developer documentation**
 
@@ -42,9 +42,11 @@ Diagrams SHOULD be available via a web experience.
 API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
-For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.  
-<Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD"> Developer documentation SHOULD be available via a web experience.
-</Standard> 
+For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.
+
+<Standard id="MSDAS_SHOULD_DEVELOPER_DOCUMENTATION_AVAILABLE_WEB" type="SHOULD">
+Developer documentation SHOULD be available via a web experience.
+</Standard>
 
 ## **Terms and conditions**
 
@@ -58,8 +60,9 @@ API Providers MUST publish terms and conditions that set out the rules API Consu
 API Providers MUST provide a developer onboarding function enabling API Consumer developers to create and manage client application credentials and request application-level access to APIs.
 </Standard>
 
-<Standard id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD"> This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
-</Standard> 
+<Standard id="MSDAS_SHOULD_DEVELOPER_ONBOARDING_AUTHENTICATED_WEB" type="SHOULD">
+This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+</Standard>
 
 ## **Service level agreements (SLA)**
 
@@ -70,16 +73,17 @@ API Providers MUST publish service level agreements defining their commitments a
 Common SLAs include: API availability (uptime); latency; and request throughput (requests permitted in a given timeframe).
 
 ### **Throttling thresholds**
+
 Publishing a throughput figure isn't sufficient on its own — API Consumers need to know the specific mechanics of how it is enforced, so they work within those limits rather than discovering them through failed calls in production.
-<Standard id="API_THROTTLING_PUBLISH_QUOTA" type="MUST">
+<Standard id="MSDAS_MUST_API_THROTTLING_PUBLISH_QUOTA" type="MUST">
 Where an API applies request throttling, the API Provider MUST publish: the request quota (e.g. requests per minute/hour) the threshold applies to; whether burst traffic above the sustained quota is permitted, and by how much; and the consumer identity the quota is scoped to (e.g. per client credential, per IP, or per end-user token) — since these produce materially different integration patterns.
 </Standard>
 
-<Standard id="API_THROTTLING_REJECTION_HTTP429" type="MUST">
+<Standard id="MSDAS_MUST_API_THROTTLING_REJECTION_HTTP429" type="MUST">
 When a request is rejected for exceeding a throttling threshold, the API MUST return an HTTP 429 (Too Many Requests) response, and SHOULD include a `Retry-After` header indicating how long the consumer should wait before retrying.
 </Standard>
 
-<Standard id="API_INCLUDE_RESPONSE_HEADERS" type="SHOULD">
+<Standard id="MSDAS_SHOULD_API_INCLUDE_RESPONSE_HEADERS" type="SHOULD">
 Where an API supports it, response headers indicating current quota consumption  SHOULD be returned on every response, letting well-behaved consumers self-throttle before hitting the limit rather than after.
 Throttling thresholds SHOULD be available via the same web experience as the rest of an API's SLA (see above), and MAY vary by SLA tier where tiering is offered.
 </Standard>
@@ -88,6 +92,4 @@ Throttling thresholds SHOULD be available via the same web experience as the res
 API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
 </Standard>
 
-<Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">
-SLA's SHOULD be available via a web experience 
-</Standard>
+SLAs <Standard inline id="MSDAS_SHOULD_SLAS_AVAILABLE_WEB_EXPERIENCE" type="SHOULD" toolTip="SLAs should be available via a web experience.">SHOULD</Standard> be available via a web experience.

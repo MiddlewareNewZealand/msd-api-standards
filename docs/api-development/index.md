@@ -2,6 +2,7 @@
 title: "API Development"
 ---
 
+<!-- markdownlint-disable-next-line MD036 -->
 *DRAFT v0.1*
 
 This section is aimed at API Providers and API Consumers building on MSD's API platform. It provides detailed standards to guide the development of consistent, well-designed APIs, and the rules that consuming applications should follow.

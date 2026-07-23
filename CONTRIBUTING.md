@@ -44,3 +44,29 @@ If you’re not sure why it wasn’t accepted, it’s perfectly reasonable to as
 ### Your contribution gets accepted
 
 When the SOF accepts your PR, they will merge it and your changes will shortly be reflected in the [working draft version](hhttps://temanatuwhakahiatoora.github.io/msd-api-standards/draft). All going well, your change will also be incorporated into the next [published version](https://temanatuwhakahiatoora.github.io/standards-template) of the Standards.
+
+## Authoring `<Standard>` tags
+
+Every normative rule in the docs is wrapped in a `<Standard>` component. Two forms:
+
+**Block** (standalone callout) — tag, content, and closing tag each on their own line:
+
+```mdx
+<Standard id="MSDAS_MUST_X_NOTATION_HEADERS" type="MUST">
+Providers must not use X- notation headers.
+</Standard>
+```
+
+**Inline** (keyword within a sentence) — requires `inline` and an explicit `toolTip` with the full statement, since the children are just the keyword:
+
+```mdx
+API Keys <Standard inline id="MSDAS_MUST_API_KEYS_USED" type="MUST" toolTip="API Keys must be used wherever system-to-system authentication is needed.">must</Standard> be used wherever system-to-system authentication is needed.
+```
+
+Rules:
+
+- `id` must match `MSDAS_<TYPE>_...`, where `<TYPE>` is `MUST`, `MUST_NOT`, `SHOULD`, `SHOULD_NOT`, or `MAY` — the *canonical* RFC 2119 group, even if `type` uses a synonym (e.g. `type="REQUIRED"` still gets an `MSDAS_MUST_...` id).
+- `id` is not required for non-normative callouts: `type="INFO"`, `"EXAMPLE"`, or `"NOTE"`.
+- Content crammed onto the same line as `<Standard>` or `</Standard>` (block form) can break the MDX build — always put it on its own line.
+
+Run `npm run validate:standards` to check your changes before pushing (pre-commit and CI also run it).

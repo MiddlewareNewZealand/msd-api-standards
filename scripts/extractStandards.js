@@ -34,13 +34,15 @@ function extractDataFromHTML(filePath, standardsIds, htmlContent, excludeDraft) 
     const content = $element.attr("data-extended-text");
     const id = $element.attr("id");
 
+    const idLabel = id ?? "(missing id)";
+
     // Check for duplicate IDs
     if (standardsIds.has(id)) {
       if (standardsContent[id] !== content) {
         console.log(standardsContent[id], content);
         // An unintentional dupe has been written with different content for the same rule
-        if (excludeDraft) duplicates.add(id);
-        else draftDuplicates.add(id);
+        if (excludeDraft) duplicates.add(`${idLabel} (${filePath})`);
+        else draftDuplicates.add(`${idLabel} (${filePath})`);
       }
       else {
         // This is just the second time this rule's been used; skip it from the checklist
@@ -49,17 +51,16 @@ function extractDataFromHTML(filePath, standardsIds, htmlContent, excludeDraft) 
     }
 
     // Check the format against the regex
-    if (!idFormatRegex.test(id)) {
-      if (excludeDraft) invalid.add(id);
-      else draftInvalid.add(id);
+    if (!id || !idFormatRegex.test(id)) {
+      if (excludeDraft) invalid.add(`${idLabel} (${filePath})`);
+      else draftInvalid.add(`${idLabel} (${filePath})`);
       return;
     }
 
     // Check that `type` is valid and matches ID
     if (!standardTypes.includes(standardType) || !id.startsWith(`MSDAS_${standardType.replace(' ', '_')}`)) {
-      console.log(standardTypes.includes(standardType), id.startsWith(`MSDAS_${standardType.replace(' ', '_')}`), standardType, id);
-      if (excludeDraft) invalid.add(id);
-      else draftInvalid.add(id);
+      if (excludeDraft) invalid.add(`${idLabel} (${filePath})`);
+      else draftInvalid.add(`${idLabel} (${filePath})`);
       return;
     }
 
@@ -147,10 +148,10 @@ async function main() {
     const draftData = processDirectory(draftDir);
 
     if (draftDuplicates.size > 0) {
-      console.log(`Duplicate Standards ID found: ${[...duplicates].join("\n")}`);
+      console.log(`Duplicate Standards ID found: ${[...draftDuplicates].join("\n")}`);
     }
     if (draftInvalid.size > 0) {
-      console.log(`Invalid Standards ID found: ${[...invalid].join("\n")}`);
+      console.log(`Invalid Standards ID found: ${[...draftInvalid].join("\n")}`);
     }
     if (draftDuplicates.size > 0 || draftInvalid.size > 0) {
       throw new Error("Duplicate or invalid Standards ID found. Please fix the issues before proceeding.");
@@ -159,6 +160,7 @@ async function main() {
     writeOutput(draftData, draftOutputFilePath, baseUrl);
   } catch (error) {
     console.error(`Error during processing: ${error.message}`);
+    process.exitCode = 1;
   }
 }
 
