@@ -1,7 +1,6 @@
 ---
-title: "HTTP Headers"
+title: HTTP Headers
 ---
-
 ## **Request headers**
 
 | Header | Usage | Requirement |

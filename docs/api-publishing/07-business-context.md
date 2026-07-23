@@ -1,12 +1,11 @@
 ---
-title: "Business Context"
+title: Business Context
 ---
-
 The business context section of an API's documentation sets out the business outcomes achieved through use of the API, its value proposition, and the wider context for developers and integrating parties. It can include background information useful to consumers, and typically links forward to relevant use case diagrams.
 
 ## **Example**
 
-**\*\*\*Add business context diagram**
+**&#42;&#42;&#42;Add business context diagram**
 
 The following illustrates business context provided alongside an MSD Client Support Plan API.
 
