@@ -1,5 +1,5 @@
 ---
-title: "API Specifications"
+title: "Example API Specification"
 ---
 
 import Link from '@docusaurus/Link';
