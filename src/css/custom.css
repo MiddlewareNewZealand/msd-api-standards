@@ -3774,6 +3774,29 @@ h2+.rich-text--highlight {
   --msd-nav-child-bg-hover: #cbdde5;
 }
 
+/* The sidebar nav scrolls independently from the page (Docusaurus default:
+   it's sticky so long sidebars stay reachable while you scroll a long doc).
+   That's worth keeping, but showing its own scrollbar next to the page's
+   reads as two competing scrollbars. Hide it until the sidebar is actually
+   being interacted with, then reveal it. The scroll container is the <nav
+   class="menu thin-scrollbar"> itself, not the .theme-doc-sidebar-menu <ul>
+   nested inside it — target it via the stable docSidebarContainer wrapper. */
+.theme-doc-sidebar-container .menu.thin-scrollbar {
+  scrollbar-width: none;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar:hover,
+.theme-doc-sidebar-container .menu.thin-scrollbar:focus-within {
+  scrollbar-width: thin;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar:hover::-webkit-scrollbar,
+.theme-doc-sidebar-container .menu.thin-scrollbar:focus-within::-webkit-scrollbar {
+  width: var(--ifm-scrollbar-size);
+}
+
 /* Flush tiles: drop Infima's list padding and per-item top spacing */
 .theme-doc-sidebar-menu.menu__list,
 .theme-doc-sidebar-menu .menu__list {
