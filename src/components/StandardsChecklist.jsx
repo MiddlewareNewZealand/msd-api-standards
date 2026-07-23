@@ -11,10 +11,9 @@ const RFC_DEFINITIONS = {
 
 const SECTIONS = {
   'All sections': '',
-  // 'Part B: API Security': '/api-security/',
-  // 'Part C: API Design and Development Standards': '/api-development/',
-  // 'Part D: HL7 FHIR API Design and Development Standards': '/fhir-api-standard/',
-  // 'Part E: API Publishing Standards': '/api-publishing/'
+  'Part B: API Security': '/api-security/',
+  'Part C: API Development': '/api-development/',
+  'Part D: API Publishing': '/api-publishing/',
 };
 
 const StandardsChecklist = () => {
