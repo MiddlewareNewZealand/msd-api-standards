@@ -4,7 +4,7 @@ title: "Search APIs"
 
 Search capability is an important component of many REST APIs, used to find resources within a collection (see Content, Singletons vs. collections) that meet the API Consumer's requirements. There are two common ways to search a collection: GET with query parameters, or POST with query parameters in a request body. Both are supported by this standard, but the choice carries real security implications.
 
-| | GET | POST |
+| Aspect | GET | POST |
 | --- | --- | --- |
 | Description | Retrieve resources from a collection matching parameters in a query string, e.g. GET /clients?status=active | Retrieve resources from a collection matching parameters in a request body, e.g. `POST /clients {"status":"active"}` |
 | Considerations | Generally considered less secure than POST, since components in the HTTP(S) path (browsers, proxy servers) can log or cache full URLs. Very complex searches may hit URL/query-string length limits (server- and client-dependent, e.g. ~8KB Apache, ~16KB IIS, ~2KB in many browsers) — if this happens, POST SHOULD be used instead. | Generally considered more secure, since request-body parameters are encrypted in transit under HTTPS, preventing intermediary components from decrypting and logging them. Use when the search query itself contains sensitive or personal identifying information. |

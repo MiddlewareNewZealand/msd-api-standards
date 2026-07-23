@@ -457,7 +457,7 @@ h2+.rich-text--highlight {
 
 .btn--primary {
   --btn-bg: var(--color-accent-100);
-  --btn-color: var(--color-secondary-100);
+  --btn-color: var(--color-white);
   --btn-color-hover: var(--color-primary-100);
   --btn-bg-hover: var(--color-accent-25)
 }
@@ -593,7 +593,7 @@ h2+.rich-text--highlight {
 
 .site-alert__decorator {
   background: var(--decorator-bg-color);
-  color: var(--color-primary-100);
+  color: var(--color-white);
   padding-top: 0.625rem;
   display: grid;
   justify-content: center
@@ -3774,6 +3774,29 @@ h2+.rich-text--highlight {
   --msd-nav-child-bg-hover: #cbdde5;
 }
 
+/* The sidebar nav scrolls independently from the page (Docusaurus default:
+   it's sticky so long sidebars stay reachable while you scroll a long doc).
+   That's worth keeping, but showing its own scrollbar next to the page's
+   reads as two competing scrollbars. Hide it until the sidebar is actually
+   being interacted with, then reveal it. The scroll container is the <nav
+   class="menu thin-scrollbar"> itself, not the .theme-doc-sidebar-menu <ul>
+   nested inside it — target it via the stable docSidebarContainer wrapper. */
+.theme-doc-sidebar-container .menu.thin-scrollbar {
+  scrollbar-width: none;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar:hover,
+.theme-doc-sidebar-container .menu.thin-scrollbar:focus-within {
+  scrollbar-width: thin;
+}
+.theme-doc-sidebar-container .menu.thin-scrollbar:hover::-webkit-scrollbar,
+.theme-doc-sidebar-container .menu.thin-scrollbar:focus-within::-webkit-scrollbar {
+  width: var(--ifm-scrollbar-size);
+}
+
 /* Flush tiles: drop Infima's list padding and per-item top spacing */
 .theme-doc-sidebar-menu.menu__list,
 .theme-doc-sidebar-menu .menu__list {
@@ -3969,4 +3992,91 @@ h2+.rich-text--highlight {
 #footer,
 .footer {
   --ifm-footer-background-color: #303030;
+}
+
+/* ------------------------------------------------------------------ */
+/* Dark mode. The brand tokens above are tuned for msd.govt.nz, which is */
+/* light-only — body text, headings, nav links and icons all use navy/  */
+/* near-black colours that were fine against a white page but read as   */
+/* near-invisible once the visitor switches to Infima's dark background.*/
+/* --color-text drives body copy (and, by inheritance, breadcrumbs,     */
+/* pagination and the navbar's icon buttons, none of which set their    */
+/* own colour); the rest are the handful of hardcoded hex values that   */
+/* don't route through a variable. All replacements stay inside the     */
+/* existing MSD palette above and were checked to keep at least a 4.5:1 */
+/* contrast ratio against Infima's dark background/navbar.              */
+/* ------------------------------------------------------------------ */
+[data-theme='dark'] {
+  --color-text: var(--color-secondary-5);
+  --ifm-color-primary: var(--color-primary-25);
+  --ifm-navbar-link-color: var(--color-primary-25);
+  --ifm-navbar-link-hover-color: var(--color-accent-50);
+  --ifm-menu-color-active: var(--color-accent-50);
+  --ifm-breadcrumb-color-active: var(--color-text);
+  /* --msd-nav-child-bg(-hover) size the pale blue-grey sidebar tiles
+     (#dbe7ec/#cbdde5) — near-white and glaring against Infima's dark page.
+     Swap in the palette's dark navy tones instead, so tiles read as a
+     subtly-lit surface rather than a lit-up rectangle. */
+  --msd-nav-child-bg: var(--color-secondary-100);
+  --msd-nav-child-bg-hover: var(--color-secondary-75);
+}
+
+/* The tile background above is variable-driven and updates automatically,
+   but the link text/hover colours are hardcoded for the light tile
+   (#212121 text, dark-red hover) and need their own dark-mode swap. */
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link,
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link--active {
+  color: var(--color-secondary-5);
+}
+
+[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
+  color: var(--color-accent-25);
+}
+
+[data-theme='dark'] .markdown h1,
+[data-theme='dark'] .markdown h1#__docusaurus_skipToContent_fallback,
+[data-theme='dark'] article h1,
+[data-theme='dark'] .markdown h2,
+[data-theme='dark'] article h2 {
+  color: var(--color-accent-75);
+}
+
+[data-theme='dark'] .markdown h3,
+[data-theme='dark'] .markdown h4,
+[data-theme='dark'] .markdown h5,
+[data-theme='dark'] .markdown h6,
+[data-theme='dark'] article h3 {
+  color: var(--color-text);
+}
+
+/* Inline MUST/SHOULD/MAY keyword and the <Standard> callout's prose both
+   sit directly on the page background (not a coloured chip), so they need
+   the same lightened treatment as the headings above. */
+[data-theme='dark'] .standard-inline {
+  color: var(--color-accent-75);
+}
+
+[data-theme='dark'] a {
+  text-decoration-color: var(--color-accent-50);
+}
+
+[data-theme='dark'] a:hover {
+  color: var(--color-accent-75);
+  text-decoration-color: var(--color-accent-75);
+}
+
+[data-theme='dark'] .long-description,
+[data-theme='dark'] .long-description summary {
+  color: var(--color-primary-25);
+}
+
+[data-theme='dark'] .long-description {
+  border-bottom-color: var(--color-primary-25) !important;
+  border-top-color: var(--color-primary-25);
+}
+
+/* ic-expand.svg is a navy (#369) icon baked into a background-image, so it
+   can't take a CSS color — brighten it instead so it's visible on dark. */
+[data-theme='dark'] .long-description summary:before {
+  filter: brightness(1.8);
 }

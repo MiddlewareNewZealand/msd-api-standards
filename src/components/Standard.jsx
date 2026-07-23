@@ -114,7 +114,13 @@ function Standard({ id, type, toolTip, inline, children }) {
   if (inline) {
     return (
       <>
-        <span className="standard-inline" {...keywordProps}>
+        <span
+          className="standard-inline"
+          tabIndex={0}
+          role="button"
+          aria-label={toolTip}
+          {...keywordProps}
+        >
           {children}
         </span>
         {id ? <Tooltip id={id} place="bottom" /> : null}

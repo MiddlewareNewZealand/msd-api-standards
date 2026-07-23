@@ -2,12 +2,27 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const {themes} = require('prism-react-renderer');
-const lightTheme = themes.github;
+const lightTheme = themes.vsLight;
 const darkTheme = themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 module.exports = async function createConfig() {
   const { remarkKroki } = await import('remark-kroki');
+  const { visit } = await import('unist-util-visit');
+
+  // Markdown tables render <th> only in the header row (GFM tables have no
+  // row headers), so every <th> here is a column header missing scope="col".
+  const rehypeTableHeaderScope = () => (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'th') {
+        node.properties = node.properties || {};
+        if (!node.properties.scope) {
+          node.properties.scope = 'col';
+        }
+      }
+    });
+  };
+
   return {
     title: 'Ministry of Social Development | API Standards',
     favicon: '/msd-api-standards/img/favicon.ico',
@@ -73,6 +88,7 @@ module.exports = async function createConfig() {
                 }
               ]
             ],
+            rehypePlugins: [rehypeTableHeaderScope],
             versions: {
               current: {
                 label: 'Draft',
@@ -91,8 +107,7 @@ module.exports = async function createConfig() {
       ({
         colorMode: {
           defaultMode: 'light',
-          disableSwitch: true,
-          // MSD is light-only — ignore the visitor's OS dark preference
+          disableSwitch: false,
           respectPrefersColorScheme: false,
         },
         navbar: {
@@ -181,20 +196,6 @@ module.exports = async function createConfig() {
             hashed: true,
             indexBlog: false,
             docsRouteBasePath: '/',
-          }),
-        ],
-      ],
-      plugins: [
-        [
-          '@docusaurus/plugin-client-redirects',
-          /** @type {import('@docusaurus/plugin-client-redirects').Options} */
-          ({
-            redirects: [
-              {
-                from: '/',
-                to: '/draft',
-              },
-            ],
           }),
         ],
       ],
