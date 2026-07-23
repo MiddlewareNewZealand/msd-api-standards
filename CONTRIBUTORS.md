@@ -21,3 +21,5 @@ The contents of this page is displayed on the deployed website at /community/con
 * [David Grainger](https://github.com/dgrainge-mwnz)
 * [Chris Watts](https://github.com/ChrisSquats)
 * [Daniel Thompson](https://github.com/daniel-thomson)
+* [Lee Dowsett](https://github.com/lee-source814)
+* [Peter Glassey](https://github.com/peterglassey-mwnz)
