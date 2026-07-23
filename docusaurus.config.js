@@ -91,8 +91,7 @@ module.exports = async function createConfig() {
       ({
         colorMode: {
           defaultMode: 'light',
-          disableSwitch: true,
-          // MSD is light-only — ignore the visitor's OS dark preference
+          disableSwitch: false,
           respectPrefersColorScheme: false,
         },
         navbar: {
