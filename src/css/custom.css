@@ -457,7 +457,7 @@ h2+.rich-text--highlight {
 
 .btn--primary {
   --btn-bg: var(--color-accent-100);
-  --btn-color: var(--color-secondary-100);
+  --btn-color: var(--color-white);
   --btn-color-hover: var(--color-primary-100);
   --btn-bg-hover: var(--color-accent-25)
 }
@@ -593,7 +593,7 @@ h2+.rich-text--highlight {
 
 .site-alert__decorator {
   background: var(--decorator-bg-color);
-  color: var(--color-primary-100);
+  color: var(--color-white);
   padding-top: 0.625rem;
   display: grid;
   justify-content: center

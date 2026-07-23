@@ -68,7 +68,7 @@ Social sector clients, whānau, iwi and community providers interact with API Co
 @startuml
 
 skinparam {
-    defaultFontColor #4080a9
+    defaultFontColor #1c5773
     defaultBackgroundColor #d7f8ff
     defaultComponentColour #61d9de
     defaultActorColour #61d9de
@@ -95,7 +95,7 @@ rectangle "Social Sector Organisations" {
 @startuml
 
 skinparam {
-    defaultFontColor #4080a9
+    defaultFontColor #1c5773
     defaultBackgroundColor #d7f8ff
     defaultComponentColour #61d9de
     defaultActorColour #61d9de
@@ -123,7 +123,7 @@ rectangle MSD {
 @startuml
 
 skinparam {
-    defaultFontColor #4080a9
+    defaultFontColor #1c5773
     defaultBackgroundColor #d7f8ff
     defaultComponentColour #61d9de
     defaultActorColour #61d9de
@@ -151,7 +151,7 @@ rectangle "Social Sector Participants" as HSP {
 @startuml
 
 skinparam {
-    defaultFontColor #4080a9
+    defaultFontColor #1c5773
     defaultBackgroundColor #d7f8ff
     defaultComponentColour #61d9de
     defaultActorColour #61d9de
@@ -177,7 +177,7 @@ rectangle "MSD Workforce"  as HWF {
 @startuml
 
 skinparam {
-    defaultFontColor #4080a9
+    defaultFontColor #1c5773
     defaultBackgroundColor #d7f8ff
     defaultComponentColour #61d9de
     defaultActorColour #61d9de

@@ -30,8 +30,9 @@ An API is an interface that allows one software application to communicate with 
 
 - APIs accessed via the http(s) protocol.
 
-| INFO An API should not be confused with a service. Web services are APIs, but not all APIs are web services. This document is concerned with web APIs that support interoperability, not with software engineering principles generally. |
-| --- |
+<Standard type="INFO">
+An API should not be confused with a service. Web services are APIs, but not all APIs are web services. This document is concerned with web APIs that support interoperability, not with software engineering principles generally.
+</Standard>
 
 ### **Interoperability**
 
