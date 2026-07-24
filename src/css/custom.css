@@ -3930,6 +3930,14 @@ h2+.rich-text--highlight {
   width: auto;
 }
 
+/* The sidebar's menu list carries Infima's default 8px left padding, so
+   its items (and the "MSD API Standards" heading) sit 8px right of the
+   sidebar container's true edge. Nudge the logo the same 8px so it lines
+   up with that visible edge instead of hanging over to its left. */
+.navbar__brand {
+  padding-left: 8px;
+}
+
 /* ------------------------------------------------------------------ */
 /* MSD search widget — matches msd.govt.nz's #header #tools .search:   */
 /* a white 40px-tall pill (border 1px #7a7a7a, radius 9px) with a      */
