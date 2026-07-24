@@ -83,13 +83,15 @@ rectangle "Social Sector Organisations" {
     component "API Provider"  as AP
     actor "Application Developer" as APPD
     actor "API Developer" as APID
+    actor "API Designer" as APDS
     APPD .[#green,dashed,thickness=8].> AC
     APID .[#green,dashed,thickness=8].> AP
+    APDS .[#green,dashed,thickness=8].> AP : designs
 }
 @enduml
 ```
 
-<DetailedDescription text="This shows the relationships between actors in social sector organisations. An API Developer at a Social Sector Organisation is an API Provider, and an Application Developer is an API consumer." />
+<DetailedDescription text="This shows the relationships between actors in social sector organisations. An API Developer at a Social Sector Organisation builds and operates an API Provider, an API Designer designs that API Provider, and an Application Developer builds and operates an API Consumer." />
 
 ```plantuml alt="Diagram showing API Developer interactions within MSD"
 @startuml
@@ -164,14 +166,16 @@ skinparam {
 rectangle "MSD Workforce"  as HWF {
     actor "MSD\nWorkforce" as TWOWF
     actor "Community Provider Workforce" as PW
+    actor "Social Sector Worker" as SSW
     component "API Consumer" as AC
     TWOWF .[#green,dashed,thickness=8].> AC
     PW .[#green,dashed,thickness=8].> AC
+    SSW .[#green,dashed,thickness=8].> AC
 }
 @enduml
 ```
 
-<DetailedDescription text="The MSD Workforce API Consumption diagram illustrates the relationships and flows between the MSD Workforce and Community Provider Workforce actors, who both interact with the API Consumer." />
+<DetailedDescription text="The MSD Workforce API Consumption diagram illustrates the relationships and flows between the MSD Workforce, Community Provider Workforce and Social Sector Worker actors, who all interact with the API Consumer." />
 
 ```plantuml alt="Diagram showing Message Producers publishing messages"
 @startuml

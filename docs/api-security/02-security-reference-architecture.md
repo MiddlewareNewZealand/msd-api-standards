@@ -12,6 +12,42 @@ Identity and access management defines the actors (users and devices) who intera
 
 The components defined remain valid regardless of the API hosting architecture used (internal, cloud, or hybrid).
 
+```plantuml alt="Diagram showing the API Security Reference Architecture components and actors"
+@startuml
+
+skinparam {
+    defaultFontColor #1c5773
+    defaultBackgroundColor #d7f8ff
+    defaultComponentColour #61d9de
+    defaultActorColour #61d9de
+    defaultFontSize 16
+    defaultArrowThickness 6
+    actorStyle awesome
+    linetype polyline
+}
+
+rectangle "API Security Reference Architecture" {
+    actor "Internal Staff and\nExternal Developers" as DEV
+    actor "Social Sector Participants" as SSP
+    component "API Consumer" as AC
+    component "API Portal" as PORTAL
+    component "API Manager" as MANAGER
+    component "API Gateway" as GATEWAY
+    component "Event Broker" as BROKER
+    component "Credential Stores" as CREDS
+
+    DEV .[#green,dashed,thickness=8].> PORTAL
+    SSP .[#green,dashed,thickness=8].> AC
+    AC .[#green,dashed,thickness=8].> GATEWAY
+    MANAGER .[#green,dashed,thickness=8].> GATEWAY
+    GATEWAY .[#green,dashed,thickness=8].> CREDS
+    GATEWAY .[#green,dashed,thickness=8].> BROKER
+}
+@enduml
+```
+
+<DetailedDescription text="This shows Social Sector Participants using an API Consumer to send requests to the API Gateway, which enforces policy configured via the API Manager, looks up credentials in the Credential Stores, and routes events to the Event Broker, while Internal Staff and External Developers register and discover APIs through the API Portal." />
+
 | Core component | Description |
 | :---- | :---- |
 | API Portal | Provides discovery of APIs, analytics to monitor usage, access to specifications and SLAs, and support for the development, build and test of consuming applications. |

@@ -26,4 +26,38 @@ The table below sets out an example use case for an MSD Entitlement Status API, 
 The diagram type is at the API Provider's discretion, though UML sequence diagrams are recommended (see Publishing Components, Diagrams).
 </Standard>
 
-**&#42;&#42;&#42;&#42;add sequence diagram example**
+```plantuml alt="Sequence diagram showing the Entitlement Status API use case"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+actor "Case Manager" as CaseManager
+participant "MSD Case Management System" as CMS
+participant "Entitlement Status API" as API
+participant "Delivery Partner Application" as Partner
+actor "Aroha Ngata" as Aroha
+
+CaseManager -> CMS : Updates Aroha's entitlement status
+CMS -> API : Publishes entitlement status change
+Partner -> API : Calls API for current status
+API --> Partner : Returns current entitlement status
+Partner -> Aroha : Surfaces updated status
+
+@enduml
+```
+
+<DetailedDescription text="This sequence diagram shows the Case Manager updating Aroha Ngata's entitlement status in the MSD Case Management System, which publishes the change to the Entitlement Status API. A delivery partner application then calls the API and surfaces the current status back to Aroha." />

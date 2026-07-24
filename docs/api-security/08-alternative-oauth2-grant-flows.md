@@ -40,3 +40,49 @@ MSD may use the Backend for Frontend pattern for single-page applications that n
 </Standard>
 
 In this pattern, a user interacts with the API Consumer application, which communicates with a Backend for Frontend service sitting within the API Provider's (or the consumer's own) infrastructure. The BFF service requests authorisation from the authorisation server, redirecting the user to grant consent; on receiving an authorisation code, it exchanges this for access and refresh tokens on the user's behalf, then uses the access token to retrieve the requested resource, which it returns to the API Consumer application. This keeps tokens out of the browser entirely, closing off the main risk PKCE alone doesn't fully address for sensitive, IN-CONFIDENCE data.
+
+```plantuml alt="Sequence diagram showing the Backend for Frontend (BFF) pattern"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+actor "User" as User
+participant "API Consumer\n(Single-Page Application)" as SPA
+participant "Backend for Frontend" as BFF
+participant "Authorisation Server" as AS
+participant "Resource Server" as RS
+
+User -> SPA : Interact with application
+SPA -> BFF : Request protected resource
+BFF -> AS : Request authorisation
+AS -> User : Redirect to authenticate and consent
+User -> AS : Authenticate and consent
+AS --> BFF : Authorisation code
+BFF -> AS : Exchange code for tokens
+AS --> BFF : Access Token, Refresh Token
+BFF -> RS : API request with Bearer Access Token
+RS --> BFF : Protected resource
+BFF --> SPA : Resource response
+note over BFF
+  Tokens are held server-side
+  by the BFF and never sent
+  to the browser
+end note
+@enduml
+```
+
+<DetailedDescription text="This shows the Backend for Frontend pattern — the API Consumer (SPA) never handles tokens directly; instead the BFF service requests authorisation, exchanges the authorisation code for access and refresh tokens, and calls the Resource Server on the user's behalf, keeping all tokens held server-side and out of the browser." />

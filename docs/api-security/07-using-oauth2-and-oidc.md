@@ -105,6 +105,48 @@ The OIDC Authorisation Code flow (code id\_token) with PKCE must be used when se
 
 This is the most frequently used, and most secure, model for public-facing consumer applications, and can also be used for internal APIs. It's a two-step process: the resource owner authenticates to the API Provider and authorises the API Consumer over TLS; the API Consumer receives a temporary authorisation code; and the API Consumer exchanges that code for an access (and refresh) token over a secure back channel, which may use mTLS.
 
+```plantuml alt="Sequence diagram showing the Authorisation Code Flow with PKCE"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+actor "Social Sector Participant" as SSP
+participant "API Consumer" as AC
+participant "API Provider" as AP
+participant "Resource Server" as RS
+
+AC -> AC : Generate code_verifier,\nderive code_challenge
+AC -> AP : GET /authorize\n(code_challenge, client_id, redirect_uri)
+AP -> SSP : Prompt to authenticate and consent
+SSP -> AP : Authenticate and consent
+AP --> AC : Redirect with authorisation code
+AC -> AP : POST /token\n(authorisation code, code_verifier)
+note right of AP
+  Validates code_verifier
+  against stored code_challenge
+end note
+AP --> AC : Access Token, Refresh Token, ID Token
+AC -> RS : API request with Bearer Access Token
+RS --> AC : Protected resource
+@enduml
+```
+
+<DetailedDescription text="This shows the Authorisation Code Flow with PKCE — the API Consumer generates a code_verifier and code_challenge, the Social Sector Participant authenticates and consents at the API Provider, and the API Consumer then exchanges the returned authorisation code and code_verifier for tokens before calling the Resource Server with the access token." />
+
 ### **PKCE**
 
 <Standard id="MSDAS_MUST_PKCE_USED_SECURING_CONFIDENCE_APIS" type="MUST">
@@ -124,6 +166,48 @@ The Client Credentials flow should be used for server-to-server integration — 
 CIBA adds a “decoupled” authorisation flow: rather than redirecting through a browser, a client or whānau member's authentication device (e.g. their phone) is decoupled from the client application and used to perform authentication and consent independently — the client application and authorisation service don't need to run on, or be linked to, the same device.
 
 In CIBA, the initial authorisation call goes to the backchannel authentication endpoint (/bc-authorize); the authorisation server then delegates authentication and consent to the user's authentication device, which accepts or denies the request. The resulting token can be delivered to the client via one of three sub-flows: Poll (the client polls the authorisation server until approval is received), Ping (the client waits to be notified, then requests the token), or Push (the authorisation server pushes the tokens to the client once approval is received).
+
+```plantuml alt="Sequence diagram showing the CIBA flow with Poll, Ping and Push delivery modes"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+participant "Client App" as Client
+participant "Authorisation Server" as AS
+actor "Authentication Device" as Device
+
+Client -> AS : POST /bc-authorize\n(login_hint, scope)
+AS -> Device : Delegate authentication and consent
+Device -> AS : Accept or deny request
+
+alt Poll
+    Client -> AS : Poll /token until approval received
+    AS --> Client : Access/Refresh/ID Tokens
+else Ping
+    AS -> Client : Notify that approval is ready
+    Client -> AS : Request /token
+    AS --> Client : Access/Refresh/ID Tokens
+else Push
+    AS -> Client : Push Access/Refresh/ID Tokens\nonce approval is received
+end
+@enduml
+```
+
+<DetailedDescription text="This shows the CIBA flow — the Client App calls /bc-authorize, the Authorisation Server delegates authentication and consent to the user's Authentication Device, and the resulting tokens are delivered via one of the Poll, Ping or Push sub-flows." />
 
 <Standard type="INFO">
 CIBA is not yet widely used, and is included here as forward guidance. It's likely to become more common — it's already used in the Payments NZ API Centre Standards — and MSD should watch for adoption in other parts of the NZ public and financial sectors as a signal for when to invest in it.

@@ -12,7 +12,33 @@ These considerations should be defined at the start of any project and driven fr
 
 The Domain of Consideration involves three actors — the Application Developer, the API Developer, and the Social Sector Participant (client, whānau member, provider or social sector worker) — who collaborate within the overall social sector digital ecosystem.
 
-\*\*Add diagram?
+```plantuml alt="Diagram showing the actors within the Domain of Consideration"
+@startuml
+
+skinparam {
+    defaultFontColor #1c5773
+    defaultBackgroundColor #d7f8ff
+    defaultComponentColour #61d9de
+    defaultActorColour #61d9de
+    defaultFontSize 16
+    defaultArrowThickness 6
+    actorStyle awesome
+    linetype polyline
+}
+
+rectangle "Social Sector Digital Ecosystem" {
+    component "API" as API
+    actor "Application Developer" as APPD
+    actor "API Developer" as APID
+    actor "Social Sector Participant" as SSP
+    APPD .[#green,dashed,thickness=8].> API
+    APID .[#green,dashed,thickness=8].> API
+    SSP .[#green,dashed,thickness=8].> API
+}
+@enduml
+```
+
+<DetailedDescription text="This shows the three actors in the Domain of Consideration — the Application Developer, the API Developer, and the Social Sector Participant — who each interact with the API within the overall social sector digital ecosystem." />
 
 ## **Domain of Control**
 
