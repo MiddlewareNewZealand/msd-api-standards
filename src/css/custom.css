@@ -3921,6 +3921,18 @@ h2+.rich-text--highlight {
   box-shadow: none;
 }
 
+/* Infima's default navbar height (3.75rem) is only just taller than the
+   navbar's own vertical padding, leaving no room for the taller MSD
+   wordmark lockup below — it was bleeding a few pixels past the bottom of
+   the navbar into the page content. Grow the navbar itself (rather than
+   shrinking the logo) so the lockup stays fully contained with breathing
+   room above and below. This is a global Infima variable, so the sidebar,
+   TOC and mobile menu — which all offset themselves from it — grow with
+   it automatically. */
+:root {
+  --ifm-navbar-height: 5rem;
+}
+
 /* Give the full MSD wordmark lockup room to breathe */
 .navbar__logo {
   height: 3.7rem;
@@ -4039,10 +4051,43 @@ h2+.rich-text--highlight {
   --ifm-breadcrumb-color-active: var(--color-text);
   /* --msd-nav-child-bg(-hover) size the pale blue-grey sidebar tiles
      (#dbe7ec/#cbdde5) — near-white and glaring against Infima's dark page.
-     Swap in the palette's dark navy tones instead, so tiles read as a
-     subtly-lit surface rather than a lit-up rectangle. */
-  --msd-nav-child-bg: var(--color-secondary-100);
-  --msd-nav-child-bg-hover: var(--color-secondary-75);
+     Swapping in the palette's navy tones (--color-secondary-100/-75) read as
+     jarring saturated-blue tiles against Infima's neutral dark background —
+     the site has no other navy surfaces in dark mode, so it looked like a
+     mistake rather than a deliberate accent. Use neutral greys instead:
+     the same grey as the page body for the resting tile (so tiles read as
+     a subtly-lit surface, not a lit-up rectangle) and the navbar's grey for
+     hover (one step lighter, matching a surface already used elsewhere on
+     the page). Both route through Infima's own dark-theme variables so they
+     stay in sync if the theme's background tokens ever change. */
+  --msd-nav-child-bg: var(--ifm-background-color);
+  --msd-nav-child-bg-hover: var(--ifm-navbar-background-color);
+}
+
+/* The root (home) sidebar tile keeps its navy "section header" look in
+   light mode (see the .theme-doc-sidebar-menu > :first-child rule below),
+   but that same navy reads just as jarring here as it did on the plain
+   tiles above. Swap it for the same header grey used as the other tiles'
+   hover colour, with a lighter tint on hover/active for feedback. */
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link {
+  background: var(--ifm-navbar-background-color);
+  color: var(--color-secondary-5);
+}
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link:hover,
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link--active,
+[data-theme='dark'] .theme-doc-sidebar-menu > .menu__list-item:first-child > .menu__link--active:hover {
+  background: color-mix(in srgb, var(--ifm-navbar-background-color) 80%, white 20%);
+  color: var(--color-secondary-5);
+}
+
+/* Infima's own dark-theme defaults are declared on `html[data-theme=dark]`
+   (element + attribute = higher specificity than a bare [data-theme='dark']
+   selector) and redefine --ifm-toc-border-color to a visible grey, which
+   beats the :root override above regardless of cascade order and brings
+   back the sidebar/TOC divider line in dark mode. Match that selector's
+   specificity exactly so ours wins instead. */
+html[data-theme='dark'] {
+  --ifm-toc-border-color: transparent;
 }
 
 /* The tile background above is variable-driven and updates automatically,
