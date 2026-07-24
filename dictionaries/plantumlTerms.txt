@@ -1,5 +1,6 @@
 AAPD
 allowmixing
+APDS
 APIC
 APIG
 apipa
@@ -13,6 +14,7 @@ autonumber
 benzathine
 consentapp
 CONTMEDSTMT
+CREDS
 crowsfoot
 datamodel
 datatypes
@@ -32,12 +34,14 @@ IBOS
 linetype
 MEDREQ
 MEDSTMT
+MSDAPI
 n'cacheid
 NNXXXX
 nodesep
 norank
 NRPFA
 NZCONDITION
+NZGAPI
 NZMEDICATIONREQUEST
 NZMEDICATIONSTATEMENT
 NZMT

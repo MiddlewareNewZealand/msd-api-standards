@@ -19,3 +19,45 @@ RESTful APIs that embody a process workflow MUST provide a mechanism for the API
 </Standard>
 
 Since process flows are typically specific to the business domain an API supports, it's prudent to implement the specific state model and flow logic in a single logical component — a service orchestrator — for ease of testing and maintenance. The service orchestrator dispatches requests to the services appropriate for the current process position, and keeps track of overall process state; the API itself becomes a facade over the orchestrator. A consumer initiating a process receives a Location header pointing to a status resource; querying that resource at any point returns the current state of the process, however many internal services the orchestrator has since dispatched work to.
+
+```plantuml alt="Sequence diagram showing state retrieval for a process-driven API"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+actor "API Consumer" as Consumer
+participant "API (facade)" as API
+participant "Service Orchestrator" as Orchestrator
+participant "Services" as Services
+
+Consumer -> API: POST /process
+API -> Orchestrator: start process
+Orchestrator -> Services: dispatch work
+Services --> Orchestrator: result
+Orchestrator --> API: process started
+API --> Consumer: 202 Accepted\nLocation: /status/{id}
+
+...time passes, orchestrator continues dispatching work...
+
+Consumer -> API: GET /status/{id}
+API -> Orchestrator: query current state
+Orchestrator --> API: current state
+API --> Consumer: 200 OK\ncurrent state
+@enduml
+```
+
+<DetailedDescription text="An API Consumer starts a process with a POST request and receives a Location header pointing to a status resource. Later, a separate GET request on that status resource returns the process's current state, as tracked by the service orchestrator across whichever backend services it has dispatched work to." />

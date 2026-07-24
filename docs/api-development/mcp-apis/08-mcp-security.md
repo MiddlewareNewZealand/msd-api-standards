@@ -27,3 +27,55 @@ MCP Servers MUST NOT silently change a previously approved Tool's behaviour or d
 <Standard id="MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY_2" type="MUST">
 All Tool invocations that access or modify client or whānau data MUST be logged with sufficient detail to identify the requesting agent, the authenticated user on whose behalf it acted, and the data accessed — consistent with MSD's audit logging obligations for client data generally.
 </Standard>
+
+```plantuml alt="Sequence diagram showing token audience restriction and re-confirmation after a tool changes"
+@startuml
+
+skinparam BackgroundColor #d7f8ff
+skinparam DefaultFontColor #1c5773
+skinparam DefaultFontSize 16
+skinparam ArrowColor #1c5773
+skinparam ArrowThickness 2
+skinparam LifeLineBorderColor #1c5773
+skinparam LifeLineBackgroundColor #ffffff
+skinparam ParticipantBackgroundColor #61d9de
+skinparam ParticipantBorderColor #1c5773
+skinparam ParticipantFontColor #1c5773
+skinparam ActorBackgroundColor #61d9de
+skinparam ActorBorderColor #1c5773
+skinparam ActorFontColor #1c5773
+skinparam NoteBackgroundColor #ffffff
+skinparam NoteBorderColor #1c5773
+
+actor "Human User" as Human
+participant "MCP Host" as Host
+participant "MCP Client" as Client
+participant "Authorisation Server" as Auth
+participant "MCP Server A" as ServerA
+participant "MCP Server B" as ServerB
+
+== Token audience restriction ==
+
+Client -> Auth: request access token\n(audience = MCP Server A)
+Auth --> Client: access token (aud: Server A)
+Client -> ServerA: invoke tool (token aud: Server A)
+ServerA --> Client: 200 OK (audience matches)
+Client -> ServerB: invoke tool (token aud: Server A)
+ServerB --> Client: 401/403 rejected\n(audience does not match)
+
+== Re-confirmation after a tool changes ("rug-pull") ==
+
+Human -> Host: approve Tool X
+Host -> Client: record approval for Tool X
+
+...later, after initial connection...
+
+ServerA -> Client: notify Tool X description\n/behaviour has changed
+Client -> Host: report material change to Tool X
+Host -> Human: request re-confirmation for Tool X
+Human --> Host: re-confirm (or decline)
+Host -> Client: proceed only if re-confirmed
+@enduml
+```
+
+<DetailedDescription text="A Client obtains an access token scoped to MCP Server A's audience; Server A accepts it while Server B rejects the same token because its audience does not match. Separately, when a previously approved Tool's description or behaviour changes after connection, the Server notifies the Client, and the Host requires the human user to re-confirm consent before the Tool can be used again." />
