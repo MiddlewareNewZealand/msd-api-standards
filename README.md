@@ -195,9 +195,9 @@ When documenting simple rules, wrap the rule text in an `Standard` component:
 
 ```jsx
 
-<Standard id="MSDAS_SHOULD_HAVE_HOME_PAGE" type="SHOULD" toolTip="A FHIR IG should have a home page with a clear high level description of the implementation.">
+<Standard id="MSDAS_MUST_ENCRYPT_TOKENS" type="MUST" toolTip="Tokens MUST be encrypted.">
 
-  A FHIR IG **SHOULD** have a home page: "A clear high level description of the implementation"
+  Tokens **MUST** be encrypted.
 
 </Standard>
 
@@ -209,9 +209,9 @@ For more complex rules that span multiple sentences, ensure each sentence is cle
 
 ```jsx
 
-<Standard id="MSDAS_MUST_PUBLISH_CAPABILITY_STATEMENT" type="MUST" toolTip="FHIR APIs MUST publish a CapabilityStatement resource at the {{API_URL}}/metadata endpoint.">
+<Standard id="MSDAS_SHOULD_PUBLISH_MESSAGES_USING_JSON" type="RECOMMENDED">
 
-  FHIR APIs **MUST** publish a **CapabilityStatement** resource at the `{{API_URL}}/metadata` endpoint.
+It's recommended to publish messages using JSON as the data serialisation format. This is becuase given its low barrier to entry, human readability, and broad native language support, over alternatives like Protocol Buffers or FlatBuffers.
 
 </Standard>
 
