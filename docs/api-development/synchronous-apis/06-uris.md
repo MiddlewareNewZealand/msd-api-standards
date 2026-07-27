@@ -32,8 +32,8 @@ It's recommended that the URL makes it clear that it's an API, e.g. https://api.
 
 Header-based versioning is recommended (see Versioning APIs); however, where API infrastructure doesn't readily support it, URL-based versioning is a viable alternative.
 
-<Standard id="MSDAS_SHOULD_URL_BASED_VERSIONING_URI_INCLUDE" type="SHOULD">
-For URL-based versioning, the URI SHOULD include /vN with the major version (N) and v as a prefix. APIs SHOULD NOT include minor version numbers in the path.
+<Standard id="MSDAS_MUST_URL_BASED_VERSIONING_URI_INCLUDE" type="MUST">
+For URL-based versioning, the URI MUST include /vN with the major version (N) and v as a prefix. APIs SHOULD NOT include minor version numbers in the path.
 </Standard>
 
 ```http
