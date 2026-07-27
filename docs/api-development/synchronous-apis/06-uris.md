@@ -32,7 +32,7 @@ It's recommended that the URL makes it clear that it's an API, e.g. https://api.
 
 Header-based versioning is recommended (see Versioning APIs); however, where API infrastructure doesn't readily support it, URL-based versioning is a viable alternative.
 
-For URL-based versioning, the URI MUST include /vN with the major version (N) and v as a prefix. See [Versioning](./11-versioning-apis.md) for more information.
+For URL-based versioning, the URI MUST include /vN with the major version (N) and v as a prefix. See [Versioning](./11-versioning-apis.md#version-control-mechanism) for more information.
 
 ```http
 # Get details for client id 12345 – version 1 of the API
