@@ -21,12 +21,12 @@ The jwt-bearer flow may also be used alongside authorisation code flows, in whic
 
 Functionally similar to the JWT flow, but using a SAML assertion in place of a JWT.
 
-<Standard id="MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER" type="SHOULD NOT">
-SAML assertion flows should not be used for server-to-server flows, and should not use a client-created assertion model. Note the related [MAY guidance](#MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS) below for when they may be used.
+<Standard id="MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER" type="SHOULD NOT">
+SAML assertion flows should not be used for server-to-server flows, and should not use a client-created assertion model. Note the related [MAY guidance](#MSDAS_MAY_USE_SAML_FOR_UNCLASSIFIED_APIS) below for when they may be used.
 </Standard>
 
-<Standard id="MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS" type="MAY">
-SAML assertion flows may be used for UNCLASSIFIED APIs, and may be used with authorisation code flows for IN-CONFIDENCE APIs where a SAML token-endpoint authorisation model is specifically required. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER) above.
+<Standard id="MSDAS_MAY_USE_SAML_FOR_UNCLASSIFIED_APIS" type="MAY">
+SAML assertion flows may be used for UNCLASSIFIED APIs, and may be used with authorisation code flows for IN-CONFIDENCE APIs where a SAML token-endpoint authorisation model is specifically required. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER) above.
 </Standard>
 
 ## **Web application (browser-based) patterns**
@@ -35,7 +35,7 @@ Emerging guidance for OAuth 2.0 in browser-based applications — particularly s
 
 ### **Backend for Frontend (BFF)**
 
-<Standard id="MSDAS_MAY_MSD_USE_BACKEND_FRONTEND_PATTERN" type="MAY">
+<Standard id="MSDAS_MAY_USE_BACKEND_FOR_FRONTEND_PATTERN" type="MAY">
 MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while this guidance remains in draft at the IETF.
 </Standard>
 

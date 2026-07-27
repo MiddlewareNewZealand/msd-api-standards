@@ -4,7 +4,7 @@ title: "Client Authentication and Token Protection"
 
 The role of client authentication in OAuth 2.0 and OpenID Connect is to maintain the integrity and security of the authentication flow, ensuring only authorised API Consumers can interact with API Providers.
 
-<Standard id="MSDAS_SHOULD_ALL_CONFIDENCE_MORE_SENSITIVE_APIS" type="SHOULD">
+<Standard id="MSDAS_SHOULD_SECURE_SENSITIVE_APIS_WITH_CLIENT_AUTHENTICATION" type="SHOULD">
 All IN-CONFIDENCE or more sensitive APIs should be secured using Client Authentication to protect the API endpoints. Tokens issued must be bound to the client.
 </Standard>
 
@@ -32,12 +32,12 @@ Two JWT authentication methods provide a higher level of security than the share
 
 Two variants add mTLS-based trust between the API Consumer and API Provider: self\_signed\_tls\_client\_auth (a self-signed client X.509 certificate) and tls\_client\_auth (a client X.509 certificate issued by a trusted certificate authority). Both add security by establishing two-way trust, at the cost of additional design complexity.
 
-<Standard id="MSDAS_MAY_SELF_SIGNED_TLS_CLIENT_AUTH_USED_TESTING_DEVELOPMENT_ENVIRON" type="MAY">
-self\_signed\_tls\_client\_auth may be used in testing and development environments. tls\_client\_auth may be used in production with a confidential client. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_SELF_SIGNED_TLS_CLIENT_AUTH_USED_PRODUCTION) below on when these methods should not be used.
+<Standard id="MSDAS_MAY_USE_SELF_SIGNED_MTLS_IN_TESTING" type="MAY">
+self\_signed\_tls\_client\_auth may be used in testing and development environments. tls\_client\_auth may be used in production with a confidential client. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_USE_SELF_SIGNED_MTLS_IN_PRODUCTION) below on when these methods should not be used.
 </Standard>
 
-<Standard id="MSDAS_SHOULD_NOT_SELF_SIGNED_TLS_CLIENT_AUTH_USED_PRODUCTION" type="SHOULD NOT">
-self\_signed\_tls\_client\_auth should not be used in production. Public clients should not use either mTLS method (self\_signed\_tls\_client\_auth or tls\_client\_auth). Note the related [MAY guidance](#MSDAS_MAY_SELF_SIGNED_TLS_CLIENT_AUTH_USED_TESTING_DEVELOPMENT_ENVIRON) above on when these methods may be used.
+<Standard id="MSDAS_SHOULD_NOT_USE_SELF_SIGNED_MTLS_IN_PRODUCTION" type="SHOULD NOT">
+self\_signed\_tls\_client\_auth should not be used in production. Public clients should not use either mTLS method (self\_signed\_tls\_client\_auth or tls\_client\_auth). Note the related [MAY guidance](#MSDAS_MAY_USE_SELF_SIGNED_MTLS_IN_TESTING) above on when these methods may be used.
 </Standard>
 
 ## **Token protection**
@@ -49,6 +49,6 @@ A major risk with OAuth 2.0 and OpenID Connect is token theft — where a captur
 | JWK-based Proof of Possession | The API Consumer generates a public/private key pair and a signed DPoP JWT containing its public key. This is sent alongside the token request; the returned access token carries token\_type \= DPoP, binding it to the consumer's public key. The consumer includes a fresh DPoP header (plus the Authorization header) on each resource request, which the provider validates. |
 | Certificate-based Proof of Possession | The API Consumer establishes mTLS with the API Provider when requesting the access token; the provider validates the client certificate and issues the token with a claim containing a hash of that certificate. The resource server validates both the token and the client's certificate on each call. This offers a higher level of security than JWK-based PoP, since it also requires mTLS. |
 
-<Standard id="MSDAS_MAY_DPOP_MODEL_PROTECTING_IN_CONFIDENCE" type="MAY">
+<Standard id="MSDAS_MAY_USE_DPOP_FOR_CONFIDENCE_APIS" type="MAY">
 A DPoP model may be used when protecting IN-CONFIDENCE APIs. Selection of certificate-based or JWK-based PoP should be based on a risk assessment that accounts for the sensitivity of the information exposed by the API.
 </Standard>

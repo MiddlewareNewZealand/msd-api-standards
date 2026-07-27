@@ -4,19 +4,19 @@ title: "Content"
 
 ## **Formats**
 
-<Standard id="MSDAS_SHOULD_REST_APIS_DEFAULT_RETURN_CONTENT" type="SHOULD">
+<Standard id="MSDAS_SHOULD_RETURN_JSON_BY_DEFAULT" type="SHOULD">
 REST APIs SHOULD, by default, return content in JSON format, and SHOULD be human- and machine-readable.
 </Standard>
 
-<Standard id="MSDAS_MUST_RESPONSE_FORMAT_GET_REQUEST_INDICATED" type="MUST">
+<Standard id="MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT" type="MUST">
 The response format for a GET request MUST be indicated by the consumer using the Accept header; the request format for POST/PUT MUST be indicated using the Content-Type header.
 </Standard>
 
-Where JSON is used, it <Standard inline id="MSDAS_MUST_JSON_CONFORM_RFC_7159" type="MUST" toolTip="Where JSON is used, it must conform to RFC 7159.">MUST</Standard> conform to RFC 7159. Textual content <Standard inline id="MSDAS_SHOULD_TEXTUAL_CONTENT_UTF8_ENCODED" type="SHOULD" toolTip="Textual content should be UTF-8 encoded.">SHOULD</Standard> be UTF-8 encoded. Binary data such as images <Standard inline id="MSDAS_SHOULD_NOT_BINARY_DATA_RETURNED_DIRECTLY" type="SHOULD NOT" toolTip="Binary data such as images should not be returned directly in API responses — prefer a hyperlink to the image instead.">SHOULD NOT</Standard> be returned directly in API responses — prefer a hyperlink to the image instead.
+Where JSON is used, it <Standard inline id="MSDAS_MUST_CONFORM_JSON_TO_RFC_7159" type="MUST" toolTip="Where JSON is used, it must conform to RFC 7159.">MUST</Standard> conform to RFC 7159. Textual content <Standard inline id="MSDAS_SHOULD_ENCODE_TEXT_AS_UTF_8" type="SHOULD" toolTip="Textual content should be UTF-8 encoded.">SHOULD</Standard> be UTF-8 encoded. Binary data such as images <Standard inline id="MSDAS_SHOULD_NOT_RETURN_BINARY_DATA_DIRECTLY" type="SHOULD NOT" toolTip="Binary data such as images should not be returned directly in API responses — prefer a hyperlink to the image instead.">SHOULD NOT</Standard> be returned directly in API responses — prefer a hyperlink to the image instead.
 
 ## **Layout**
 
-<Standard id="MSDAS_SHOULD_RESPONSES_JSON_OBJECT_BARE_ARRAY" type="SHOULD">
+<Standard id="MSDAS_SHOULD_RETURN_OBJECT_NOT_BARE_ARRAY" type="SHOULD">
 Responses SHOULD be a JSON object (not a bare array) by default, so metadata and additional top-level properties can be added later without breaking consumers.
 </Standard>
 
@@ -33,13 +33,13 @@ Responses SHOULD be a JSON object (not a bare array) by default, so metadata and
 
 ## **JSON property names**
 
-- Property names <Standard inline id="MSDAS_SHOULD_PROPERTY_NAMES_MEANINGFUL_DEFINED_SEMANTICS" type="SHOULD" toolTip="Property names should be meaningful, with defined semantics.">SHOULD</Standard> be meaningful, with defined semantics.
+- Property names <Standard inline id="MSDAS_SHOULD_USE_MEANINGFUL_PROPERTY_NAMES" type="SHOULD" toolTip="Property names should be meaningful, with defined semantics.">SHOULD</Standard> be meaningful, with defined semantics.
 
-- Property names <Standard inline id="MSDAS_MUST_PROPERTY_NAMES_CAMEL_CASE_ASCII" type="MUST" toolTip="Property names must be camel-case ASCII strings, e.g. exampleProperty.">MUST</Standard> be camel-case ASCII strings, e.g. exampleProperty.
+- Property names <Standard inline id="MSDAS_MUST_USE_CAMEL_CASE_PROPERTY_NAMES" type="MUST" toolTip="Property names must be camel-case ASCII strings, e.g. exampleProperty.">MUST</Standard> be camel-case ASCII strings, e.g. exampleProperty.
 
-- The first character <Standard inline id="MSDAS_MUST_PROPERTY_FIRST_CHARACTER_LETTER_UNDERSCORE" type="MUST" toolTip="The first character of a property name must be a letter or underscore.">MUST</Standard> be a letter or underscore.
+- The first character <Standard inline id="MSDAS_MUST_START_PROPERTY_NAME_WITH_LETTER" type="MUST" toolTip="The first character of a property name must be a letter or underscore.">MUST</Standard> be a letter or underscore.
 
-- Reserved JavaScript keywords <Standard inline id="MSDAS_SHOULD_RESERVED_JAVASCRIPT_KEYWORDS_AVOIDED" type="SHOULD" toolTip="Reserved JavaScript keywords should be avoided in property names.">SHOULD</Standard> be avoided.
+- Reserved JavaScript keywords <Standard inline id="MSDAS_SHOULD_AVOID_RESERVED_JAVASCRIPT_KEYWORDS" type="SHOULD" toolTip="Reserved JavaScript keywords should be avoided in property names.">SHOULD</Standard> be avoided.
 
 ## **Consistency**
 
@@ -51,7 +51,7 @@ Responses SHOULD be a JSON object (not a bare array) by default, so metadata and
 
 A single-item GET (e.g. /clients/12345) returns the fundamental details of that resource; a collection GET (e.g. /clients) returns an array plus related metadata. If a queried collection legitimately has no results (e.g. no appointments scheduled for a given client), the correct response is 200 with an empty array — not 404.
 
-<Standard id="MSDAS_SHOULD_NOT_COLLECTION_RESOURCES_CONTAIN_BINARY_ATTACHMENTS" type="SHOULD NOT">
+<Standard id="MSDAS_SHOULD_NOT_EMBED_BINARY_IN_COLLECTIONS" type="SHOULD NOT">
 Collection resources SHOULD NOT contain binary attachments or other content that would lead to large response payloads.
 </Standard>
 

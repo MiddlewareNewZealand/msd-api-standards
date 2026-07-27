@@ -22,7 +22,7 @@ The table below sets out an example use case for an MSD Entitlement Status API, 
 | MSD Case Management System | The system used by the case manager | Publishes entitlement status change events to the API |
 | Entitlement Status API | Interface for accessing entitlement status information | The MSD API exposing entitlement status to authorised consumers |
 
-<Standard id="MSDAS_SHOULD_DIAGRAM_TYPE_AT_API_PROVIDER" type="SHOULD">
+<Standard id="MSDAS_SHOULD_PREFER_UML_SEQUENCE_DIAGRAMS" type="SHOULD">
 The diagram type is at the API Provider's discretion, though UML sequence diagrams are recommended (see Publishing Components, Diagrams).
 </Standard>
 

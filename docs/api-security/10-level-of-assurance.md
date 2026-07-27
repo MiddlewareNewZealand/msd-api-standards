@@ -6,7 +6,7 @@ Level of Assurance (LoA) supports the OpenID Connect API security framework by c
 
 An LoA (or acr claim) model helps: mitigate the risk of exposing sensitive data to unauthorised users, by defining a required authorisation strength; provide a stronger authentication model that reduces the attack surface; provide a trust model between API Consumers and API Providers; grant granular access to sensitive data, since higher LoA is required for more sensitive data; and ensure the API Consumer has appropriate authorisation to act on behalf of the client.
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_ADOPT_LEVEL_ASSURANCE" type="MUST">
+<Standard id="MSDAS_MUST_ADOPT_LEVEL_OF_ASSURANCE_MODEL" type="MUST">
 API Providers must adopt a Level of Assurance model, applied wherever API Consumers access client or whānau records classified as IN-CONFIDENCE or higher, and must indicate the LoA associated with a client's authentication and authorisation process in any issued tokens.
 </Standard>
 

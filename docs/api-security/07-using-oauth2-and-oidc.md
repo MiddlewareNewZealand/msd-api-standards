@@ -42,7 +42,7 @@ Depending on the grant flow in use, some or all of the following endpoints are e
 | /register | Lets relying parties register a client on the authorisation server. | — |
 | /.well-known/openid-configuration | Returns the API Provider's OAuth 2.0/OIDC configuration and capabilities, including endpoints, algorithms and grant types. | — |
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_CLEARLY_DEFINE_DOCUMENT" type="MUST">
+<Standard id="MSDAS_MUST_DOCUMENT_CONSUMER_ONBOARDING_PROCESS" type="MUST">
 API Providers must clearly define and document their API Consumer onboarding process and requirements.
 </Standard>
 
@@ -50,19 +50,19 @@ API Providers must clearly define and document their API Consumer onboarding pro
 
 OpenID Connect adds two capabilities on top of OAuth 2.0: an ID Token, and a Userinfo endpoint. It's invoked using the openid request scope in the initial authorisation call.
 
-<Standard id="MSDAS_MUST_OPENID_CONNECT_USED_ALL_APIS" type="MUST">
+<Standard id="MSDAS_MUST_USE_OPENID_CONNECT_FOR_SENSITIVE_APIS" type="MUST">
 OpenID Connect must be used with all APIs that expose IN-CONFIDENCE or more sensitive client and whānau information.
 </Standard>
 
 ### **ID Token**
 
-<Standard id="MSDAS_MUST_ID_TOKEN_USED_ALL_APIS" type="MUST">
+<Standard id="MSDAS_MUST_USE_ID_TOKEN_FOR_SENSITIVE_APIS" type="MUST">
 The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information.
 </Standard>
 
 The ID Token is a JWT containing authenticated user information provided by the OpenID Connect server to the API Consumer. It may be used to enforce finer-grained access controls via additional claims; must be signed by an approved algorithm; should include claims that hash the code, state and access token to protect user integrity; may carry additional non-identity metadata (e.g. session details); must have its issuer, audience, nonce and expiry validated by the API Consumer; and may be encrypted.
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_ENSURE_MINIMUM_NUMBER" type="MUST">
+<Standard id="MSDAS_MUST_MINIMISE_IDENTITY_ATTRIBUTES" type="MUST">
 API Providers must ensure only the minimum number of identity attributes needed to meet the API Consumer's request are provided, and must ensure that any ID Token transmitted over TLS via the authorise endpoint does not contain personal or highly sensitive client information (ID Tokens may be returned from the authorise endpoint over TLS, or the token endpoint over mTLS).
 </Standard>
 
@@ -70,7 +70,7 @@ API Providers must ensure only the minimum number of identity attributes needed 
 
 The Userinfo endpoint may be exposed by the API Provider, callable with an access token to obtain the same claims provided in the ID Token, or configured to provide additional claims. OpenID Connect introduces additional scopes (e.g. profile, name, email) detailing specific attributes that can be presented in an ID Token.
 
-<Standard id="MSDAS_MUST_API_PROVIDER_ENSURE_CONSENT_SHARE" type="MUST">
+<Standard id="MSDAS_MUST_OBTAIN_CONSENT_TO_SHARE_ATTRIBUTES" type="MUST">
 The API Provider must ensure consent to share this information has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters.
 </Standard>
 
@@ -78,7 +78,7 @@ The API Provider must ensure consent to share this information has been given by
 
 OAuth 2.0 and OpenID Connect support two client types — Confidential and Public — and eleven grant/response types, each suited to different situations.
 
-<Standard id="MSDAS_MUST_API_PROVIDER_LIMIT_GRANT_TYPES" type="MUST">
+<Standard id="MSDAS_MUST_LIMIT_GRANT_TYPES" type="MUST">
 The API Provider must limit grant types to those agreed and documented for a given API; the API Consumer indicates its desired grant type via the response\_type parameter in its initial authorisation call.
 </Standard>
 
@@ -99,7 +99,7 @@ Confidential clients are websites and services that make secure server-side conn
 
 ### **Authorisation Code Flow with PKCE**
 
-<Standard id="MSDAS_MUST_OIDC_AUTHORISATION_CODE_FLOW_CODE" type="MUST">
+<Standard id="MSDAS_MUST_USE_AUTHORISATION_CODE_FLOW_WITH_PKCE" type="MUST">
 The OIDC Authorisation Code flow (code id\_token) with PKCE must be used when securing IN-CONFIDENCE APIs, together with JWT access and refresh tokens.
 </Standard>
 
@@ -149,7 +149,7 @@ RS --> AC : Protected resource
 
 ### **PKCE**
 
-<Standard id="MSDAS_MUST_PKCE_USED_SECURING_CONFIDENCE_APIS" type="MUST">
+<Standard id="MSDAS_MUST_USE_PKCE_FOR_CONFIDENCE_APIS" type="MUST">
 PKCE must be used when securing IN-CONFIDENCE APIs.
 </Standard>
 

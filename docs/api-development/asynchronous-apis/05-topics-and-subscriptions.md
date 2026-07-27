@@ -4,7 +4,7 @@ title: "Topics and subscriptions"
 
 A Message Producer uses topics to route messages to interested API Consumers; an API Consumer uses topics within its subscriptions to filter the messages it wants to receive. Well-architected, consistent topic design is central to a reusable event-driven API.
 
-<Standard id="MSDAS_MUST_TOPIC_DESIGN_APPLIED_CONSISTENTLY_ONCE" type="MUST">
+<Standard id="MSDAS_MUST_APPLY_TOPIC_DESIGN_CONSISTENTLY" type="MUST">
 Topic design MUST be applied consistently once agreed, and root levels of a topic MUST NOT change meaning. Topic levels MUST be separated by / rather than concatenation, to support subscription filtering.
 </Standard>
 
@@ -24,7 +24,7 @@ entitlement/status-changed/{serviceCentreId}/{clientId}
 
 A service centre could then subscribe using a filter such as entitlement/status-changed/porirua-sc/*, receiving only events for its own clients, while a central reporting system subscribes more broadly to entitlement/status-changed/> to receive everything. These specific wildcard characters (+, # and* are common examples) are illustrative of the capability required, not a mandate to use MQTT or any other specific broker technology — see the note below.
 
-<Standard id="MSDAS_MUST_MESSAGE_PRODUCER_PROVIDE_MECHANISM_API" type="MUST">
+<Standard id="MSDAS_MUST_PROVIDE_SUBSCRIPTION_MECHANISM" type="MUST">
 A Message Producer MUST provide a mechanism for API Consumers to subscribe and unsubscribe from available channels, and MUST provide a way for a consumer to filter the topic hierarchy down to a relevant subset (e.g. events for one service centre only) rather than being limited to “all events on this topic” or “no events on this topic”. Whatever filtering mechanism the chosen broker technology provides to achieve this MUST be documented alongside the API.
 </Standard>
 

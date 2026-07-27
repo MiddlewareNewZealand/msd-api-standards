@@ -8,7 +8,7 @@ Caching enables faster API responses and reduces backend load. It's well suited 
 
 A response cache stores the response to a GET request on a unique resource, held as close to the consumer as possible while remaining inside the agency's security boundary. Many API gateway products provide a built-in response cache.
 
-<Standard id="MSDAS_SHOULD_API_PROVIDERS_MONITOR_RESPONSE_CACHE" type="SHOULD">
+<Standard id="MSDAS_SHOULD_MONITOR_RESPONSE_CACHE" type="SHOULD">
 API Providers SHOULD monitor their response cache to keep stale objects to a minimum, ensuring the cache is refreshed once information is updated or a timeout occurs.
 </Standard>
 

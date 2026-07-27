@@ -8,20 +8,20 @@ The baseline requirements set out earlier in this Part — authentication, trans
 
 ## **Authentication and authorisation**
 
-<Standard id="MSDAS_MUST_REMOTE_MCP_SERVERS_AUTHENTICATION_REQUIRED" type="MUST">
+<Standard id="MSDAS_MUST_USE_OAUTH_FOR_MCP_AUTHENTICATION" type="MUST">
 Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme.
 </Standard>
-<Standard id="MSDAS_MUST_ACCESS_TOKENS_MCP_AUDIENCE_RESTRICTED" type="MUST">
+<Standard id="MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS" type="MUST">
 Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems.
 </Standard>
 
-<Standard id="MSDAS_MUST_MCP_TOOLS_SCOPED_MINIMUM_DATA_ACTIONS" type="MUST">
+<Standard id="MSDAS_MUST_SCOPE_MCP_TOOLS_TO_MINIMUM_ACCESS" type="MUST">
 Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them.
 </Standard>
 
 ## **Consent and human oversight**
 
-<Standard id="MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL" type="SHOULD">
+<Standard id="MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS" type="SHOULD">
 Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution — particularly where the action is difficult to reverse, such as issuing a payment or closing a case.
 </Standard>
 
@@ -29,7 +29,7 @@ Because MCP Servers expose their capability list dynamically rather than through
 
 ## **Tool integrity (“rug-pull” protection)**
 
-<Standard id="MSDAS_MUST_NOT_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY" type="MUST NOT">
+<Standard id="MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS" type="MUST NOT">
 An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
 </Standard>
 
@@ -43,12 +43,12 @@ This guards against so-called “rug-pull” attacks, where a tool that was revi
 Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action, such as exfiltrating other clients' data.
 </Standard>
 
-<Standard id="MSDAS_MUST_MCP_SERVERS_TREAT_CONTENT_UNTRUSTED" type="MUST">
+<Standard id="MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED" type="MUST">
 MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to correctly enforce an access control decision that the server itself is capable of enforcing directly.
 </Standard>
 
 ## **Audit logging**
 
-<Standard id="MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY" type="MUST">
+<Standard id="MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS" type="MUST">
 All tool invocations that access or modify client or whānau data must be logged with sufficient detail to identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally.
 </Standard>
