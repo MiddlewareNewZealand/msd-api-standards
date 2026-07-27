@@ -29,7 +29,7 @@ Because MCP Servers expose their capability list dynamically rather than through
 
 ## **Tool integrity (“rug-pull” protection)**
 
-<Standard id="MSDAS_MUST_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY" type="MUST">
+<Standard id="MSDAS_MUST_NOT_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY" type="MUST NOT">
 An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
 </Standard>
 

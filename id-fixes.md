@@ -1,6 +1,6 @@
 # MSDAS rule ID rename proposal
 
-Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID keeps the `MSDAS_` prefix and its RFC 2119 modality, then states the rule as a verb-first imperative clause (verb → object → qualifier). Grouped by source document, in document order. **204 rules.**
+Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID keeps the `MSDAS_` prefix and its RFC 2119 modality, then states the rule as a verb-first imperative clause (verb → object → qualifier). Grouped by source document, in document order. **198 rules.**
 
 
 ## `api-development/asynchronous-apis/01-sync-vs-async.md`
@@ -64,7 +64,7 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 | --- | --- | --- | --- |
 | MUST | `MSDAS_MUST_EVERY_TOOL_DECLARE_MACHINE_READABLE` | `MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA` | Every Tool MUST declare a machine-readable schema for its input parameters, and SHOULD declare one for its output. Tool names MUST be unique… |
 | MUST | `MSDAS_MUST_EVERY_TOOL_PROVIDE_CLEAR_COMPLETE` | `MSDAS_MUST_DESCRIBE_EACH_TOOL_CLEARLY` | Every Tool MUST provide a clear, complete natural-language description of what it does, including any side effects. This description is read by… |
-| SHOULD | `MSDAS_SHOULD_TOOLS_CREATE_UPDATE_DELETE_DATA` | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` | Tools that create, update or delete data, or that trigger a real-world action (e.g. issuing a payment, sending a client communication), SHOULD be… |
+| SHOULD | `MSDAS_SHOULD_TOOLS_CREATE_UPDATE_DELETE_DATA` | `MSDAS_SHOULD_DISTINGUISH_WRITE_TOOLS` | Tools that create, update or delete data, or that trigger a real-world action (e.g. issuing a payment, sending a client communication), SHOULD be… |
 
 ## `api-development/mcp-apis/04-resource-design.md`
 
@@ -98,16 +98,8 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 | Type | Current ID | Proposed ID | Rule |
 | --- | --- | --- | --- |
 | MUST | `MSDAS_MUST_AUTHENTICATION_AUTHORISATION_REMOTE_MCP_SERVERS` | `MSDAS_MUST_FOLLOW_CURRENT_MCP_AUTHORISATION_FLOW` | Authentication and authorisation for remote MCP Servers MUST follow whichever authorisation flow the current MCP specification mandates,… |
-| MUST | `MSDAS_MUST_TOOLS_SCOPED_MINIMUM_DATA_ACTIONS` | `MSDAS_MUST_SCOPE_TOOLS_TO_MINIMUM_ACCESS` | Tools MUST be scoped to the minimum data and actions required, following the same least-privilege principle as REST API scopes (see Part B). A… |
-| SHOULD | `MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL_2` | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS_2` | Tools that write data or trigger real-world actions on a client's record SHOULD require explicit human confirmation within the Host application… |
-| MUST NOT | `MSDAS_MUST_NOT_MCP_SILENTLY_CHANGE_APPROVED_TOOL` | `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS` | MCP Servers MUST NOT silently change a previously approved Tool's behaviour or description after a Client has connected, without notifying the… |
-| MUST | `MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY_2` | `MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS_2` | All Tool invocations that access or modify client or whānau data MUST be logged with sufficient detail to identify the requesting agent, the… |
 
-## `api-development/mcp-apis/09-publishing-mcp-servers.md`
-
-| Type | Current ID | Proposed ID | Rule |
-| --- | --- | --- | --- |
-| MUST | `MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH` | `MSDAS_MUST_PUBLISH_MCP_CAPABILITY_CATALOGUE` | API Providers of an MCP Server MUST publish a capability catalogue — a human-readable list of available Tools, Resources and Prompts with their… |
+_The tool-scoping, write-confirmation, rug-pull and audit-logging rules that were previously stated here have been deduplicated — they are now defined once in Part B (`api-security/14-mcp-api-security.md`) and referenced from this page by link. See the deduplication note below._
 
 ## `api-development/mcp-apis/index.md`
 
@@ -317,13 +309,7 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 
 | Type | Current ID | Proposed ID | Rule |
 | --- | --- | --- | --- |
-| MUST | `MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH_2` | `MSDAS_MUST_PUBLISH_MCP_CAPABILITY_CATALOGUE_2` | API Providers of an MCP Server MUST publish a capability catalogue — a human-readable listing of available Tools, Resources and Prompts, each with… |
-
-## `api-security/02-security-reference-architecture.md`
-
-| Type | Current ID | Proposed ID | Rule |
-| --- | --- | --- | --- |
-| MUST | `MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION` | `MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION` | API Providers must implement Developer Authentication, together with authentication and authorisation services to control access to APIs (see API… |
+| MUST | `MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH` | `MSDAS_MUST_PUBLISH_MCP_CAPABILITY_CATALOGUE` | API Providers of an MCP Server MUST publish a capability catalogue — a human-readable listing of available Tools, Resources and Prompts, each with… |
 
 ## `api-security/03-api-authentication-and-authorisation-basics.md`
 
@@ -350,7 +336,7 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 | MAY | `MSDAS_MAY_API_PROVIDERS_UTILISE_ABAC` | `MSDAS_MAY_USE_ABAC` | API Providers may utilise ABAC. |
 | MAY | `MSDAS_MAY_API_PROVIDERS_IMPLEMENT_ABAC_USING` | `MSDAS_MAY_IMPLEMENT_ABAC_WITH_XACML` | API Providers may implement ABAC using XACML, the recognised standard, which provides a reference architecture, a request/response protocol and a… |
 | MAY | `MSDAS_MAY_API_PROVIDERS_IMPLEMENT_API_GATEWAY` | `MSDAS_MAY_IMPLEMENT_API_GATEWAY` | API Providers may implement API Gateway technology. |
-| MUST | `MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION_2` | `MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION_2` | API Providers must implement Developer Authentication. |
+| MUST | `MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION` | `MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION` | API Providers must implement Developer Authentication. |
 
 ## `api-security/05-cloud-api-security.md`
 
@@ -427,8 +413,8 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 | MUST | `MSDAS_MUST_REMOTE_MCP_SERVERS_AUTHENTICATION_REQUIRED` | `MSDAS_MUST_USE_OAUTH_FOR_MCP_AUTHENTICATION` | Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a… |
 | MUST | `MSDAS_MUST_ACCESS_TOKENS_MCP_AUDIENCE_RESTRICTED` | `MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS` | Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice… |
 | MUST | `MSDAS_MUST_MCP_TOOLS_SCOPED_MINIMUM_DATA_ACTIONS` | `MSDAS_MUST_SCOPE_MCP_TOOLS_TO_MINIMUM_ACCESS` | Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool… |
-| SHOULD | `MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL` | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS_3` | Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application… |
-| MUST | `MSDAS_MUST_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY` | `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS_2` | An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must… |
+| SHOULD | `MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL` | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` | Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application… |
+| MUST NOT | `MSDAS_MUST_NOT_MCP_SERVER_SILENTLY_CHANGE_PREVIOUSLY` | `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS` | An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must… |
 | MUST | `MSDAS_MUST_MCP_SERVERS_TREAT_CONTENT_UNTRUSTED` | `MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED` | MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to correctly… |
 | MUST | `MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY` | `MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS` | All tool invocations that access or modify client or whānau data must be logged with sufficient detail to identify the requesting agent, the… |
 
@@ -436,7 +422,15 @@ Proposed grammatical rewrites of every `MSDAS_*` standard ID in `/docs`. Each ID
 
 ## Notes — two things worth a decision before applying
 
-[^dupes]: **Intentional duplicates.** Six rules are stated in more than one document (the MCP security controls appear in both the MCP chapter and Part B: API Security). Because IDs must stay unique, the repeated instances carry a trailing `_2`/`_3`, mirroring the existing convention: `MSDAS_MUST_PUBLISH_MCP_CAPABILITY_CATALOGUE` (×2), `MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION` (×2), `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS` (×2), `MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS` (×2), `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` (×3), and the tool-scoping rule (`MSDAS_MUST_SCOPE_TOOLS…` / `…MCP_TOOLS_TO_MINIMUM_ACCESS`). Worth deciding separately: whether these should be genuinely deduplicated in the source rather than suffixed.
+[^dupes]: **Duplicates resolved (no more suffixes).** The rules that were previously stated in more than one document have now been genuinely deduplicated in the source: each is defined once at a single canonical location, and the other pages reference it by a markdown anchor link rather than repeating the `<Standard>`. As a result the `_2`/`_3` suffixes are gone and every Current ID in the tables above is unique. Canonical homes and the pages that now link to them:
+
+    - **Scope tools, require write-confirmation, rug-pull protection, audit logging** → canonical in `api-security/14-mcp-api-security.md`; linked from `api-development/mcp-apis/08-mcp-security.md`.
+    - **Publish MCP capability catalogue** (`MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH`) → canonical in `api-publishing/08-publishing-mcp-servers.md`; linked from `api-development/mcp-apis/09-publishing-mcp-servers.md`.
+    - **Implement Developer Authentication** (`MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION`) → canonical in `api-security/03-api-authentication-and-authorisation-basics.md`; linked from `api-security/02-security-reference-architecture.md`.
+
+    Two distinct rules remain about write tools and must keep distinct IDs: `MSDAS_SHOULD_DISTINGUISH_WRITE_TOOLS` (tool design — distinguish write tools by name/description) and `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` (security — require human confirmation).
+
+    **When renaming, update anchors too.** Each canonical rule is targeted by a cross-page link of the form `…#<Current ID>`. Renaming a Current ID to its Proposed ID must also rewrite these `#<Current ID>` fragments, or the build (`onBrokenLinks: 'throw'`) will fail. A repo-wide replace of the full ID string covers both the `id="…"` attribute and the `#…` link fragment in one pass.
 
 [^spelling]: **British spelling preserved.** Proposed IDs keep the British spelling used across the docs (`AUTHORISATION`, `CATALOGUE`, etc.) for consistency. Confirm this is the intended house style before applying.
 

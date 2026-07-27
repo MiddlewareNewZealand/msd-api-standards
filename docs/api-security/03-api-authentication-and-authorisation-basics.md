@@ -161,7 +161,7 @@ Most API Gateways on the market support OAuth 2.0 and can provide authorisation 
 
 ### **Developer authentication**
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION_2" type="MUST">
+<Standard id="MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION" type="MUST">
 API Providers must implement Developer Authentication.
 </Standard>
 
