@@ -17,7 +17,7 @@ GET https://api.msd.govt.nz/clients/v1/search?last-name=Ngata
 GET https://api.msd.govt.nz/clients/v2/search?last-name=Ngata
 ```
 
-The response <Standard inline id="MSDAS_MUST_INDICATE_MAJOR_VERSION_IN_RESPONSE" type="MUST" toolTip="The response must still indicate at least the MAJOR version of the API that processed the request, via the Content-Type header.">MUST</Standard> still indicate at least the MAJOR version of the API that processed the request, via the Content-Type header, e.g. Content-Type: application/json; version=v3.2.5.
+The response <Standard inline id="MSDAS_MUST_INDICATE_MAJOR_VERSION_IN_RESPONSE" type="MUST" toolTip="Whichever version control mechanism a request uses, the response must indicate at least the MAJOR version of the API that processed it, via the Content-Type header, e.g. Content-Type: application/json; version=v3.2.5.">MUST</Standard> still indicate at least the MAJOR version of the API that processed the request, via the Content-Type header, e.g. Content-Type: application/json; version=v3.2.5.
 
 ## **When to version**
 

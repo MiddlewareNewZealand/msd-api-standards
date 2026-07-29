@@ -23,6 +23,8 @@ const CANONICAL_TYPE = {
 
 const NON_NORMATIVE = new Set(["INFO", "EXAMPLE", "NOTE"]);
 
+const BOUND_PARTIES = new Set(["provider", "consumer", "both"]);
+
 const ID_REGEX = /^MSDAS_(MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY)_[A-Za-z0-9_]+$/;
 
 const TAG_REGEX = /<Standard\b([^>]*)>([\s\S]*?)<\/Standard>/g;
@@ -130,6 +132,160 @@ function findMixedStrengthPairs(filePath, content) {
   return errors;
 }
 
+// --- Dangling-reference check ---------------------------------------------
+// A clause is lifted out of the page's prose into the Checklist and the JSON,
+// where nothing precedes it. "In order for this to occur, the API Consumer
+// must provide…" states no rule once separated from the sentence before it.
+//
+// The check runs on the *first sentence* of the clause text only. Anaphora
+// resolves backwards, so a demonstrative in the opening sentence has nothing
+// inside the clause to bind to; later sentences almost always refer back to the
+// first one ("…publish terms and conditions. These SHOULD be available via a
+// web experience") and flagging them is pure noise.
+//
+// Deliberately not detected, each measured against the 199-clause catalog
+// before being dropped:
+//   "it"        24 hits, 23 resolving to a subject earlier in the same
+//               sentence ("Where JSON is used, it must conform to STD 90").
+//   "instead"   3 hits, 0 genuine — each grounded by an in-sentence contrast
+//               ("prefer a hyperlink to the image instead").
+//   "too"       2 hits, both the degree adverb ("too large for timely
+//               synchronous processing"), not the additive one.
+//   "otherwise" 1 hit, in the "or otherwise" idiom.
+// Actor switches mid-clause (the other half of this defect class) are not
+// lexically detectable; the RFC-2119-keyword check planned alongside the
+// clause splitting catches those instead.
+const DEMONSTRATIVE_REGEX = /\b(this|these|those|such)\b((?:\s+[A-Za-z][\w'-]*){0,3})/gi;
+
+// Adverbs that presuppose a contrast the clause never states. "still" is only
+// grounded when a concessive marker supplies the contrast in the same sentence.
+const PRESUPPOSING_ADVERB_REGEX = /\b(still|also|likewise)\b/gi;
+const CONCESSIVE_REGEX = /\b(even|although|though|while|whereas|despite|regardless)\b/i;
+
+// Nouns a clause may legitimately point at with a demonstrative, because they
+// name the document the clause is part of rather than something outside it.
+const SELF_REFERENTIAL_NOUNS = new Set([
+  "part",
+  "parts",
+  "document",
+  "standard",
+  "standards",
+  "section",
+  "page",
+  "catalogue",
+]);
+
+// Words that, following a demonstrative, mean it is being used as a bare
+// pronoun rather than as a determiner on a noun ("this can expose", "these
+// SHOULD be available") — there is no head noun to look for.
+const NON_NOUN_FOLLOWERS = new Set(
+  ("can could is are was were be been being will would shall should must may might has have had " +
+    "does do did and or but not to in of on for from with when where which that than then " +
+    "applies apply means requires require provides provide produce produces")
+    .split(" "),
+);
+
+const ARTICLES = new Set(["a", "an", "the"]);
+
+// Reviewed exceptions. As with ACKNOWLEDGED_OVERLAPS, an entry here means
+// someone read the clause and concluded the reference does resolve inside it.
+const ACKNOWLEDGED_REFERENCES = new Map([
+  [
+    "MSDAS_MUST_LIMIT_GRANT_TYPES",
+    '"those agreed and documented" is a reduced relative clause on "grant types", named earlier in the same sentence — not a reference out of the clause.',
+  ],
+  [
+    "MSDAS_MUST_PUBLISH_THROTTLING_QUOTAS",
+    '"since these produce materially different integration patterns" refers to the parenthesised list of quota scopes immediately before it, inside the clause.',
+  ],
+]);
+
+const ABBREVIATION_REGEX = /(?:\b(?:e\.g|i\.e|etc|vs|cf|approx|Inc|Ltd)|\s[A-Z])\.$/;
+
+// Clause text as a reader of the JSON sees it: markdown link targets and any
+// stray markup removed, whitespace collapsed.
+function clauseText(raw) {
+  return String(raw)
+    .replace(/\]\([^)]*\)/g, "]")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\\/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function firstSentence(text) {
+  const parts = text.split(/(?<=[.!?])\s+/);
+  let sentence = parts[0] ?? "";
+  for (let i = 1; i < parts.length; i++) {
+    // Keep going while the break was an abbreviation's full stop, or the next
+    // fragment does not start like a new sentence.
+    if (!ABBREVIATION_REGEX.test(sentence) && /^[A-Z“"(]/.test(parts[i])) break;
+    sentence += ` ${parts[i]}`;
+  }
+  return sentence;
+}
+
+// "attributes" and "attribute" should match; 4 characters is enough of a stem
+// to avoid matching on shared prefixes of unrelated words.
+function mentionsEarlier(before, noun) {
+  const stem = noun.replace(/(?:ies|es|s)$/, "");
+  if (stem.length < 4) return before.toLowerCase().includes(noun.toLowerCase());
+  return new RegExp(`\\b${stem}`, "i").test(before);
+}
+
+function findDanglingReferences(filePath, content) {
+  const relPath = path.relative(process.cwd(), filePath);
+  const errors = [];
+  let match;
+  TAG_REGEX.lastIndex = 0;
+
+  while ((match = TAG_REGEX.exec(content))) {
+    const { id, type, toolTip } = parseAttrs(match[1]);
+    if (!id || !CANONICAL_TYPE[type] || ACKNOWLEDGED_REFERENCES.has(id)) continue;
+
+    const at = `${relPath}:${lineOf(content, match.index)}`;
+    const opening = firstSentence(clauseText(toolTip || match[2]));
+
+    let hit;
+    DEMONSTRATIVE_REGEX.lastIndex = 0;
+    while ((hit = DEMONSTRATIVE_REGEX.exec(opening))) {
+      const demonstrative = hit[1].toLowerCase();
+      const following = (hit[2] || "").trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const before = opening.slice(0, hit.index);
+
+      // "such as" / "such that" are idioms, not references.
+      if (demonstrative === "such" && ["as", "that"].includes(following[0])) continue;
+
+      const head = following.find((word) => !ARTICLES.has(word));
+      if (!head || NON_NOUN_FOLLOWERS.has(head)) {
+        errors.push(
+          `${at} "${id}" opens with a bare "${hit[1]}" that has no antecedent inside the clause. ` +
+            `Clause text is read standalone in the Checklist and the JSON — name the thing it refers to.`,
+        );
+        continue;
+      }
+
+      if (SELF_REFERENTIAL_NOUNS.has(head) || mentionsEarlier(before, head)) continue;
+
+      errors.push(
+        `${at} "${id}" refers to "${hit[1]} ${head}" but never says what that is. ` +
+          `Name it in the clause text, or record the clause in ACKNOWLEDGED_REFERENCES with the reason it resolves.`,
+      );
+    }
+
+    PRESUPPOSING_ADVERB_REGEX.lastIndex = 0;
+    while ((hit = PRESUPPOSING_ADVERB_REGEX.exec(opening))) {
+      if (CONCESSIVE_REGEX.test(opening)) continue;
+      errors.push(
+        `${at} "${id}" uses "${hit[1]}", which presupposes a condition the clause does not state. ` +
+          `State the condition, or drop the word.`,
+      );
+    }
+  }
+
+  return errors;
+}
+
 function parseAttrs(attrString) {
   const attrs = {};
   let m;
@@ -164,7 +320,7 @@ function validateFile(filePath) {
   while ((match = TAG_REGEX.exec(content))) {
     const [, attrString, body] = match;
     const line = lineOf(content, match.index);
-    const { id, type, toolTip, inline } = parseAttrs(attrString);
+    const { id, type, toolTip, inline, boundParty } = parseAttrs(attrString);
     const at = `${relPath}:${line}`;
 
     if (!type) {
@@ -194,6 +350,17 @@ function validateFile(filePath) {
       errors.push(`${at} inline Standard requires an explicit "toolTip" attribute`);
     }
 
+    if (boundParty !== undefined) {
+      if (isNonNormative) {
+        errors.push(`${at} type="${type}" is non-normative and binds nobody; remove "boundParty"`);
+      } else if (!BOUND_PARTIES.has(boundParty)) {
+        errors.push(
+          `${at} boundParty "${boundParty}" is not one of provider, consumer, both ` +
+            `(omit it for the provider default)`,
+        );
+      }
+    }
+
     if (!inline) {
       const lines = body.split("\n");
       const firstLineHasContent = lines[0].trim() !== "";
@@ -205,7 +372,9 @@ function validateFile(filePath) {
     }
   }
 
-  return errors.concat(findMixedStrengthPairs(filePath, content));
+  return errors
+    .concat(findMixedStrengthPairs(filePath, content))
+    .concat(findDanglingReferences(filePath, content));
 }
 
 function main() {

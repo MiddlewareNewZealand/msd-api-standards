@@ -8,7 +8,7 @@ title: "Content"
 REST APIs SHOULD, by default, return content in JSON format, and SHOULD be human- and machine-readable.
 </Standard>
 
-<Standard id="MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT" type="MUST">
+<Standard id="MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT" type="MUST" boundParty="consumer">
 The response format for a GET request MUST be indicated by the consumer using the Accept header; the request format for POST/PUT MUST be indicated using the Content-Type header.
 </Standard>
 

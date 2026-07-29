@@ -36,7 +36,7 @@ Emerging guidance for OAuth 2.0 in browser-based applications — particularly s
 ### **Backend for Frontend (BFF)**
 
 <Standard id="MSDAS_MAY_USE_BACKEND_FOR_FRONTEND_PATTERN" type="MAY">
-MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while this guidance remains in draft at the IETF.
+MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while the IETF's guidance on OAuth 2.0 for browser-based applications remains in draft.
 </Standard>
 
 In this pattern, a user interacts with the API Consumer application, which communicates with a Backend for Frontend service sitting within the API Provider's (or the consumer's own) infrastructure. The BFF service requests authorisation from the authorisation server, redirecting the user to grant consent; on receiving an authorisation code, it exchanges this for access and refresh tokens on the user's behalf, then uses the access token to retrieve the requested resource, which it returns to the API Consumer application. This keeps tokens out of the browser entirely, closing off the main risk PKCE alone doesn't fully address for sensitive, IN-CONFIDENCE data.

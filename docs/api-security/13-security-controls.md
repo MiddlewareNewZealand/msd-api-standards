@@ -11,7 +11,7 @@ All communications to or from an API must utilise Transport Layer Security (TLS)
 TLS 1.2 and below, and all versions of SSL, MUST be disabled at the listener so a negotiation attempt using them is refused rather than downgraded.
 </Standard>
 
-<Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST">
+<Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST" boundParty="consumer">
 API Consumer applications must validate TLS certificate chains when making requests to protected resources, including checking the Certificate Revocation List.
 </Standard>
 

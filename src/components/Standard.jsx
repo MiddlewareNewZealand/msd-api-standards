@@ -31,6 +31,19 @@ const CANONICAL_TYPE = {
 // extracted into the Checklist (no data-standard-type / anchor required).
 const NON_NORMATIVE = new Set(["INFO", "EXAMPLE", "NOTE"]);
 
+// Which party a clause binds. The catalog is consumed as a provider-side
+// conformance contract, so "provider" is the default and only the exceptions
+// need declaring. A consumer-bound clause cannot be assessed by running tests
+// against a provider endpoint, and a tool that claims otherwise overclaims.
+const BOUND_PARTIES = new Set(["provider", "consumer", "both"]);
+
+// Shown in the tooltip so a reader of the page — not just of the JSON — can see
+// that a clause is not the provider's to satisfy. Omitted for "provider".
+const BOUND_PARTY_LABEL = {
+  consumer: "Binds the API Consumer",
+  both: "Binds both the API Provider and the API Consumer",
+};
+
 // Canonical group -> colour modifier class suffix.
 const COLOUR_CLASS = {
   MUST: "must",
@@ -48,6 +61,7 @@ const COLOUR_CLASS = {
  * @param {string} props.type - The RFC 2119 keyword to display, e.g. "MUST", "MUST NOT", "REQUIRED", "RECOMMENDED", or a non-normative "INFO"/"EXAMPLE"/"NOTE".
  * @param {string} props.toolTip - The plain extended text used in the Checklist page and conformance tooling. Required for inline usage (where the children are just the keyword word). For box usage it defaults to the children text.
  * @param {boolean} props.inline - When true, renders the keyword inline within a sentence (red + bold, anchored) instead of a standalone box.
+ * @param {string} props.boundParty - Which party the clause obliges: "provider" (default), "consumer", or "both". Emitted into the Checklist JSON so conformance tooling can filter to the clauses its target is accountable for.
  * @returns {JSX.Element} The JSX element representing the API standard.
  *
  * @example
@@ -56,9 +70,12 @@ const COLOUR_CLASS = {
  *
  * // Inline keyword within a sentence:
  * API Keys <Standard inline id="MSDAS_MUST_API_KEYS_USED" type="MUST" toolTip="API Keys must be used wherever system-to-system authentication is needed.">must</Standard> be used wherever system-to-system authentication is needed.
+ *
+ * // Clause the API Consumer has to satisfy, not the provider:
+ * <Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST" boundParty="consumer">API Consumer applications must validate TLS certificate chains…</Standard>
  */
 
-function Standard({ id, type, toolTip, inline, children }) {
+function Standard({ id, type, toolTip, inline, boundParty = "provider", children }) {
   if (children === undefined) {
     throw new Error(
       "Error in rendering Standard component; please check the format for " + id
@@ -80,6 +97,12 @@ function Standard({ id, type, toolTip, inline, children }) {
     );
   }
 
+  if (!BOUND_PARTIES.has(boundParty)) {
+    throw new Error(
+      `Unknown boundParty "${boundParty}" for ${id}; expected "provider", "consumer" or "both".`
+    );
+  }
+
   if (toolTip === undefined) {
     toolTip = extractText(children);
   }
@@ -92,10 +115,13 @@ function Standard({ id, type, toolTip, inline, children }) {
 
   const colourClass = isNonNormative ? "info" : COLOUR_CLASS[canonicalType];
 
+  const boundPartyLabel = isNonNormative ? undefined : BOUND_PARTY_LABEL[boundParty];
+
   const [tooltipContent] = useState(`
     <div>
       <div><strong>${id ?? type}</strong></div>
       <div>${toolTip}</div>
+      ${boundPartyLabel ? `<div><em>${boundPartyLabel}</em></div>` : ""}
     </div>
   `);
 
@@ -108,7 +134,11 @@ function Standard({ id, type, toolTip, inline, children }) {
     "data-tooltip-html": id ? tooltipContent : undefined,
     ...(isNonNormative
       ? {}
-      : { "data-standard-type": canonicalType, "data-extended-text": toolTip }),
+      : {
+          "data-standard-type": canonicalType,
+          "data-extended-text": toolTip,
+          "data-bound-party": boundParty,
+        }),
   };
 
   if (inline) {

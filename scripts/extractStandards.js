@@ -33,6 +33,9 @@ function extractDataFromHTML(filePath, standardsIds, htmlContent, excludeDraft) 
     const standardType = $element.attr("data-standard-type");
     const content = $element.attr("data-extended-text");
     const id = $element.attr("id");
+    // Absent for anything built before boundParty existed; the catalog is a
+    // provider-side contract, so provider is the default.
+    const boundParty = $element.attr("data-bound-party") ?? "provider";
 
     const idLabel = id ?? "(missing id)";
 
@@ -66,7 +69,7 @@ function extractDataFromHTML(filePath, standardsIds, htmlContent, excludeDraft) 
 
     standardsIds.add(id);
     standardsContent[id] = content;
-    elementsWithDataStandardType.push({ standardType, content, id, filePath });
+    elementsWithDataStandardType.push({ standardType, content, id, boundParty, filePath });
   });
 
   return elementsWithDataStandardType;
@@ -111,12 +114,12 @@ function writeOutput(data, outputFilePath, baseUrl) {
   }
 
   const groupedData = {};
-  data.forEach(({ standardType, content, id, filePath }) => {
+  data.forEach(({ standardType, content, id, boundParty, filePath }) => {
     if (!groupedData[standardType]) {
       groupedData[standardType] = [];
     }
     const link = baseUrl + filePath.replace("build", "").replace("/index.html", "") + `#${id}`;
-    groupedData[standardType].push({ standardType, content, id, link });
+    groupedData[standardType].push({ standardType, content, id, boundParty, link });
   });
 
   const jsonData = JSON.stringify(groupedData, null, 2);

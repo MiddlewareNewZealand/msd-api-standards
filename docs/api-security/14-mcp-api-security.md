@@ -21,7 +21,7 @@ Tools must be scoped to the minimum data and actions required, following the sam
 
 ## **Consent and human oversight**
 
-<Standard id="MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS" type="SHOULD">
+<Standard id="MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS" type="SHOULD" boundParty="both">
 Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution — particularly where the action is difficult to reverse, such as issuing a payment or closing a case.
 </Standard>
 

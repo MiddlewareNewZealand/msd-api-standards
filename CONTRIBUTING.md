@@ -63,10 +63,27 @@ Providers must not use X- notation headers.
 API Keys <Standard inline id="MSDAS_MUST_API_KEYS_USED" type="MUST" toolTip="API Keys must be used wherever system-to-system authentication is needed.">must</Standard> be used wherever system-to-system authentication is needed.
 ```
 
+**Consumer-bound** (`boundParty`) — the catalog is used as a provider-side conformance contract, so clauses are provider-bound by default. Where a clause obliges the party *calling* the API, say so, otherwise a conformance tool will claim to have verified something it cannot see:
+
+```mdx
+<Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST" boundParty="consumer">
+API Consumer applications must validate TLS certificate chains…
+</Standard>
+```
+
+`boundParty` accepts `provider` (the default — omit it), `consumer`, or `both`, and is emitted into the Checklist JSON.
+
 Rules:
 
 - `id` must match `MSDAS_<TYPE>_...`, where `<TYPE>` is `MUST`, `MUST_NOT`, `SHOULD`, `SHOULD_NOT`, or `MAY` — the *canonical* RFC 2119 group, even if `type` uses a synonym (e.g. `type="REQUIRED"` still gets an `MSDAS_MUST_...` id).
 - `id` is not required for non-normative callouts: `type="INFO"`, `"EXAMPLE"`, or `"NOTE"`.
 - Content crammed onto the same line as `<Standard>` or `</Standard>` (block form) can break the MDX build — always put it on its own line.
+
+The clause text — the `toolTip`, or the box content when there is no `toolTip` — is read on its own in the Checklist and in the JSON, so the validator rejects two things that only make sense in context:
+
+- **A reference the clause never resolves.** "In order for this to occur…", "This model may be used…" — name the thing. Checked on the opening sentence only, since later sentences refer back to the first.
+- **A word presupposing an unstated condition** — "the response must *still* indicate…". State the condition or drop the word.
+
+The surrounding page keeps its narrative flow either way: only the extracted clause text has to stand alone, which is what the `toolTip` attribute is for.
 
 Run `npm run validate:standards` to check your changes before pushing (pre-commit and CI also run it).

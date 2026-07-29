@@ -71,7 +71,7 @@ API Providers must ensure only the minimum number of identity attributes needed 
 The Userinfo endpoint may be exposed by the API Provider, callable with an access token to obtain the same claims provided in the ID Token, or configured to provide additional claims. OpenID Connect introduces additional scopes (e.g. profile, name, email) detailing specific attributes that can be presented in an ID Token.
 
 <Standard id="MSDAS_MUST_OBTAIN_CONSENT_TO_SHARE_ATTRIBUTES" type="MUST">
-The API Provider must ensure consent to share this information has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters.
+Before releasing identity attributes through the ID Token or the Userinfo endpoint, the API Provider must ensure consent to share those attributes has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters.
 </Standard>
 
 ## **Grant types**

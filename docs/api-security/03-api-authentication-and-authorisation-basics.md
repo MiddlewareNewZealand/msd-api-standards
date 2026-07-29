@@ -50,23 +50,19 @@ If using the anonymous authentication model, the API must implement appropriate 
 ### **Username and password authentication**
 
 <Standard id="MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION" type="SHOULD NOT">
-Username and password (direct) authentication should not be used for production APIs.
+Username and password (direct) authentication should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING) below — it may be used for testing and development purposes.
 </Standard>
 
 In this model — also known as HTTP Basic or Digest Auth — the user authenticates via an identity store using username and password credentials over HTTPS.
 
 <Standard id="MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY" type="MAY">
-There are possibly some legacy situations where an API Provider may implement this pattern, but this must be treated as an exception and recorded appropriately.
+There are possibly some legacy situations where an API Provider may implement username and password (direct) authentication, but its use must be treated as an exception and recorded appropriately.
 </Standard>
 
 This model has significant limitations: it requires a full registration process for every user type; it can't leverage a federated authentication model (no single sign-on); passwords travel and may be stored in ways vulnerable to brute-force attack; and passwords have low entropy, must be reset and managed, and are hard to revoke at a granular level.
 
 <Standard id="MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING" type="MAY">
-This model may be used for testing and development purposes. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION) below — it should not be used for production APIs.
-</Standard>
-
-<Standard id="MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION" type="SHOULD NOT">
-This model should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING) above — it may be used for testing and development purposes.
+Username and password (direct) authentication may be used for testing and development purposes. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION) above — it should not be used for production APIs.
 </Standard>
 
 ### **API Key authentication**
@@ -87,8 +83,8 @@ API Keys may be used on their own for simple public APIs that don't need more co
 
 The risk is that anyone holding a copy of the API Key can use it as though they were the legitimate API Consumer. All communications must therefore be over TLS to protect the key in transit, and application developers are responsible for protecting their copy of the key.
 
-<Standard id="MSDAS_SHOULD_PROTECT_EMBEDDED_API_KEYS" type="SHOULD">
-If the API Key is embedded in the API Consumer, it should be protected.
+<Standard id="MSDAS_SHOULD_PROTECT_EMBEDDED_API_KEYS" type="SHOULD" boundParty="consumer">
+If the API Key is embedded in the API Consumer's application, it should be protected.
 </Standard>
 
 <Standard type="INFO">
@@ -98,7 +94,7 @@ API Keys are recommended because they provide a level of security to public APIs
 ### **Certificate (mutual) authentication**
 
 <Standard id="MSDAS_MAY_USE_CERTIFICATE_AUTH_FOR_LEGACY" type="MAY">
-This model may be used where the API depends on legacy authentication mechanisms requiring mutual certificates.
+Certificate (mutual) authentication may be used where the API depends on legacy authentication mechanisms requiring mutual certificates.
 </Standard>
 
 In mutual (certificate) authentication, both the API Consumer and the API Provider hold a digital certificate issued by a mutually trusted Certificate Authority. When the API Consumer makes a request, the server hosting the API presents its certificate; the consumer verifies it and presents its own certificate in turn. Once both sides verify each other's certificate, mutual trust is established and the API Consumer can use the API.
@@ -135,8 +131,8 @@ Based on the services an API exposes, additional access controls can be applied 
 
 An API Consumer may invite a client or social sector worker to authorise the application to act on their behalf.
 
-<Standard id="MSDAS_MUST_PROVIDE_AUTHORISATION_INTENT" type="MUST">
-In order for this to occur, the API Consumer must provide the authorisation server with the intent of its request.
+<Standard id="MSDAS_MUST_PROVIDE_AUTHORISATION_INTENT" type="MUST" boundParty="consumer">
+Where an API Consumer asks a client or social sector worker to authorise its application to act on their behalf, the API Consumer must provide the authorisation server with the intent of its request.
 </Standard>
 
 ### **Attribute Based Access Control (ABAC)**

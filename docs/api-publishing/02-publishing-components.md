@@ -61,7 +61,7 @@ API Providers MUST provide a developer onboarding function enabling API Consumer
 </Standard>
 
 <Standard id="MSDAS_SHOULD_OFFER_ONBOARDING_ON_AUTHENTICATED_WEB" type="SHOULD">
-This SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+The developer onboarding function SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
 </Standard>
 
 ## **Service level agreements (SLA)**
