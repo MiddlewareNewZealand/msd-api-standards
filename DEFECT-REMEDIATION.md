@@ -83,9 +83,23 @@ Low risk, high external visibility. These are what an external vendor notices fi
 - Defect 6c, MCP token audience across `api-security/14-mcp-api-security.md` and
   `api-development/mcp-apis/08-mcp-security.md`: apply the canonical-location-plus-link
   treatment already used for the four deduplicated MCP clauses.
+- **Added by Phase 1 (same defect class, found while fixing defect 8).**
+  `docs/api-development/synchronous-apis/08-content.md`:
+  `MSDAS_MUST_CONFORM_JSON_TO_STD_90` now mandates STD 90, which requires JSON text
+  exchanged between systems to be UTF-8. The adjacent `MSDAS_SHOULD_ENCODE_TEXT_AS_UTF_8`
+  therefore restates part of a MUST at SHOULD strength. Either narrow the SHOULD to
+  non-JSON textual content, or delete it as covered by the MUST. (RFC 7159 permitted
+  UTF-8/16/32, so this tension is new as of the STD 90 citation.)
 
 Then add the generator lint: **same subject at two strengths**. Both instances of this
 pattern so far were fixed as one-off edits, which is why new ones keep appearing.
+
+Note: the UTF-8 pair above is the cleanest test case to build that lint against. Unlike
+the TLS and AsyncAPI pairs, the MUST and the SHOULD sit in the **same paragraph of the
+same file**, so a first cut of the lint can work at paragraph scope and still catch it.
+It is also the only one of the four that Phase 1 *introduced* — evidence that a
+by-hand pass over the catalog does not stop the pattern recurring, and the reason the
+lint is worth building here rather than deferring again.
 
 ---
 
@@ -191,9 +205,13 @@ Either way, seed the map from `id-fixes.md` (the 198-row rename already applied 
 2. Re-run every count in STANDARDS-DEFECTS.md Appendix A. Mixed-strength must be 0,
    vague MUSTs 0, no duplicate content.
 3. Re-baseline `../api-standards-conformance`: 31 tags, 7 of which touch Phase 5 clauses,
-   plus `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` (Phase 1) and
-   `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` (Phase 3). Run its `standards:check` and
-   fix what it reports — that is the guard doing its job, not a regression.
+   plus `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` (Phase 3) and the two tags Phase 1
+   has already broken — `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` (retag to
+   `…_TO_STD_90`) and `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` (its scenario tests
+   signature algorithms, so retag to
+   `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS`, not to the encryption
+   clause). Run its `standards:check` and fix what it reports — that is the guard doing
+   its job, not a regression.
 
 ---
 
@@ -219,7 +237,7 @@ actual clause prose rather than working from summaries.
 
 | Phase | Status | Date | Notes |
 |---|---|---|---|
-| 1 — factual | not started | | |
+| 1 — factual | **done** | 2026-07-29 | Defects 4, 8, 9, 10 fixed. 3 files, 3 clauses touched, +1 net clause (**199**: MUST 93, SHOULD 65, MAY 19, SHOULD NOT 14, MUST NOT 8). Mixed-strength still 35, vague MUSTs 19 — unchanged, no new instances. Build + `validateStandardTags.js` clean. Decisions (a)–(d) reviewed and **confirmed with the owner, 2026-07-29** — do not re-open in a later phase. (a) verb list includes **OPTIONS** — the report left it optional, but the page documents OPTIONS use, so excluding it from a closed MUST list would re-create defect 4; (b) JSON clause cites **STD 90** (not RFC 8259), so the ID is `…_TO_STD_90` and survives the next JSON revision; (c) NZISM citation is **section 17.2, Approved Cryptographic Algorithms**, verified against NZISM v3.9 (Nov 2025) — 17.2.11/17.2.13 give AES-256 for encryption, 17.2.26 SHA-2 for hashing. HMAC is *not* in 17.2, so the message-authentication clause cites 17.2 for the algorithm/hash, not for HMAC itself; (d) encryption clause type changed `REQUIRED` → `MUST` (same canonical group). **Raised for Phase 2:** new SHOULD/MUST overlap on UTF-8 — see Phase 2 bullet. |
 | 2 — redundancy | not started | | |
 | 3 — anaphora & bound party | not started | | |
 | 4a — vague MUSTs (security) | not started | | |
@@ -239,4 +257,6 @@ Use `—` in New ID for a removal (a demoted clause), and in Old ID for an addit
 
 | Old ID | New ID | Phase | Reason |
 |---|---|---|---|
-| | | | |
+| `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` | `MSDAS_MUST_CONFORM_JSON_TO_STD_90` | 1 | Defect 8. RFC 7159 obsoleted by RFC 8259; cite the stable STD number so the next revision doesn't rename the clause again. |
+| `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` | `MSDAS_MUST_ENCRYPT_CONTENT_WITH_APPROVED_ALGORITHMS` | 1 | Defect 9, encryption half. Renamed rather than kept: the clause no longer covers HMAC, and the conformance tag on the old ID tests *signature* algorithms. A rename makes `standards:check` fail loudly instead of silently re-pointing that tag at an encryption-only clause. |
+| — | `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS` | 1 | Defect 9, message-authentication half. New clause for HMAC / digital signatures. The existing conformance scenario for the old ID belongs here. |

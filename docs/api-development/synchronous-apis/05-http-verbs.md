@@ -3,7 +3,7 @@ title: "HTTP Verbs"
 ---
 
 <Standard id="MSDAS_MUST_USE_STANDARD_HTTP_VERBS" type="MUST">
-Access to REST APIs MUST be via the standard HTTP verbs: GET, PUT, POST, DELETE, in line with the W3C Standard.
+Access to REST APIs MUST be via the standard HTTP verbs — GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS — using the method semantics defined in RFC 9110 (HTTP Semantics) section 9.
 </Standard>
 
 | Verb | Common usage |
