@@ -7,8 +7,8 @@ title: "Security Controls"
 <Standard id="MSDAS_MUST_USE_TLS_FOR_ALL_COMMUNICATIONS" type="MUST">
 All communications to or from an API must utilise Transport Layer Security (TLS) 1.3 or higher. *See the New Zealand Information Security Manual (NZISM) for detail.*
 </Standard>
-<Standard id="MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS" type="SHOULD">
-Other versions of TLS and SSL should be disabled.
+<Standard id="MSDAS_MUST_DISABLE_OBSOLETE_TLS_VERSIONS" type="MUST">
+TLS 1.2 and below, and all versions of SSL, MUST be disabled at the listener so a negotiation attempt using them is refused rather than downgraded.
 </Standard>
 
 <Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST">
