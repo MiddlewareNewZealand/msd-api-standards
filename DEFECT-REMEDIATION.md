@@ -36,6 +36,10 @@ settle, then decide ID policy once.
 So defect 11 becomes **Phase 6, a pre-publication gate** — do it before the catalog
 leaves `/draft/` or acquires a second consumer, not before the first edit.
 
+**Outcome, 2026-07-30:** neither condition has arrived, so Phase 6 was closed with no work
+and the gate carried forward. See the Phase 6 section for the verification and the
+re-open triggers.
+
 ---
 
 ## Phases
@@ -49,7 +53,7 @@ Each phase is one agent unless marked otherwise. Sizes are files-to-edit, not cl
 | 3 | Anaphora & bound party | 3, 7 | 6 | 1 | No |
 | 4 | Unquantified MUSTs | 2 | 11 | 2 | Yes — sharpen vs demote |
 | 5 | One obligation per ID | 1 | 20 | 4 | Yes — split vs sub-clause |
-| 6 | ID stability (pre-publication gate) | 11 | 2 scripts | 1 | Yes — ID scheme |
+| 6 | ID stability | 11 | — | — | **Closed, no work — see below** |
 | 7 | Verify & re-baseline | — | — | 1 | No |
 
 Phases 1–5 are free to rename IDs. `check-standards.js` in the conformance repo will go
@@ -182,19 +186,54 @@ than its own `type`. This makes the fix permanent rather than a one-time cleanup
 
 ---
 
-### Phase 6 — ID stability (pre-publication gate)
+### Phase 6 — ID stability — **closed with no work, 2026-07-30**
 
-Do this once phases 1–5 have settled the wording, and before the catalog leaves `/draft/`
-or acquires a second consumer. Not before — see "Why ID stability is deferred" above.
+**Decision, with the owner, 2026-07-30.** Neither option is built. Defect 11 is closed as
+*not applicable yet*, and the rename log below is the whole deliverable.
 
-Touches `scripts/extractStandards.js` and `src/components/Standard.jsx`.
+The phase was scoped as generator work — permanent numeric IDs with the text-derived ID
+demoted to `slug`, or a published `api-standards-renames.json`. Both exist to serve
+downstream consumers that would otherwise be broken silently by a rename. **There are no
+such consumers.** Nothing is published outside `/draft/`, `versions.json` is still `[]`,
+the specs and tooling have never been released, and the single reader of the catalog is
+`../api-standards-conformance`, under the same ownership and re-baselined by hand in
+Phase 7. Building either mechanism now would be infrastructure with no reader.
 
-**Decision needed:** full stable IDs (`"id": "MSDAS-0142"` with the current text-derived
-ID demoted to `"slug"`), or the cheaper interim of keeping text-derived IDs primary and
-publishing `supersedes` plus a flat `{old_id: new_id}` rename map at
-`build/draft/assets/api-standards-renames.json`.
+**Verified before closing, 2026-07-30.** Of the 31 tags in the conformance suite, exactly
+**3** stopped resolving across phases 1–5, and all 3 already carry an explicit retag
+target in the rename log:
 
-Either way, seed the map from `id-fixes.md` (the 198-row rename already applied in
+| Stale tag | Retag to | Recorded in |
+|---|---|---|
+| `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` | `MSDAS_MUST_CONFORM_JSON_TO_STD_90` | Phase 1 |
+| `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` | `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS` | Phase 1 |
+| `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` | `MSDAS_MUST_DISABLE_OBSOLETE_TLS_VERSIONS` | Phase 2 |
+
+The 45 clauses Phase 5 added and the 4 clauses phases 3–5 removed touched nothing tagged.
+So a plain retag from the log clears `standards:check` — no rename infrastructure is on the
+critical path. Reproduce with: `grep -rhoE '@MSDAS_[A-Z0-9_]+' features/ | sed 's/@//' |
+sort -u`, compared against `grep -rhoE 'id="MSDAS_[A-Z0-9_]+"' docs/` (240 IDs, matching
+the Phase 5 count).
+
+**Correction to the Phase 2 rename log entry:** it records
+`MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` as "not a conformance tag, but named in
+comments". It *is* a live tag, at `features/Mock Target/transport-security.feature:19`,
+as well as appearing in comments there and in `mock/server.js`. Corrected in the log below.
+
+**When to re-open.** This is a pre-publication gate, not a dead item. Re-open defect 11
+*before* either of these happens, not after:
+
+1. the catalog leaves `/draft/` — i.e. `versions.json` stops being `[]`, or
+   `build/assets/api-standards.json` starts being produced and served; or
+2. a second consumer appears, in particular one outside this ownership.
+
+At that point the recommendation is the **full stable-ID** option, not the interim rename
+map, for a reason phases 4 and 5 both surfaced independently: text-derived IDs got *worse*
+as the clauses got sharper (28 → 29 → 33 of the MUST/MUST NOT set), because splitting a
+clause down to one sentence makes its ID a near-transcription of that sentence. The
+interim map does not address that; it only makes each rename followable after the fact.
+
+Seed material, should it be re-opened: `id-fixes.md` (the 198-row rename applied in
 `3f19cea`) plus the rename log below.
 
 ---
@@ -205,12 +244,16 @@ Either way, seed the map from `id-fixes.md` (the 198-row rename already applied 
 2. Re-run every count in STANDARDS-DEFECTS.md Appendix A. Mixed-strength must be 0,
    vague MUSTs 0, no duplicate content.
 3. Re-baseline `../api-standards-conformance`: 31 tags, 7 of which touch Phase 5 clauses,
-   plus `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` (Phase 3) and the two tags Phase 1
-   has already broken — `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` (retag to
-   `…_TO_STD_90`) and `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` (its scenario tests
-   signature algorithms, so retag to
-   `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS`, not to the encryption
-   clause). Run its `standards:check` and fix what it reports — that is the guard doing
+   plus `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` (Phase 3) and the **three** tags that
+   phases 1–2 have already broken (count confirmed by the Phase 6 verification, which is
+   the authoritative list — it is the complete set, not a sample):
+   `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` (retag to `…_TO_STD_90`);
+   `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` (its scenario tests signature
+   algorithms, so retag to `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS`,
+   not to the encryption clause); and
+   `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` → `MSDAS_MUST_DISABLE_OBSOLETE_TLS_VERSIONS`
+   at `features/Mock Target/transport-security.feature:19`, plus the two comment mentions.
+   Run its `standards:check` and fix what it reports — that is the guard doing
    its job, not a regression.
 4. Decide what the conformance suite does with the six `boundParty` clauses listed under
    "Bound-party assignments" below. Two are tagged today and both overclaim:
@@ -254,7 +297,7 @@ actual clause prose rather than working from summaries.
 | 5b — split (api-publishing) | **done** | 2026-07-30 | Defect 1, publishing: 6 clauses in 2 files. See the shared Phase 5 notes below. |
 | 5c — split (synchronous) | **done** | 2026-07-30 | Defect 1, synchronous: 7 clauses in 6 files. See the shared Phase 5 notes below. |
 | 5d — split (mcp + async) | **done** | 2026-07-30 | Defect 1, MCP + async: 5 clauses in 5 files (`mcp-apis/08` had none left — Phase 2 resolved its one instance). See the shared Phase 5 notes below. |
-| 6 — ID stability | not started | | |
+| 6 — ID stability | **closed, no work** | 2026-07-30 | Defect 11 closed as not applicable yet, with the owner. No generator change, no renumbering, no published rename map — all three exist to protect downstream consumers, and there are none: nothing is published outside `/draft/`, `versions.json` is `[]`, the specs and tooling are unreleased, and the sole reader is `../api-standards-conformance` under the same ownership. Verified first: only **3 of the 31** conformance tags stopped resolving across phases 1–5, and all 3 already carry a retag target in the rename log, so the log alone drives the Phase 7 retag. Also corrected a wrong claim in the Phase 2 log entry — `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` *is* a live tag, not comment-only. Re-open before the catalog leaves `/draft/` or a second consumer appears; see the Phase 6 section for the trigger conditions and why the full stable-ID option is the one to take then. |
 | 7 — verify & re-baseline | not started | | |
 
 ## Phase 4 notes (4a and 4b)
@@ -460,7 +503,7 @@ Use `—` in New ID for a removal (a demoted clause), and in Old ID for an addit
 | `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` | `MSDAS_MUST_CONFORM_JSON_TO_STD_90` | 1 | Defect 8. RFC 7159 obsoleted by RFC 8259; cite the stable STD number so the next revision doesn't rename the clause again. |
 | `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` | `MSDAS_MUST_ENCRYPT_CONTENT_WITH_APPROVED_ALGORITHMS` | 1 | Defect 9, encryption half. Renamed rather than kept: the clause no longer covers HMAC, and the conformance tag on the old ID tests *signature* algorithms. A rename makes `standards:check` fail loudly instead of silently re-pointing that tag at an encryption-only clause. |
 | — | `MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS` | 1 | Defect 9, message-authentication half. New clause for HMAC / digital signatures. The existing conformance scenario for the old ID belongs here. |
-| `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` | `MSDAS_MUST_DISABLE_OBSOLETE_TLS_VERSIONS` | 2 | Defect 5. Restated at MUST as a listener-configuration obligation, so the ID prefix has to change with the type. Not a conformance tag, but named in comments in the conformance repo's `mock/server.js` and `features/Mock Target/transport-security.feature` — update those in Phase 7. |
+| `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` | `MSDAS_MUST_DISABLE_OBSOLETE_TLS_VERSIONS` | 2 | Defect 5. Restated at MUST as a listener-configuration obligation, so the ID prefix has to change with the type. **Corrected in Phase 6:** this entry originally said "not a conformance tag, but named in comments". It *is* a live tag, at `features/Mock Target/transport-security.feature:19`, and also appears in comments there and in `mock/server.js` — update all three in Phase 7. |
 | `MSDAS_SHOULD_ENCODE_TEXT_AS_UTF_8` | `MSDAS_SHOULD_ENCODE_NON_JSON_TEXT_AS_UTF_8` | 2 | Phase 1 addendum. Narrowed to non-JSON text now that the adjacent MUST cites STD 90, which already binds JSON to UTF-8. Renamed because the scope genuinely shrank — a tool tagging the old ID was claiming coverage of JSON encoding it no longer gets from this clause. Not currently tagged in the conformance repo. |
 | `MSDAS_MUST_DESIGN_PUT_TOLERANT_APIS` | `MSDAS_MUST_ACCEPT_FULL_REPRESENTATION_ON_PUT` | 3 | Defect 7, second clause. "Be aware of the race condition" is not observable, and "PUT tolerant" was never defined in the source. Read as its standard industry meaning — accept the whole representation a GET returned, including properties the consumer cannot change — which is testable (PUT back a GET payload verbatim, expect 2xx) and, unlike the idempotency reading, is not already stated in the prose above the clause. Renamed because "design PUT tolerant APIs" named a posture, not the requirement. Not tagged in the conformance repo. |
 | — | `MSDAS_MUST_IGNORE_BODY_IN_HEAD_RESPONSE` | 3 | Defect 3, consumer half of `MSDAS_MUST_NOT_RETURN_BODY_FOR_HEAD_REQUEST`. New clause, `boundParty="consumer"`. The MUST NOT keeps its ID and now binds only the provider. |
