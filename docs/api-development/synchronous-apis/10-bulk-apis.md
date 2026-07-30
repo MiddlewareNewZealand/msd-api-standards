@@ -18,7 +18,7 @@ When handling bulk requests, consider troubleshooting and recovery: log all sub-
 Sub-request identifiers (see HTTP Headers, Request headers) are REQUIRED in bulk API calls, to ensure sub-requests are traceable end-to-end.
 </Standard>
 
-Where legacy system impact is a concern, it may be appropriate to provide an asynchronous batch capability instead — for example, bulk creation of client records from a batch event in a consuming legacy application. It's preferable for the consuming application to treat each record as a unique event and POST it individually, since this lets each success or error be handled in its own right and reported back to the consumer. Where that's not possible due to a system constraint, multiple records may be POSTed together asynchronously; this type of interaction <Standard inline id="MSDAS_SHOULD_NOT_PROCESS_BULK_ASYNC_SYNCHRONOUSLY" type="SHOULD NOT" toolTip="Where multiple records are POSTed together asynchronously, the interaction should not be attempted synchronously, since large batches will tie up HTTP threads and may require client/server timeout handling.">SHOULD NOT</Standard> be attempted synchronously, since large batches will tie up HTTP threads and may require client/server timeout handling.
+Where legacy system impact is a concern, it may be appropriate to provide an asynchronous batch capability instead — for example, bulk creation of client records from a batch event in a consuming legacy application. It's preferable for the consuming application to treat each record as a unique event and POST it individually, since this lets each success or error be handled in its own right and reported back to the consumer. Where that's not possible due to a system constraint, multiple records may be POSTed together asynchronously; this type of interaction <Standard inline id="MSDAS_SHOULD_NOT_PROCESS_BULK_ASYNC_SYNCHRONOUSLY" type="SHOULD NOT" toolTip="Where multiple records are POSTed together asynchronously, the interaction should not be attempted synchronously, since large batches tie up HTTP threads and can require client/server timeout handling.">SHOULD NOT</Standard> be attempted synchronously, since large batches will tie up HTTP threads and may require client/server timeout handling.
 
 ## **Transactions vs. batches**
 
@@ -29,7 +29,11 @@ Bulk APIs can be transaction-based or batch-based, and the two behave differentl
 Because sub-requests within a transaction are, by definition, tightly linked, it's common for the identifier from one sub-request to be referenced by a later sub-request in the same call — for example, a new client record referencing another new record in the same transaction as a related party, before either has a real, server-issued identifier.
 
 <Standard id="MSDAS_SHOULD_USE_TEMPORARY_BULK_IDS" type="SHOULD">
-The sub-request identifier (a temporary, client-assigned bulkId) SHOULD be used for cross-references between sub-requests within a transaction. The server replaces this with the real, server-side resource identifier once the record is created. In a batch call, by contrast, cross-references must use identifiers already known ahead of time, since sub-requests aren't guaranteed to succeed or process together.
+The sub-request identifier (a temporary, client-assigned bulkId) SHOULD be used for cross-references between sub-requests within a transaction. The server replaces the bulkId with the real, server-side resource identifier once the record is created.
+</Standard>
+
+<Standard id="MSDAS_MUST_USE_KNOWN_IDENTIFIERS_FOR_BATCH_CROSS_REFERENCES" type="MUST">
+In a batch call, cross-references between sub-requests must use identifiers already known ahead of time, since sub-requests aren't guaranteed to succeed or process together.
 </Standard>
 
 ### **Example: transaction vs. batch response**

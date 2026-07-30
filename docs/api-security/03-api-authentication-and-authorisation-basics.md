@@ -50,20 +50,28 @@ If using the anonymous authentication model, the API must implement protection a
 ### **Username and password authentication**
 
 <Standard id="MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION" type="SHOULD NOT">
-Username and password (direct) authentication should not be used for production APIs. Note the related [MAY guidance](#MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING) below — it may be used for testing and development purposes.
+Username and password (direct) authentication should not be used for production APIs.
 </Standard>
+
+See the related [guidance on testing and development use](#MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING) below.
 
 In this model — also known as HTTP Basic or Digest Auth — the user authenticates via an identity store using username and password credentials over HTTPS.
 
 <Standard id="MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY" type="MAY">
-There are possibly some legacy situations where an API Provider may implement username and password (direct) authentication, but its use must be treated as an exception and recorded appropriately.
+There are possibly some legacy situations where an API Provider may implement username and password (direct) authentication.
+</Standard>
+
+<Standard id="MSDAS_MUST_RECORD_PASSWORD_AUTHENTICATION_AS_AN_EXCEPTION" type="MUST">
+Where an API Provider implements username and password (direct) authentication for a legacy situation, its use must be treated as an exception and recorded in the API solution's risk assessment.
 </Standard>
 
 This model has significant limitations: it requires a full registration process for every user type; it can't leverage a federated authentication model (no single sign-on); passwords travel and may be stored in ways vulnerable to brute-force attack; and passwords have low entropy, must be reset and managed, and are hard to revoke at a granular level.
 
 <Standard id="MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING" type="MAY">
-Username and password (direct) authentication may be used for testing and development purposes. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION) above — it should not be used for production APIs.
+Username and password (direct) authentication may be used for testing and development purposes.
 </Standard>
+
+See the related [guidance on production use](#MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION) above.
 
 ### **API Key authentication**
 

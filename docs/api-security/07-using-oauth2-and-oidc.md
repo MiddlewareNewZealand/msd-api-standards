@@ -63,8 +63,14 @@ The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive
 The ID Token is a JWT containing authenticated user information provided by the OpenID Connect server to the API Consumer. It may be used to enforce finer-grained access controls via additional claims; must be signed by an approved algorithm; should include claims that hash the code, state and access token to protect user integrity; may carry additional non-identity metadata (e.g. session details); must have its issuer, audience, nonce and expiry validated by the API Consumer; and may be encrypted.
 
 <Standard id="MSDAS_MUST_MINIMISE_IDENTITY_ATTRIBUTES" type="MUST">
-API Providers must ensure only the minimum number of identity attributes needed to meet the API Consumer's request are provided, and must ensure that any ID Token transmitted over TLS via the authorise endpoint does not contain personal or highly sensitive client information (ID Tokens may be returned from the authorise endpoint over TLS, or the token endpoint over mTLS).
+API Providers must ensure only the minimum number of identity attributes needed to meet the API Consumer's request are provided.
 </Standard>
+
+<Standard id="MSDAS_MUST_NOT_PUT_SENSITIVE_INFORMATION_IN_AUTHORISE_ENDPOINT_ID_TOKENS" type="MUST NOT">
+An ID Token returned from the authorise endpoint must not contain personal or highly sensitive client information.
+</Standard>
+
+ID Tokens are returned either from the authorise endpoint over TLS, or from the token endpoint over mTLS.
 
 ### **Userinfo endpoint and scopes**
 

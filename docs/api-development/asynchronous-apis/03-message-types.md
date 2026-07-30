@@ -11,7 +11,11 @@ When publishing integration events there's a balance to strike between publishin
 A “thin” message contains no data, or the minimum needed to inform a consumer that an event occurred. Interested consumers can contact the API Provider (typically via REST) for further detail.
 
 <Standard id="MSDAS_MAY_INCLUDE_RESOURCE_POINTER_IN_THIN_EVENT" type="MAY">
-Thin events MAY include a pointer (URL or identifier) back to the resource that triggered the notification. If no pointer is supplied, the data source MUST allow subscribers to query specifically for changed resources (e.g. lastUpdatedTime > `{last query time}`).
+Thin events MAY include a pointer (URL or identifier) back to the resource that triggered the notification.
+</Standard>
+
+<Standard id="MSDAS_MUST_SUPPORT_QUERYING_FOR_CHANGED_RESOURCES" type="MUST">
+Where a thin event carries no pointer back to the resource that triggered it, the data source MUST allow subscribers to query specifically for changed resources (e.g. lastUpdatedTime > `{last query time}`).
 </Standard>
 
 ```json

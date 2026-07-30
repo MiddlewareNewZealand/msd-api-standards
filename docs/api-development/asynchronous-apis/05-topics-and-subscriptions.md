@@ -5,7 +5,15 @@ title: "Topics and subscriptions"
 A Message Producer uses topics to route messages to interested API Consumers; an API Consumer uses topics within its subscriptions to filter the messages it wants to receive. Well-architected, consistent topic design is central to a reusable event-driven API.
 
 <Standard id="MSDAS_MUST_APPLY_TOPIC_DESIGN_CONSISTENTLY" type="MUST">
-Topic design MUST be applied consistently once agreed, and root levels of a topic MUST NOT change meaning. Topic levels MUST be separated by / rather than concatenation, to support subscription filtering.
+Topic design MUST be applied consistently once agreed.
+</Standard>
+
+<Standard id="MSDAS_MUST_NOT_CHANGE_MEANING_OF_TOPIC_ROOT_LEVELS" type="MUST NOT">
+The root levels of a topic MUST NOT change meaning.
+</Standard>
+
+<Standard id="MSDAS_MUST_SEPARATE_TOPIC_LEVELS_WITH_SLASH" type="MUST">
+Topic levels MUST be separated by / rather than concatenation, to support subscription filtering.
 </Standard>
 
 A general topic design pattern: `{domain}/{action}/{identifier}` — for example:

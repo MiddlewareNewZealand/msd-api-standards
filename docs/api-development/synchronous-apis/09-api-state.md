@@ -8,7 +8,7 @@ title: "API State"
 In almost all cases, a REST API SHOULD be entirely stateless.
 </Standard>
 
-As part of processing, an API may gather context and pass it to a downstream system, but <Standard inline id="MSDAS_SHOULD_NOT_RETAIN_CONTEXT_BETWEEN_REQUESTS" type="SHOULD NOT" toolTip="An API may gather context and pass it to a downstream system, but should not maintain that context for future requests.">SHOULD NOT</Standard> maintain that context for future requests. This shouldn't be confused with caching (see Caching, below): a typical stateless flow has the API layer forwarding requests to a service layer, which may itself hold state (some services are stateful, others aren't) and pass state between services via service-to-service messaging — for example, an API being notified of a state transition via a state transition queue or topic, without the API layer itself retaining that state between requests.
+As part of processing, an API may gather context and pass it to a downstream system, but <Standard inline id="MSDAS_SHOULD_NOT_RETAIN_CONTEXT_BETWEEN_REQUESTS" type="SHOULD NOT" toolTip="An API should not maintain context gathered while processing a request for use in future requests.">SHOULD NOT</Standard> maintain that context for future requests. This shouldn't be confused with caching (see Caching, below): a typical stateless flow has the API layer forwarding requests to a service layer, which may itself hold state (some services are stateful, others aren't) and pass state between services via service-to-service messaging — for example, an API being notified of a state transition via a state transition queue or topic, without the API layer itself retaining that state between requests.
 
 ## **State in process APIs**
 

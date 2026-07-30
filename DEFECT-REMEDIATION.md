@@ -250,10 +250,10 @@ actual clause prose rather than working from summaries.
 | 3 — anaphora & bound party | **done** | 2026-07-30 | Defects 3 and 7 fixed. 9 doc files + `Standard.jsx`, `extractStandards.js`, `validateStandardTags.js`, `StandardsChecklist.jsx`, `CONTRIBUTING.md`. Clause count unchanged at **199** (MUST 95, SHOULD 64, MAY 19, SHOULD NOT 13, MUST NOT 8) — the HEAD split adds a MUST, the duplicate below removes a SHOULD NOT. **Mixed-strength 34 → 33** (the HEAD split resolved one defect-1 instance, so 5c inherits one clause less). Vague MUSTs unchanged at 19 (denominator now 103). No duplicate IDs or duplicate content. Build clean, no broken anchors, validator clean. **The lint found 8 more instances of defect 3 than the report's 4** — the report says "4 identified", not exhaustive, and all 8 were fixed here rather than deferred, since a lint that ships with known violations is not a gate. They are: `MSDAS_SHOULD_OFFER_ONBOARDING_ON_AUTHENTICATED_WEB` ("This SHOULD be made available" — no antecedent at all), `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY`, `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING`, `MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION`, `MSDAS_MAY_USE_CERTIFICATE_AUTH_FOR_LEGACY` (all "this model"/"this pattern"), `MSDAS_MAY_USE_BACKEND_FOR_FRONTEND_PATTERN` ("this guidance" → the IETF's browser-app draft), `MSDAS_SHOULD_NOT_PROCESS_BULK_ASYNC_SYNCHRONOUSLY` ("this type of interaction"), and `MSDAS_MUST_PUBLISH_THROTTLING_QUOTAS` (reviewed, acknowledged — the referent is inside the clause). Decisions: (a) `MSDAS_MUST_NOT_RETURN_BODY_FOR_HEAD_REQUEST` **split** rather than trimmed — the consumer sentence is a real RFC 9110 obligation, and `boundParty` landing in this phase gave it somewhere honest to live; (b) `MSDAS_MUST_DESIGN_PUT_TOLERANT_APIS` **reworded to the observable obligation**, not demoted — "be aware of the race condition" moved to page prose pointing at `MSDAS_MUST_IMPLEMENT_CONCURRENCY_CONTROL`, which already carries that requirement at MUST, so nothing normative was lost. "PUT tolerant" was undefined in the source; the interpretation applied is in the rename log and is the one thing in this phase worth a second opinion from the owner; (c) resolving "This model" made `MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION` **byte-identical** to `MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION` — a defect-6-class duplicate the anaphora had been hiding. Deleted the second and moved its "Note the related MAY guidance" pointer onto the canonical clause; (d) `boundParty` swept beyond the report's 2 clauses — 5 consumer, 1 both (see below). **Read before Phase 7:** `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT` is now `consumer`, and the conformance repo tags it in `widgets-api.feature` on a scenario asserting the *provider* returns 406 for an unsatisfiable `Accept` — the same overclaim defect 7 documents for the TLS clause, now visible in the JSON. The provider-side obligation it actually tests (honour `Accept`, else 406) has no clause in the catalog; adding one is new normative content, so it is raised for the owner rather than done here. **Lint limitation:** the actor-switch half of defect 3 (the HEAD clause) is not lexically detectable and is not covered. Phase 5's "no foreign RFC 2119 keyword in a toolTip" lint catches that shape; until it lands, actor switches are caught only by review. `it`, `instead`, `too` and `otherwise` were each measured against the catalog and deliberately excluded — see the comment in `validateStandardTags.js` for the hit counts. |
 | 4a — vague MUSTs (security) | **done** | 2026-07-30 | Defect 2, security half: 9 clauses in 5 files (the plan said 8 in 4 — it missed `MSDAS_MUST_DOCUMENT_CONSUMER_ONBOARDING_PROCESS` in `api-security/07`). 3 demoted, 6 qualifiers struck. See the shared Phase 4 notes below. |
 | 4b — vague MUSTs (rest) | **done** | 2026-07-30 | Defect 2, remainder: 10 clauses in 7 files (plan said 11; the split across 4a/4b was 8/11, actually 9/10). All 10 fixed by striking the qualifier — no demotions, no renames. See the shared Phase 4 notes below. |
-| 5a — split (api-security) | not started | | |
-| 5b — split (api-publishing) | not started | | |
-| 5c — split (synchronous) | not started | | |
-| 5d — split (mcp + async) | not started | | |
+| 5a — split (api-security) | **done** | 2026-07-30 | Defect 1, security half: 15 clauses in 6 files, plus `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS` in `api-security/05`. See the shared Phase 5 notes below. |
+| 5b — split (api-publishing) | **done** | 2026-07-30 | Defect 1, publishing: 6 clauses in 2 files. See the shared Phase 5 notes below. |
+| 5c — split (synchronous) | **done** | 2026-07-30 | Defect 1, synchronous: 7 clauses in 6 files. See the shared Phase 5 notes below. |
+| 5d — split (mcp + async) | **done** | 2026-07-30 | Defect 1, MCP + async: 5 clauses in 5 files (`mcp-apis/08` had none left — Phase 2 resolved its one instance). See the shared Phase 5 notes below. |
 | 6 — ID stability | not started | | |
 | 7 — verify & re-baseline | not started | | |
 
@@ -325,6 +325,128 @@ the first `INFO` box names "Using OAuth 2.0 and OIDC" in words instead of linkin
 `CONTRIBUTING.md`; every pre-existing cross-page link in the docs happens to sit in prose, which is
 why it had never surfaced.
 
+## Phase 5 notes (5a–5d)
+
+All four batches were run together, for the same reason as Phase 4: the mechanism decision applies
+across them, and the lint cannot ship until every clause in all four is clean.
+
+**Decisions, confirmed with the owner 2026-07-30 — do not re-open in a later phase.**
+
+1. **Mechanism: full split into separate `<Standard>` blocks**, not sub-clause IDs. Sub-clause IDs
+   would need `ID_REGEX` and `idFormatRegex` loosened to allow `.`, a parent/child shape in the JSON
+   and a Checklist change — and the parent ID would still exist and still mean "all of them", so the
+   overclaim this phase exists to remove would survive at parent level. Neither generator regex was
+   touched. Adjacent boxes separated by a blank line are in different paragraphs, so a split does not
+   trip the Phase 2 mixed-strength lint; no `ACKNOWLEDGED_OVERLAPS` entry was needed for any of them.
+2. **Scope: the 33 mixed-strength clauses plus `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`.** The 33
+   are exactly the lint-enforceable set. Clauses in that set were atomised *fully*, including their
+   same-strength parts — once a clause is being opened up, leaving two MUSTs joined is arbitrary. That
+   rule was applied to the clauses *created* here too: a first pass produced three new two-obligation
+   clauses, which were caught by the same-strength count below and split again. The 15 pre-existing
+   clauses that repeat only their own keyword are listed under "Same-strength multi-obligation clauses"
+   below and were **not** touched.
+3. A **blocking lint** was added (`findForeignKeywords` in `validateStandardTags.js`).
+
+**Counts.** 196 → **240** (MUST 112, SHOULD 74, MAY 24, SHOULD NOT 16, MUST NOT 14) — 45 clauses
+added, 1 removed. **Mixed-strength 33 → 0.** Vague MUSTs stay 0 (denominator now 126). No duplicate
+IDs or duplicate content. Build, both validators and the accessibility check clean, no broken anchors.
+**No retained clause was renamed**, so all 7 conformance tags on former mixed-strength clauses still
+resolve — but see the Phase 7 note below, because three of them now under-cover their scenario.
+
+**Descriptive keywords had to be reworded, not just split.** Roughly a third of the 33 were not
+multi-obligation at all: they were a single rule next to a cross-reference ("Note the related MAY
+guidance above"), a rationale ("since the agent *may* relay tool output"), or a plain English modal
+("the rules API Consumers *must* agree to"). The lint cannot distinguish those from obligations, and
+neither can a reader of the JSON, so they were reworded and the cross-references moved out into page
+prose. This is why the phase touched 18 files rather than the ~12 that carry genuine splits.
+
+**Judgement calls worth a second opinion:**
+
+- `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY` carried "…but its use must be treated as an
+  exception and **recorded appropriately**". Splitting the MUST out would have shipped a new clause
+  that fails the Phase 4 vague-qualifier lint, so the destination had to be named: the new clause says
+  "recorded in the API solution's risk assessment", tying it to `MSDAS_MUST_DEMONSTRATE_RISK_ASSESSMENT`.
+  That is a concretisation, not a trim — the source never said where.
+- `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS` → **8 clauses, old ID removed.** The eight are the
+  report's own enumeration. One needed rewording rather than splitting: "a zero-trust model (no
+  session-based authentication such as cookies)" reads as a MUST NOT inside a MUST, but the
+  parenthetical defines what zero trust means here rather than adding a rule, so it became a relative
+  clause ("in which no session-based authentication mechanism … is relied on to establish trust").
+- `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS` → **4 clauses**. The consent half started as one
+  `boundParty="both"` clause, following `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS`, but "the
+  host must obtain consent and the server must require it" is two obligations on two parties, so it
+  became `MSDAS_MUST_REQUIRE_RENEWED_CONSENT_FOR_CHANGED_TOOLS` (provider) and
+  `MSDAS_MUST_OBTAIN_RENEWED_CONSENT_FOR_CHANGED_TOOLS` (consumer). Splitting turned out to be the
+  better answer than `both` here: each half now has an honest, separately assessable bound party,
+  which `both` cannot express. Worth revisiting whether the write-tools SHOULD deserves the same
+  treatment — not done here, it is out of scope. Its sibling
+  `MSDAS_MUST_NOTIFY_HOSTS_OF_MATERIAL_TOOL_CHANGES` (MUST) sits close to
+  `MSDAS_SHOULD_NOTIFY_CLIENTS_OF_CAPABILITY_CHANGES` (SHOULD) in subject. Reviewed and judged
+  distinct — the SHOULD covers a capability list changing at runtime, the MUST covers a *previously
+  approved* tool changing materially, which is the rug-pull case. Different files, so the
+  paragraph-scoped Phase 2 lint never sees them; recorded here so the pair is not rediscovered as a
+  defect 5.
+- `MSDAS_MUST_MINIMISE_IDENTITY_ATTRIBUTES` shed a parenthetical MAY ("ID Tokens may be returned from
+  the authorise endpoint over TLS, or the token endpoint over mTLS") to page prose rather than to a new
+  clause. It states where ID Tokens come from; the obligations on those transports live elsewhere.
+- `MSDAS_MUST_NOT_EXPOSE_UNSAFE_OPERATIONS_VIA_GET` was "Do not expose unsafe operations via GET — it
+  should never modify any resources on the server", one idea said twice. Split into two MUST NOTs
+  anyway rather than merged, because the ID names only the first half and the second is separately
+  testable.
+
+**Lint limitations — read before Phase 7.**
+
+- Verified both ways: run against the pre-Phase-5 tree it flags **exactly** the report's 33 clauses
+  (identical ID sets, not just an equal count); against the current tree it reports 0.
+- It only sees *strength* collisions. `MSDAS_MUST_ENCRYPT_ASYNCHRONOUS_MESSAGES` still packs four MUSTs
+  into one ID and passes cleanly. "One obligation per ID" is therefore enforced for mixed-strength
+  clauses and enforced by review for everything else.
+- `ACKNOWLEDGED_FOREIGN_KEYWORDS` is empty by design — as in Phase 4, no clause needed an exception, so
+  a future entry is a claim to argue rather than a formality.
+- Synonyms are matched **upper-case only**, deliberately: lower-case *required* (8 hits), *recommended*
+  (7) and *optional* (1) are all ordinary adjectives in this catalogue, and cross-canonical upper-case
+  uses are 0. The primary five stay case-insensitive, matching the report's Appendix A detector.
+
+**Read before Phase 7 — three tagged scenarios now span a split.** None of these break
+`standards:check` (no ID moved), so they need reading, not diffing:
+
+- `@MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA` — the scenario asserts unique tool names *and* an input
+  schema. Unique names are now `MSDAS_MUST_MAKE_TOOL_NAMES_UNIQUE_WITHIN_A_SERVER`; add the tag or
+  split the scenario.
+- `@MSDAS_MUST_DECLARE_MCP_SPECIFICATION_VERSION` — asserts `result.protocolVersion` *and*
+  `result.serverInfo.version`. The second is now `MSDAS_MUST_DECLARE_TOOL_CONTRACT_VERSION`.
+- `@MSDAS_MUST_RETURN_429_WHEN_THROTTLED` — asserts the 429 *and* the `Retry-After` header. The header
+  is now `MSDAS_SHOULD_INCLUDE_RETRY_AFTER_ON_429`, a SHOULD; the scenario has been asserting it at
+  MUST strength.
+- `@MSDAS_SHOULD_DOCUMENT_ALL_RESPONSES` — asserts multiple responses *including an error response*.
+  The error half is now `MSDAS_MUST_DOCUMENT_ERROR_RESPONSES`, a MUST.
+- **A retag, not a split:** `@MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS` in `mcp-apis.feature` mints a
+  token for the *widgets* audience and expects the MCP call to 401. That tests the cross-audience
+  rejection, which is now `MSDAS_MUST_NOT_HONOUR_MCP_TOKENS_ACROSS_AUDIENCES`. The surviving MUST (the
+  server must audience-restrict the tokens it issues) is not what the scenario exercises.
+
+**Defect 11 moved the wrong way again**, as in Phase 4: text-derived IDs 29 → 33 of 126. Splitting a
+clause down to one sentence makes its ID a near-transcription of that sentence almost by construction.
+Phase 6's problem, and an argument for the full-stable-ID option there rather than the interim.
+
+## Same-strength multi-obligation clauses (out of Phase 5 scope)
+
+Not touched, per decision 2 above — **15** of them. These carry more than one obligation at a *single*
+strength, so the `standardType` field does not misrepresent them and the lint cannot see them; a
+conformance run can still only report them all-or-nothing. Listed so a future phase does not have to
+rediscover them:
+
+`MSDAS_MUST_ENCRYPT_ASYNCHRONOUS_MESSAGES` (4 MUSTs), `MSDAS_MUST_PROVIDE_SUBSCRIPTION_MECHANISM` (3),
+and 2-obligation instances in `MSDAS_MUST_GIVE_RESOURCES_STABLE_IDENTIFIERS`,
+`MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT`, `MSDAS_MUST_PUBLISH_GRAPHQL_SCHEMA`,
+`MSDAS_MUST_DESCRIBE_GRAPHQL_SCHEMA_ELEMENTS`, `MSDAS_MUST_DEFINE_OPENAPI_SECURITY_SCHEMES`,
+`MSDAS_MUST_ADOPT_LEVEL_OF_ASSURANCE_MODEL`, `MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS`,
+`MSDAS_MUST_OBTAIN_CONSENT_TO_SHARE_ATTRIBUTES`, `MSDAS_SHOULD_FOLLOW_CURRENT_MCP_TRANSPORT_MODEL`,
+`MSDAS_SHOULD_RETURN_JSON_BY_DEFAULT`, `MSDAS_SHOULD_USE_NAMESPACE_AS_FIRST_URI_NOUN`,
+`MSDAS_SHOULD_USE_PLURAL_NOUN_RESOURCE_NAMES`, `MSDAS_SHOULD_ASSIGN_UNIQUE_API_KEYS`.
+
+Reproduce with: count occurrences of a clause's own `standardType` in its `content` and report `> 1`.
+
 ---
 
 ## Rename log
@@ -346,8 +468,54 @@ Use `—` in New ID for a removal (a demoted clause), and in Old ID for an addit
 | `MSDAS_MUST_AUTHENTICATE_API_ACCESS` | — | 4 | Defect 2. "Appropriate authentication must be achieved when accessing APIs" is unfalsifiable; demoted to an `INFO` box pointing at the mechanism clauses on the same page. Not tagged in the conformance repo. |
 | `MSDAS_MUST_APPLY_APPROPRIATE_AUTHORISATION` | — | 4 | Defect 2. "Appropriate authorisation must be applied" — same treatment, pointing at the RBAC, scopes and ABAC clauses below it. Not tagged in the conformance repo. |
 | `MSDAS_MUST_INCLUDE_SCOPES_IN_ACCESS_TOKENS` | — | 4 | Defect 2. Deleted rather than replaced with a pointer: the `MAY` on OAuth scopes sits in the same section and the least-privilege obligation was already page prose. Not tagged in the conformance repo. |
+| `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS` | — | 5 | Defect 1, worst offender. Eight independent requirements in one ID; replaced by the nine clauses below (the throttling requirement was itself two obligations). Not tagged in the conformance repo. |
+| — | `MSDAS_MUST_AUTHENTICATE_AND_AUTHORISE_CLOUD_API_REQUESTS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_VALIDATE_CLOUD_API_REQUESTS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_THROTTLE_CLOUD_API_REQUESTS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_APPLY_QUOTAS_TO_EXPENSIVE_CLOUD_ENDPOINTS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`; quotas are separately observable from throttling. |
+| — | `MSDAS_MUST_LOG_CLOUD_API_ACTIVITY` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_DEPEND_ONLY_ON_TRUSTED_CLOUD_DEPENDENCIES` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_APPLY_ZERO_TRUST_MODEL_TO_CLOUD_APIS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. The "no session-based authentication" parenthetical is definitional, kept as a relative clause rather than split into a MUST NOT. |
+| — | `MSDAS_MUST_FILTER_PUBLIC_NETWORK_TRAFFIC_TO_CLOUD_APIS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_RESTRICT_ACCESS_TO_CLOUD_API_SECRETS` | 5 | Split out of `MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS`. |
+| — | `MSDAS_MUST_RECORD_PASSWORD_AUTHENTICATION_AS_AN_EXCEPTION` | 5 | MUST half of `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY`. "Recorded appropriately" had to name a destination to clear the Phase 4 lint — now the API solution's risk assessment. |
+| — | `MSDAS_MUST_NOT_PUT_SENSITIVE_INFORMATION_IN_AUTHORISE_ENDPOINT_ID_TOKENS` | 5 | MUST NOT half of `MSDAS_MUST_MINIMISE_IDENTITY_ATTRIBUTES`. |
+| — | `MSDAS_SHOULD_NOT_USE_CLIENT_CREATED_SAML_ASSERTIONS` | 5 | Second obligation of `MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER`. |
+| — | `MSDAS_MAY_USE_SAML_WITH_AUTHORISATION_CODE_FOR_CONFIDENCE_APIS` | 5 | Second obligation of `MSDAS_MAY_USE_SAML_FOR_UNCLASSIFIED_APIS`. |
+| — | `MSDAS_MUST_BIND_ISSUED_TOKENS_TO_THE_CLIENT` | 5 | MUST half of `MSDAS_SHOULD_SECURE_SENSITIVE_APIS_WITH_CLIENT_AUTHENTICATION`. |
+| — | `MSDAS_MAY_USE_TLS_CLIENT_AUTH_IN_PRODUCTION` | 5 | Second obligation of `MSDAS_MAY_USE_SELF_SIGNED_MTLS_IN_TESTING`; different method, different environment. |
+| — | `MSDAS_SHOULD_NOT_USE_MTLS_METHODS_WITH_PUBLIC_CLIENTS` | 5 | Second obligation of `MSDAS_SHOULD_NOT_USE_SELF_SIGNED_MTLS_IN_PRODUCTION`. |
+| — | `MSDAS_SHOULD_BASE_POP_SELECTION_ON_RISK_ASSESSMENT` | 5 | SHOULD half of `MSDAS_MAY_USE_DPOP_FOR_CONFIDENCE_APIS`. |
+| — | `MSDAS_SHOULD_ASSESS_API_RISK_AT_DESIGN_AND_ONGOING` | 5 | SHOULD half of `MSDAS_MUST_DEMONSTRATE_RISK_ASSESSMENT`. |
+| — | `MSDAS_SHOULD_MAINTAIN_RISK_RECORDS_IN_MSD_SYSTEMS` | 5 | Second SHOULD of `MSDAS_MUST_DEMONSTRATE_RISK_ASSESSMENT`. |
+| — | `MSDAS_MUST_NOT_HONOUR_MCP_TOKENS_ACROSS_AUDIENCES` | 5 | MUST NOT half of `MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS`. **This is what the existing `@MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS` scenario actually tests** — retag in Phase 7. |
+| — | `MSDAS_MUST_NOTIFY_HOSTS_OF_MATERIAL_TOOL_CHANGES` | 5 | Notification half of `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS`. |
+| — | `MSDAS_MUST_REQUIRE_RENEWED_CONSENT_FOR_CHANGED_TOOLS` | 5 | Provider half of the re-consent obligation in `MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS`. |
+| — | `MSDAS_MUST_OBTAIN_RENEWED_CONSENT_FOR_CHANGED_TOOLS` | 5 | Host half of the same obligation. `boundParty="consumer"` — see the bound-party table below. |
+| — | `MSDAS_MUST_NOT_DELEGATE_ACCESS_CONTROL_TO_THE_AGENT` | 5 | MUST NOT half of `MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED`. |
+| — | `MSDAS_SHOULD_PUBLISH_TERMS_AND_CONDITIONS_ON_WEB` | 5 | SHOULD half of `MSDAS_MUST_PUBLISH_TERMS_AND_CONDITIONS`. |
+| — | `MSDAS_SHOULD_INCLUDE_RETRY_AFTER_ON_429` | 5 | SHOULD half of `MSDAS_MUST_RETURN_429_WHEN_THROTTLED`. The existing scenario for that tag asserts the header too — see the Phase 7 note. |
+| — | `MSDAS_SHOULD_PUBLISH_THROTTLING_THRESHOLDS_ON_WEB` | 5 | Second SHOULD of `MSDAS_SHOULD_INCLUDE_QUOTA_HEADERS`. |
+| — | `MSDAS_MAY_VARY_THROTTLING_THRESHOLDS_BY_SLA_TIER` | 5 | MAY half of `MSDAS_SHOULD_INCLUDE_QUOTA_HEADERS`. |
+| — | `MSDAS_MUST_DOCUMENT_ERROR_RESPONSES` | 5 | MUST half of `MSDAS_SHOULD_DOCUMENT_ALL_RESPONSES`. The existing scenario for that tag asserts an error response — see the Phase 7 note. |
+| — | `MSDAS_SHOULD_REFERENCE_REQUEST_BODY_SCHEMA_FROM_COMPONENTS` | 5 | SHOULD half of `MSDAS_MUST_DEFINE_REQUEST_BODY_SCHEMA`. |
+| — | `MSDAS_MAY_NEST_SCHEMA_REFERENCES` | 5 | MAY half of `MSDAS_SHOULD_USE_SCHEMA_REFERENCES`. |
+| — | `MSDAS_MUST_DOCUMENT_EXTERNAL_APIS_IN_THE_CATALOGUE` | 5 | MUST half of `MSDAS_SHOULD_PUBLISH_API_DEFINITION_WHEN_READY`. "Well documented" → "documented … with accurate and up-to-date guidance"; the discovery rationale moved to prose. |
+| — | `MSDAS_MUST_NOT_MODIFY_RESOURCES_IN_A_GET` | 5 | Second obligation of `MSDAS_MUST_NOT_EXPOSE_UNSAFE_OPERATIONS_VIA_GET`. |
+| — | `MSDAS_SHOULD_LIMIT_SUB_RESOURCE_NESTING_DEPTH` | 5 | SHOULD half of `MSDAS_MUST_NEST_SUB_RESOURCES_UNDER_PARENT`. |
+| — | `MSDAS_MUST_USE_KNOWN_IDENTIFIERS_FOR_BATCH_CROSS_REFERENCES` | 5 | MUST half of `MSDAS_SHOULD_USE_TEMPORARY_BULK_IDS`; the batch case, as against the transaction case the SHOULD keeps. |
+| — | `MSDAS_SHOULD_NOT_INCLUDE_MINOR_VERSION_IN_URI` | 5 | SHOULD NOT half of `MSDAS_MUST_INCLUDE_MAJOR_VERSION_IN_URI`. |
+| — | `MSDAS_SHOULD_DECLARE_TOOL_OUTPUT_SCHEMA` | 5 | SHOULD half of `MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA`. |
+| — | `MSDAS_MUST_MAKE_TOOL_NAMES_UNIQUE_WITHIN_A_SERVER` | 5 | Second MUST of `MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA`. The existing scenario for that tag asserts unique names too — see the Phase 7 note. |
+| — | `MSDAS_SHOULD_USE_VERB_NOUN_TOOL_NAMES` | 5 | Second SHOULD of `MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA`. |
+| — | `MSDAS_MUST_DECLARE_TOOL_CONTRACT_VERSION` | 5 | Second MUST of `MSDAS_MUST_DECLARE_MCP_SPECIFICATION_VERSION`. The existing scenario for that tag asserts `serverInfo.version` too — see the Phase 7 note. |
+| — | `MSDAS_MUST_NOT_BREAK_TOOL_INPUT_SCHEMA_WITHOUT_SIGNALLING` | 5 | MUST NOT half of `MSDAS_MUST_DECLARE_MCP_SPECIFICATION_VERSION`. Reworded from "without also changing" to "unless the Tool's name changes with it" to clear the Phase 3 presupposing-adverb lint, which only checks a clause's opening sentence and so had never seen this text. |
+| — | `MSDAS_MAY_ADD_OPTIONAL_TOOL_PARAMETERS_WITHOUT_SIGNALLING` | 5 | MAY half of `MSDAS_MUST_DECLARE_MCP_SPECIFICATION_VERSION`. |
+| — | `MSDAS_MUST_SUPPORT_QUERYING_FOR_CHANGED_RESOURCES` | 5 | MUST half of `MSDAS_MAY_INCLUDE_RESOURCE_POINTER_IN_THIN_EVENT`. |
+| — | `MSDAS_MUST_NOT_CHANGE_MEANING_OF_TOPIC_ROOT_LEVELS` | 5 | MUST NOT half of `MSDAS_MUST_APPLY_TOPIC_DESIGN_CONSISTENTLY`. |
+| — | `MSDAS_MUST_SEPARATE_TOPIC_LEVELS_WITH_SLASH` | 5 | Second MUST of `MSDAS_MUST_APPLY_TOPIC_DESIGN_CONSISTENTLY`. |
 
-## Bound-party assignments (Phase 3)
+## Bound-party assignments (Phases 3 and 5)
 
 Every clause not listed here is `provider`, the default. Phase 7 needs this list: a conformance run
 against a provider endpoint cannot verify any of them, so a tag on one is an overclaim.
@@ -360,6 +528,7 @@ against a provider endpoint cannot verify any of them, so a tag on one is an ove
 | `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT` | consumer | Both halves bind the party sending the request. Currently tagged — see the Phase 3 status note. |
 | `MSDAS_SHOULD_PROTECT_EMBEDDED_API_KEYS` | consumer | The key is embedded in the consumer's application; the page prose already says the consumer's developers are responsible for it. |
 | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` | both | The MCP Server declares which tools need confirmation, but the confirmation prompt is the Host's to show. Neither party can satisfy it alone. |
+| `MSDAS_MUST_OBTAIN_RENEWED_CONSENT_FOR_CHANGED_TOOLS` | consumer | New in Phase 5. Only the Host can put the changed tool back in front of the person the agent acts for. Its provider-side counterpart, `MSDAS_MUST_REQUIRE_RENEWED_CONSENT_FOR_CHANGED_TOOLS`, is a separate clause rather than a `both` — see the Phase 5 notes. |
 
 Judged `provider` despite naming the consumer: `MSDAS_MUST_IDENTIFY_CONSUMER_IN_TOKEN` (the
 authorisation server mints the token), `MSDAS_MUST_LIMIT_GRANT_TYPES` (the consumer half is

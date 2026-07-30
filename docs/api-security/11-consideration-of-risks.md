@@ -9,7 +9,15 @@ An API offers a direct channel into part of an organisation's resources and info
 It's therefore important that API Providers consider their consumers — and the consumers of those consumers — to determine risks and what information should be accessible via APIs.
 
 <Standard id="MSDAS_MUST_DEMONSTRATE_RISK_ASSESSMENT" type="MUST">
-API designers and implementers must show how they have assessed and managed risks associated with their API solution. This assessment should be conducted during API design and be part of ongoing risk assessment of the API and its products. Records of risk assessment, current status and mitigation should be maintained in MSD's risk management systems.
+API designers and implementers must show how they have assessed and managed risks associated with their API solution.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_ASSESS_API_RISK_AT_DESIGN_AND_ONGOING" type="SHOULD">
+Risk assessment of an API solution should be conducted during API design, and be part of ongoing risk assessment of the API and its products.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_MAINTAIN_RISK_RECORDS_IN_MSD_SYSTEMS" type="SHOULD">
+Records of API risk assessment, current status and mitigation should be maintained in MSD's risk management systems.
 </Standard>
 
 This standard calls for API designers and implementers to show they've considered API security risk mitigation — generally demonstrated by design documentation, or, where mitigations are reused from other solutions, by reference to that solution's documentation or certification.

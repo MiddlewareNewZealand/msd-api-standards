@@ -3,7 +3,19 @@ title: "Tool design"
 ---
 
 <Standard id="MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA" type="MUST">
-Every Tool MUST declare a machine-readable schema for its input parameters, and SHOULD declare one for its output. Tool names MUST be unique within a Server and SHOULD use verb-noun naming, e.g. get-client-summary, create-case-note.
+Every Tool MUST declare a machine-readable schema for its input parameters.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_DECLARE_TOOL_OUTPUT_SCHEMA" type="SHOULD">
+Every Tool SHOULD declare a machine-readable schema for its output.
+</Standard>
+
+<Standard id="MSDAS_MUST_MAKE_TOOL_NAMES_UNIQUE_WITHIN_A_SERVER" type="MUST">
+Tool names MUST be unique within a Server.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_USE_VERB_NOUN_TOOL_NAMES" type="SHOULD">
+Tool names SHOULD use verb-noun naming, e.g. get-client-summary, create-case-note.
 </Standard>
 
 <Standard id="MSDAS_MUST_DESCRIBE_EACH_TOOL_CLEARLY" type="MUST">

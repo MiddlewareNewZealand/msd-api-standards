@@ -96,7 +96,11 @@ components:
 ### **Responses**
 
 <Standard id="MSDAS_SHOULD_DOCUMENT_ALL_RESPONSES" type="SHOULD">
-`{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code, and MUST include error responses, referring to an error schema where possible.
+`{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code.
+</Standard>
+
+<Standard id="MSDAS_MUST_DOCUMENT_ERROR_RESPONSES" type="MUST">
+`{path}.{verb}.responses` MUST include error responses, referring to an error schema where possible.
 </Standard>
 
 ```yaml
@@ -128,7 +132,11 @@ API Providers SHOULD NOT include a default response. Although OpenAPI supports i
 ### **Request body**
 
 <Standard id="MSDAS_MUST_DEFINE_REQUEST_BODY_SCHEMA" type="MUST">
-Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property, which SHOULD reference a schema defined in components.
+Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_REFERENCE_REQUEST_BODY_SCHEMA_FROM_COMPONENTS" type="SHOULD">
+A requestBody property SHOULD reference a schema defined in components.
 </Standard>
 
 ## **Components section**
@@ -154,7 +162,11 @@ components:
 ### **Schemas**
 
 <Standard id="MSDAS_SHOULD_USE_SCHEMA_REFERENCES" type="SHOULD">
-OpenAPI specifications SHOULD use schema references under components.schemas to define content, and MAY use nested schema references for reusable elements.
+OpenAPI specifications SHOULD use schema references under components.schemas to define content.
+</Standard>
+
+<Standard id="MSDAS_MAY_NEST_SCHEMA_REFERENCES" type="MAY">
+OpenAPI specifications MAY use nested schema references for reusable elements.
 </Standard>
 
 ### **Examples**

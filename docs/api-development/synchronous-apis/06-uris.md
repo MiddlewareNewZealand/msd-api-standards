@@ -57,7 +57,11 @@ Resource names SHOULD be noun-based, lower case and plural for collections, e.g.
 </Standard>
 
 <Standard id="MSDAS_MUST_NEST_SUB_RESOURCES_UNDER_PARENT" type="MUST">
-Sub-resources MUST appear under the resource they relate to (/resource/id/sub-resource/id), and SHOULD go no more than three levels deep.
+Sub-resources MUST appear under the resource they relate to (/resource/id/sub-resource/id).
+</Standard>
+
+<Standard id="MSDAS_SHOULD_LIMIT_SUB_RESOURCE_NESTING_DEPTH" type="SHOULD">
+Sub-resource paths SHOULD go no more than three levels deep.
 </Standard>
 
 Example: `https://api.msd.govt.nz/v2/clients/33245/entitlements/E100782`

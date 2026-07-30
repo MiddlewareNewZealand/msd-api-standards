@@ -85,6 +85,9 @@ The clause text — the `toolTip`, or the box content when there is no `toolTip`
 - **A reference the clause never resolves.** "In order for this to occur…", "This model may be used…" — name the thing. Checked on the opening sentence only, since later sentences refer back to the first.
 - **A word presupposing an unstated condition** — "the response must *still* indicate…". State the condition or drop the word.
 - **A MUST or MUST NOT gated on an unquantified qualifier** — *appropriate*, *sufficient*, *robust*, *correctly*, *clearly*, *relevant*. Nothing can fail "appropriate authorisation must be applied". Name the requirement, or make it a `NOTE`/`INFO` box pointing at the clauses that do. The check is limited to MUST and MUST NOT: a SHOULD is advisory, so a judgement call is legitimate there.
+- **An RFC 2119 keyword other than the clause's own `type`.** One ID carries one obligation at one strength, because the JSON has one `standardType` field per clause. "Every Tool MUST declare an input schema, and SHOULD declare one for its output" reports as a single MUST, so a tool with no output schema passes as fully conformant. Split the second obligation into its own `<Standard>` — two adjacent boxes read fine, and each gets its own ID.
+
+  This also catches the keyword used as ordinary description ("since the agent *may* relay tool output", "the rules API Consumers *must* agree to"). Reword those: a reader of the JSON cannot tell a description from a rule either. Synonyms (`REQUIRED`, `RECOMMENDED`, `OPTIONAL`) are only matched in upper case, so "the minimum data and actions required" is fine.
 
 The surrounding page keeps its narrative flow either way: only the extracted clause text has to stand alone, which is what the `toolTip` attribute is for.
 

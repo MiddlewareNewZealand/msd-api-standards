@@ -21,7 +21,11 @@ Access to REST APIs MUST be via the standard HTTP verbs — GET, HEAD, POST, PUT
 GET is used for retrieval of information — where the interaction is more like a question, i.e. a safe, idempotent operation such as a query. GET returns a representation in JSON with an HTTP 200 (OK) on success, or 404 (NOT FOUND) if the resource doesn't exist.
 
 <Standard id="MSDAS_MUST_NOT_EXPOSE_UNSAFE_OPERATIONS_VIA_GET" type="MUST NOT">
-Do not expose unsafe operations via GET — it should never modify any resources on the server.
+Unsafe operations must not be exposed via GET.
+</Standard>
+
+<Standard id="MSDAS_MUST_NOT_MODIFY_RESOURCES_IN_A_GET" type="MUST NOT">
+A GET request must not modify any resource on the server.
 </Standard>
 
 ### **GET example**

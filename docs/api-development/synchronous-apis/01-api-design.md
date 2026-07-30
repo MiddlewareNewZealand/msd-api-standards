@@ -133,5 +133,11 @@ It's recommended that API Providers offer an SDK to developers of consuming appl
 An SDK is the implementation toolset for using MSD's APIs: it lets developers build applications faster without needing to understand every detail of the API, and should include sample code demonstrating the API's functionality.
 
 <Standard id="MSDAS_SHOULD_PUBLISH_API_DEFINITION_WHEN_READY" type="SHOULD">
-Once an API is in a fit state to be offered to consumers, the API definition SHOULD be published to the MSD Developer Portal or equivalent social sector capability. The primary way developers discover an API is via this catalogue, so an external API MUST be well documented there, with accurate and up-to-date guidance.
+Once an API is in a fit state to be offered to consumers, the API definition SHOULD be published to the MSD Developer Portal or equivalent social sector capability.
 </Standard>
+
+<Standard id="MSDAS_MUST_DOCUMENT_EXTERNAL_APIS_IN_THE_CATALOGUE" type="MUST">
+An external API MUST be documented in the MSD Developer Portal or equivalent social sector capability, with accurate and up-to-date guidance.
+</Standard>
+
+The catalogue is the primary way developers discover an API.

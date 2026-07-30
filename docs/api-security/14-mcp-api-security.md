@@ -12,12 +12,20 @@ The baseline requirements set out earlier in this Part — authentication, trans
 Remote MCP Servers when authentication is required, must use the OAuth 2.1 mechanisms set out earlier in this Part, including PKCE, rather than a bespoke or simplified authentication scheme.
 </Standard>
 <Standard id="MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS" type="MUST">
-Access tokens issued for MCP use must be audience-restricted to the specific MCP Server, and must not be accepted by other MSD APIs, or vice versa. This prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems.
+Access tokens issued for MCP use must be audience-restricted to the specific MCP Server they are issued for.
 </Standard>
 
-<Standard id="MSDAS_MUST_SCOPE_MCP_TOOLS_TO_MINIMUM_ACCESS" type="MUST">
-Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes. A tool that reads client entitlements must not also carry the ability to update them.
+<Standard id="MSDAS_MUST_NOT_HONOUR_MCP_TOKENS_ACROSS_AUDIENCES" type="MUST NOT">
+An access token must not be accepted by any API other than the one named in its audience — neither an MCP Server honouring a token minted for another MSD API, nor the reverse.
 </Standard>
+
+Audience restriction prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems.
+
+<Standard id="MSDAS_MUST_SCOPE_MCP_TOOLS_TO_MINIMUM_ACCESS" type="MUST">
+Tools must be scoped to the minimum data and actions required, following the same least-privilege principle applied to REST API scopes.
+</Standard>
+
+For example, a tool that reads client entitlements would not also carry the ability to update them.
 
 ## **Consent and human oversight**
 
@@ -30,7 +38,19 @@ Because MCP Servers expose their capability list dynamically rather than through
 ## **Tool integrity (“rug-pull” protection)**
 
 <Standard id="MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS" type="MUST NOT">
-An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected. Any material change must trigger a listChanged notification and require the host to obtain renewed consent before the changed tool can be used again.
+An MCP Server must not silently change a previously approved tool's behaviour or description once a client has connected.
+</Standard>
+
+<Standard id="MSDAS_MUST_NOTIFY_HOSTS_OF_MATERIAL_TOOL_CHANGES" type="MUST">
+A material change to a previously approved tool's behaviour or description must trigger a listChanged notification to connected clients.
+</Standard>
+
+<Standard id="MSDAS_MUST_REQUIRE_RENEWED_CONSENT_FOR_CHANGED_TOOLS" type="MUST">
+Where a previously approved tool has changed materially, the MCP Server must require renewed consent before the tool can be used again.
+</Standard>
+
+<Standard id="MSDAS_MUST_OBTAIN_RENEWED_CONSENT_FOR_CHANGED_TOOLS" type="MUST" boundParty="consumer">
+Where a previously approved tool has changed materially, the host must obtain renewed consent from the person the agent is acting for before using the tool again.
 </Standard>
 
 <Standard type="INFO">
@@ -44,7 +64,11 @@ Tool descriptions and resource content are a channel an attacker can use to infl
 </Standard>
 
 <Standard id="MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED" type="MUST">
-MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to enforce an access control decision that the server itself is capable of enforcing directly.
+MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective.
+</Standard>
+
+<Standard id="MSDAS_MUST_NOT_DELEGATE_ACCESS_CONTROL_TO_THE_AGENT" type="MUST NOT">
+An MCP Server must not rely on the agent to enforce an access control decision that the server itself is capable of enforcing directly.
 </Standard>
 
 ## **Audit logging**

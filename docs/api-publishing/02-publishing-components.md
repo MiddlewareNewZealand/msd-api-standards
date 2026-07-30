@@ -51,7 +51,11 @@ Developer documentation SHOULD be available via a web experience.
 ## **Terms and conditions**
 
 <Standard id="MSDAS_MUST_PUBLISH_TERMS_AND_CONDITIONS" type="MUST">
-API Providers MUST publish terms and conditions that set out the rules API Consumers must agree to when using the API. These SHOULD be available via a web experience.
+API Providers MUST publish terms and conditions that set out the rules API Consumers agree to when using the API.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_PUBLISH_TERMS_AND_CONDITIONS_ON_WEB" type="SHOULD">
+Terms and conditions SHOULD be available via a web experience.
 </Standard>
 
 ## **Developer onboarding**
@@ -80,12 +84,23 @@ Where an API applies request throttling, the API Provider MUST publish: the requ
 </Standard>
 
 <Standard id="MSDAS_MUST_RETURN_429_WHEN_THROTTLED" type="MUST">
-When a request is rejected for exceeding a throttling threshold, the API MUST return an HTTP 429 (Too Many Requests) response, and SHOULD include a `Retry-After` header indicating how long the consumer should wait before retrying.
+When a request is rejected for exceeding a throttling threshold, the API MUST return an HTTP 429 (Too Many Requests) response.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_INCLUDE_RETRY_AFTER_ON_429" type="SHOULD">
+An HTTP 429 (Too Many Requests) response SHOULD include a `Retry-After` header indicating how long to wait before retrying.
 </Standard>
 
 <Standard id="MSDAS_SHOULD_INCLUDE_QUOTA_HEADERS" type="SHOULD">
-Where an API supports it, response headers indicating current quota consumption  SHOULD be returned on every response, letting well-behaved consumers self-throttle before hitting the limit rather than after.
-Throttling thresholds SHOULD be available via the same web experience as the rest of an API's SLA (see above), and MAY vary by SLA tier where tiering is offered.
+Where an API supports it, response headers indicating current quota consumption SHOULD be returned on every response, letting well-behaved consumers self-throttle before hitting the limit rather than after.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_PUBLISH_THROTTLING_THRESHOLDS_ON_WEB" type="SHOULD">
+Throttling thresholds SHOULD be available via the same web experience as the rest of an API's SLA.
+</Standard>
+
+<Standard id="MSDAS_MAY_VARY_THROTTLING_THRESHOLDS_BY_SLA_TIER" type="MAY">
+Throttling thresholds MAY vary by SLA tier, where tiering is offered.
 </Standard>
 
 <Standard id="MSDAS_MAY_OFFER_SLA_TIERING" type="MAY">

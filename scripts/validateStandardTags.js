@@ -342,6 +342,75 @@ function findVagueQualifiers(filePath, content) {
   return errors;
 }
 
+// --- Foreign-keyword check ------------------------------------------------
+// A clause carries exactly one `standardType` into the JSON, so a second RFC
+// 2119 keyword in its text is a second obligation the field cannot express.
+// "Every Tool MUST declare an input schema, and SHOULD declare one for its
+// output" reports as a single MUST: a tool with an input schema and no output
+// schema is indistinguishable from a fully conformant one.
+//
+// Matched case-insensitively, and against the *canonical* group, so a
+// REQUIRED clause may say "must" and a RECOMMENDED one "should". This mirrors
+// the defect report's Appendix A detector exactly, which upper-cases the
+// clause text before matching — so a clean run here means the reported count
+// is 0, not merely lower.
+//
+// The consequence, learned the hard way while fixing the 33: the check cannot
+// tell an obligation from a description. "since the agent may relay tool
+// output" and "the rules API Consumers must agree to" state no rule, but a
+// reader of the JSON cannot tell that either, so they were reworded rather
+// than exempted. That is the intended remedy — reach for
+// ACKNOWLEDGED_FOREIGN_KEYWORDS only when the wording genuinely cannot go.
+// The primary five, matched case-insensitively: the catalogue writes them in
+// lower case throughout ("must be audience-restricted"), and as bare words
+// they are essentially always modal.
+const RFC2119_TEXT_REGEX = /\b(MUST NOT|MUST|SHALL NOT|SHALL|SHOULD NOT|SHOULD|MAY)\b/gi;
+
+// The synonyms, matched upper-case only. RFC 2119 keywords are capitalised by
+// convention, and unlike the five above these words have common non-modal
+// senses that the catalogue relies on: "the minimum data and actions required"
+// (8 lower-case hits), "recommended for all APIs" (7), "new optional
+// parameters" (1) — none of them obligations, all of them false positives if
+// matched case-insensitively. Upper-case cross-canonical uses: 0, so this
+// costs no coverage today and guards against a future "X is RECOMMENDED"
+// inside a MUST.
+const RFC2119_SYNONYM_REGEX = /\b(REQUIRED|NOT RECOMMENDED|RECOMMENDED|OPTIONAL)\b/g;
+
+const ACKNOWLEDGED_FOREIGN_KEYWORDS = new Map();
+
+function findForeignKeywords(filePath, content) {
+  const relPath = path.relative(process.cwd(), filePath);
+  const errors = [];
+  let match;
+  TAG_REGEX.lastIndex = 0;
+
+  while ((match = TAG_REGEX.exec(content))) {
+    const { id, type, toolTip } = parseAttrs(match[1]);
+    const canonical = CANONICAL_TYPE[type];
+    if (!id || !canonical || ACKNOWLEDGED_FOREIGN_KEYWORDS.has(id)) continue;
+
+    const text = clauseText(toolTip || match[2]);
+    const foreign = new Set();
+    for (const regex of [RFC2119_TEXT_REGEX, RFC2119_SYNONYM_REGEX]) {
+      regex.lastIndex = 0;
+      let hit;
+      while ((hit = regex.exec(text))) {
+        const other = CANONICAL_TYPE[hit[1].toUpperCase()];
+        if (other && other !== canonical) foreign.add(hit[1]);
+      }
+    }
+    if (foreign.size === 0) continue;
+
+    errors.push(
+      `${relPath}:${lineOf(content, match.index)} "${id}" is indexed as ${canonical} but its text also ` +
+        `uses: ${[...foreign].join(", ")}. One clause ID carries one obligation at one strength — split the ` +
+        `other obligation into its own <Standard>, or reword it if it is description rather than a rule.`,
+    );
+  }
+
+  return errors;
+}
+
 function parseAttrs(attrString) {
   const attrs = {};
   let m;
@@ -431,7 +500,8 @@ function validateFile(filePath) {
   return errors
     .concat(findMixedStrengthPairs(filePath, content))
     .concat(findDanglingReferences(filePath, content))
-    .concat(findVagueQualifiers(filePath, content));
+    .concat(findVagueQualifiers(filePath, content))
+    .concat(findForeignKeywords(filePath, content));
 }
 
 function main() {

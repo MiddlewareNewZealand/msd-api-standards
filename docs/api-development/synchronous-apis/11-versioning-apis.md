@@ -9,7 +9,11 @@ MSD APIs <Standard inline id="MSDAS_SHOULD_FOLLOW_SEMANTIC_VERSIONING" type="SHO
 ## **Version control mechanism**
 
 <Standard id="MSDAS_MUST_INCLUDE_MAJOR_VERSION_IN_URI" type="MUST">
-For URL-based versioning, the URI MUST include `/v{N}` with the major version (N) and v as a prefix. APIs SHOULD NOT include minor version numbers in the path.
+For URL-based versioning, the URI MUST include `/v{N}` with the major version (N) and v as a prefix.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_NOT_INCLUDE_MINOR_VERSION_IN_URI" type="SHOULD NOT">
+APIs SHOULD NOT include minor version numbers in the URI path.
 </Standard>
 
 ```http
