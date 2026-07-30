@@ -25,7 +25,7 @@ entitlement/status-changed/{serviceCentreId}/{clientId}
 A service centre could then subscribe using a filter such as entitlement/status-changed/porirua-sc/*, receiving only events for its own clients, while a central reporting system subscribes more broadly to entitlement/status-changed/> to receive everything. These specific wildcard characters (+, # and* are common examples) are illustrative of the capability required, not a mandate to use MQTT or any other specific broker technology — see the note below.
 
 <Standard id="MSDAS_MUST_PROVIDE_SUBSCRIPTION_MECHANISM" type="MUST">
-A Message Producer MUST provide a mechanism for API Consumers to subscribe and unsubscribe from available channels, and MUST provide a way for a consumer to filter the topic hierarchy down to a relevant subset (e.g. events for one service centre only) rather than being limited to “all events on this topic” or “no events on this topic”. Whatever filtering mechanism the chosen broker technology provides to achieve this MUST be documented alongside the API.
+A Message Producer MUST provide a mechanism for API Consumers to subscribe and unsubscribe from available channels, and MUST provide a way for a consumer to filter the topic hierarchy down to a subset of it (e.g. events for one service centre only) rather than being limited to “all events on this topic” or “no events on this topic”. Whatever filtering mechanism the chosen broker technology provides to achieve this MUST be documented alongside the API.
 </Standard>
 
 <Standard type="NOTE">

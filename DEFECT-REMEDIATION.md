@@ -248,14 +248,84 @@ actual clause prose rather than working from summaries.
 | 1 — factual | **done** | 2026-07-29 | Defects 4, 8, 9, 10 fixed. 3 files, 3 clauses touched, +1 net clause (**199**: MUST 93, SHOULD 65, MAY 19, SHOULD NOT 14, MUST NOT 8). Mixed-strength still 35, vague MUSTs 19 — unchanged, no new instances. Build + `validateStandardTags.js` clean. Decisions (a)–(d) reviewed and **confirmed with the owner, 2026-07-29** — do not re-open in a later phase. (a) verb list includes **OPTIONS** — the report left it optional, but the page documents OPTIONS use, so excluding it from a closed MUST list would re-create defect 4; (b) JSON clause cites **STD 90** (not RFC 8259), so the ID is `…_TO_STD_90` and survives the next JSON revision; (c) NZISM citation is **section 17.2, Approved Cryptographic Algorithms**, verified against NZISM v3.9 (Nov 2025) — 17.2.11/17.2.13 give AES-256 for encryption, 17.2.26 SHA-2 for hashing. HMAC is *not* in 17.2, so the message-authentication clause cites 17.2 for the algorithm/hash, not for HMAC itself; (d) encryption clause type changed `REQUIRED` → `MUST` (same canonical group). **Raised for Phase 2:** new SHOULD/MUST overlap on UTF-8 — see Phase 2 bullet. |
 | 2 — redundancy | **done** | 2026-07-29 | Defects 5, 6a, 6b, 6c fixed, plus the UTF-8 overlap Phase 1 raised. 4 doc files + `validateStandardTags.js`. Clause count unchanged at **199** (MUST 94, SHOULD 64, MAY 19, SHOULD NOT 14, MUST NOT 8) — the +1/−1 is defect 5 moving from SHOULD to MUST. **Mixed-strength 35 → 34**: trimming the token-audience sentence out of `MSDAS_MUST_FOLLOW_CURRENT_MCP_AUTHORISATION_FLOW` for 6c also resolved one defect-1 instance, so 5d inherits one clause less. Vague MUSTs unchanged at 19 (denominator now 102). No duplicate IDs or duplicate content. Build + validator clean, no broken anchors. Decisions: (a) defect 5 **restated at MUST**, not deleted — the conformance suite's `transport-security.feature` already asserts lower versions are *rejected outright*, so it was testing MUST-strength behaviour against a SHOULD clause; disabling obsolete versions at the listener is separately observable from "all traffic uses 1.3+". (b) 6a/6b fixed as **version-scoped clauses with no overlap** (trim the v2 sentence out of the v3 toolTip) rather than folding — a v2 and a v3 document are checked by different rules, so two clauses is the honest count. IDs left alone: `address`/`messages` fields exist only in v3+, so the IDs are already unambiguous, and gratuitous renames cost Phase 7. (c) 6c fixed by the canonical-location-plus-link treatment, extending the existing bullet list in `mcp-apis/08`. (d) UTF-8 SHOULD **narrowed** to non-JSON text, not deleted — STD 90 only binds JSON, so deleting would have dropped a real obligation on CSV/XML/plain-text payloads. **Lint limitation — read before Phase 7:** the new mixed-strength lint catches defect 5 against the pre-Phase-2 tree (verified), but it does **not** catch the original UTF-8 pair. The plan called that pair "the cleanest test case"; it is in fact undetectable lexically — "Textual content should be UTF-8 encoded" and the STD 90 MUST share no terms, and the link between them is semantic (STD 90 *implies* UTF-8). The lint only sees it *after* the narrowing edit introduced the shared word "JSON". So the lint stops lexically-similar recurrences, not implication-based ones; do not treat a clean run as proof that defect 5's class is eliminated. |
 | 3 — anaphora & bound party | **done** | 2026-07-30 | Defects 3 and 7 fixed. 9 doc files + `Standard.jsx`, `extractStandards.js`, `validateStandardTags.js`, `StandardsChecklist.jsx`, `CONTRIBUTING.md`. Clause count unchanged at **199** (MUST 95, SHOULD 64, MAY 19, SHOULD NOT 13, MUST NOT 8) — the HEAD split adds a MUST, the duplicate below removes a SHOULD NOT. **Mixed-strength 34 → 33** (the HEAD split resolved one defect-1 instance, so 5c inherits one clause less). Vague MUSTs unchanged at 19 (denominator now 103). No duplicate IDs or duplicate content. Build clean, no broken anchors, validator clean. **The lint found 8 more instances of defect 3 than the report's 4** — the report says "4 identified", not exhaustive, and all 8 were fixed here rather than deferred, since a lint that ships with known violations is not a gate. They are: `MSDAS_SHOULD_OFFER_ONBOARDING_ON_AUTHENTICATED_WEB` ("This SHOULD be made available" — no antecedent at all), `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY`, `MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING`, `MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION`, `MSDAS_MAY_USE_CERTIFICATE_AUTH_FOR_LEGACY` (all "this model"/"this pattern"), `MSDAS_MAY_USE_BACKEND_FOR_FRONTEND_PATTERN` ("this guidance" → the IETF's browser-app draft), `MSDAS_SHOULD_NOT_PROCESS_BULK_ASYNC_SYNCHRONOUSLY` ("this type of interaction"), and `MSDAS_MUST_PUBLISH_THROTTLING_QUOTAS` (reviewed, acknowledged — the referent is inside the clause). Decisions: (a) `MSDAS_MUST_NOT_RETURN_BODY_FOR_HEAD_REQUEST` **split** rather than trimmed — the consumer sentence is a real RFC 9110 obligation, and `boundParty` landing in this phase gave it somewhere honest to live; (b) `MSDAS_MUST_DESIGN_PUT_TOLERANT_APIS` **reworded to the observable obligation**, not demoted — "be aware of the race condition" moved to page prose pointing at `MSDAS_MUST_IMPLEMENT_CONCURRENCY_CONTROL`, which already carries that requirement at MUST, so nothing normative was lost. "PUT tolerant" was undefined in the source; the interpretation applied is in the rename log and is the one thing in this phase worth a second opinion from the owner; (c) resolving "This model" made `MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION` **byte-identical** to `MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION` — a defect-6-class duplicate the anaphora had been hiding. Deleted the second and moved its "Note the related MAY guidance" pointer onto the canonical clause; (d) `boundParty` swept beyond the report's 2 clauses — 5 consumer, 1 both (see below). **Read before Phase 7:** `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT` is now `consumer`, and the conformance repo tags it in `widgets-api.feature` on a scenario asserting the *provider* returns 406 for an unsatisfiable `Accept` — the same overclaim defect 7 documents for the TLS clause, now visible in the JSON. The provider-side obligation it actually tests (honour `Accept`, else 406) has no clause in the catalog; adding one is new normative content, so it is raised for the owner rather than done here. **Lint limitation:** the actor-switch half of defect 3 (the HEAD clause) is not lexically detectable and is not covered. Phase 5's "no foreign RFC 2119 keyword in a toolTip" lint catches that shape; until it lands, actor switches are caught only by review. `it`, `instead`, `too` and `otherwise` were each measured against the catalog and deliberately excluded — see the comment in `validateStandardTags.js` for the hit counts. |
-| 4a — vague MUSTs (security) | not started | | |
-| 4b — vague MUSTs (rest) | not started | | |
+| 4a — vague MUSTs (security) | **done** | 2026-07-30 | Defect 2, security half: 9 clauses in 5 files (the plan said 8 in 4 — it missed `MSDAS_MUST_DOCUMENT_CONSUMER_ONBOARDING_PROCESS` in `api-security/07`). 3 demoted, 6 qualifiers struck. See the shared Phase 4 notes below. |
+| 4b — vague MUSTs (rest) | **done** | 2026-07-30 | Defect 2, remainder: 10 clauses in 7 files (plan said 11; the split across 4a/4b was 8/11, actually 9/10). All 10 fixed by striking the qualifier — no demotions, no renames. See the shared Phase 4 notes below. |
 | 5a — split (api-security) | not started | | |
 | 5b — split (api-publishing) | not started | | |
 | 5c — split (synchronous) | not started | | |
 | 5d — split (mcp + async) | not started | | |
 | 6 — ID stability | not started | | |
 | 7 — verify & re-baseline | not started | | |
+
+## Phase 4 notes (4a and 4b)
+
+Both batches were run together, because the policy decision below applies across them and the
+lint cannot ship until every clause in both is clean.
+
+**Policy, confirmed with the owner 2026-07-30 — do not re-open in a later phase.**
+
+1. The three clauses that are *nothing but* a qualifier were **demoted to non-normative prose**,
+   not sharpened: `MSDAS_MUST_AUTHENTICATE_API_ACCESS`, `MSDAS_MUST_APPLY_APPROPRIATE_AUTHORISATION`,
+   `MSDAS_MUST_INCLUDE_SCOPES_IN_ACCESS_TOKENS`. All three sat on `api-security/03`, directly above
+   the concrete clauses that carry the real obligation (API keys for system-to-system, Developer
+   Authentication, RBAC, OAuth scopes, ABAC), so the first two became `INFO` boxes pointing at them
+   and the third was deleted outright. Nothing testable was lost: the least-privilege sentence next
+   to the scopes clause was already page prose, not a clause.
+2. Everywhere else the **qualifier was struck and the rest of the clause kept verbatim** — no new
+   normative content, no renames. "declare an appropriate content type" → "declare their content
+   type"; "a clear deprecation reason" → "a deprecation reason". The one place this changed meaning
+   rather than trimming it is noted below.
+3. A **blocking lint** was added (`findVagueQualifiers` in `validateStandardTags.js`), on the
+   report's exact vocabulary, restricted to MUST and MUST NOT.
+
+**Counts.** 199 → **196** (MUST 92, SHOULD 64, MAY 19, SHOULD NOT 13, MUST NOT 8) — the three
+demotions, nothing else. **Vague MUSTs 19 → 0** of 100. Mixed-strength unchanged at 33 (Phase 5's
+work; no instances added or resolved here). No duplicate IDs or duplicate content. Build, both
+validators and the accessibility check clean, no broken anchors.
+
+**Judgement calls worth a second opinion:**
+
+- `MSDAS_MUST_ENCRYPT_ASYNCHRONOUS_MESSAGES` had four qualifiers, one of them load-bearing:
+  "authorisation MUST be used to restrict access to topics **as appropriate**". Striking it makes
+  the obligation unconditional. That is the reading taken — an "as appropriate" escape hatch on a
+  MUST is exactly the unfalsifiable pattern this phase exists to remove, and the page already opens
+  by saying Part B applies in full to asynchronous APIs. It is the only clause in Phase 4 whose
+  scope genuinely widened.
+- `MSDAS_MUST_DEFINE_OPENAPI_SECURITY_SCHEMES` — the vague half ("MUST define appropriate security
+  mechanisms") was a restatement of the concrete half beside it, so it was deleted rather than
+  reworded. The conformance suite tags this clause and its scenario tests the surviving sentence
+  (`components.securitySchemes` plus per-operation references), so the tag still holds. ID kept.
+- `MSDAS_MUST_DESCRIBE_EACH_TOOL_CLEARLY` — "clear, complete" → "complete". **"complete" is as much
+  a judgement call as "clear" was**, but it is outside the report's vocabulary and therefore outside
+  the lint; recorded here as a known survivor rather than silently passed. The ID keeps its
+  `…_CLEARLY` suffix even though the word is gone: it is conformance-tagged, and a rename would
+  cost a Phase 7 retag for no gain.
+
+**Two Phase-5 clauses were touched, against the plan's skip note.** `MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA`
+("SHOULD use clear verb-noun naming" → "verb-noun naming") and `MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED`
+("must not rely on the agent to correctly enforce" → "to enforce"). A blocking lint cannot ship with
+two known violations, and the alternative — a warning-only lint — was declined. Only the qualifier
+was removed in each; the splits Phase 5 owns are untouched.
+
+**Lint limitation — read before Phase 7.** It is a word list, not a semantic check. Verified both
+ways: run against the pre-Phase-4 tree it reproduces exactly the report's 19 clauses, and against
+the current tree it reports 0. `ACKNOWLEDGED_QUALIFIERS` is empty by design — unlike the Phase 2 and
+3 lints, no clause here needed an exception, so a future entry should be treated as a claim to
+argue rather than a formality.
+
+**Defect 11 moved the wrong way:** the report's text-derived-ID count went 28 → 29, because
+`MSDAS_MUST_MATCH_OUTPUT_ENCODING_TO_CONTEXT` now has every ID token in its text ("must **match**
+the **context** the **output** is rendered into"). That is a consequence of naming the requirement
+concretely, and it is Phase 6's problem, not a reason to word the clause worse.
+
+**Build gotcha found and recorded.** A markdown link to *another page* inside a `<Standard>` box
+fails the static build with `Invariant failed` — the component renders its children to plain text
+for the tooltip, and a cross-page link is router-backed. Same-page anchors are fine. This is why
+the first `INFO` box names "Using OAuth 2.0 and OIDC" in words instead of linking to it. Added to
+`CONTRIBUTING.md`; every pre-existing cross-page link in the docs happens to sit in prose, which is
+why it had never surfaced.
+
+---
 
 ## Rename log
 
@@ -273,6 +343,9 @@ Use `—` in New ID for a removal (a demoted clause), and in Old ID for an addit
 | `MSDAS_MUST_DESIGN_PUT_TOLERANT_APIS` | `MSDAS_MUST_ACCEPT_FULL_REPRESENTATION_ON_PUT` | 3 | Defect 7, second clause. "Be aware of the race condition" is not observable, and "PUT tolerant" was never defined in the source. Read as its standard industry meaning — accept the whole representation a GET returned, including properties the consumer cannot change — which is testable (PUT back a GET payload verbatim, expect 2xx) and, unlike the idempotency reading, is not already stated in the prose above the clause. Renamed because "design PUT tolerant APIs" named a posture, not the requirement. Not tagged in the conformance repo. |
 | — | `MSDAS_MUST_IGNORE_BODY_IN_HEAD_RESPONSE` | 3 | Defect 3, consumer half of `MSDAS_MUST_NOT_RETURN_BODY_FOR_HEAD_REQUEST`. New clause, `boundParty="consumer"`. The MUST NOT keeps its ID and now binds only the provider. |
 | `MSDAS_SHOULD_NOT_USE_PASSWORD_MODEL_IN_PRODUCTION` | — | 3 | Removed as a duplicate. Once "This model" was resolved to "Username and password (direct) authentication", its text was identical to `MSDAS_SHOULD_NOT_USE_PASSWORD_AUTHENTICATION_IN_PRODUCTION`. Its cross-reference sentence moved to that clause. Not tagged in the conformance repo; the only in-repo link to the anchor was repointed. |
+| `MSDAS_MUST_AUTHENTICATE_API_ACCESS` | — | 4 | Defect 2. "Appropriate authentication must be achieved when accessing APIs" is unfalsifiable; demoted to an `INFO` box pointing at the mechanism clauses on the same page. Not tagged in the conformance repo. |
+| `MSDAS_MUST_APPLY_APPROPRIATE_AUTHORISATION` | — | 4 | Defect 2. "Appropriate authorisation must be applied" — same treatment, pointing at the RBAC, scopes and ABAC clauses below it. Not tagged in the conformance repo. |
+| `MSDAS_MUST_INCLUDE_SCOPES_IN_ACCESS_TOKENS` | — | 4 | Defect 2. Deleted rather than replaced with a pointer: the `MAY` on OAuth scopes sits in the same section and the least-privilege obligation was already page prose. Not tagged in the conformance repo. |
 
 ## Bound-party assignments (Phase 3)
 

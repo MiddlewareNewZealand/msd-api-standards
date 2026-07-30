@@ -46,7 +46,7 @@ While TLS protects the payload in transit, it only applies point-to-point (for e
 MSD handles large volumes of highly sensitive personal information about clients and whānau — including information about income, employment, housing, family circumstances and, in some cases, care and protection. The primary reference for classification in these standards is the New Zealand Government Protective Security Requirements (PSR), which classifies information according to the harm its unauthorised disclosure would cause.
 
 <Standard id="MSDAS_MUST_CLASSIFY_EXPOSED_INFORMATION" type="MUST">
-API Providers must correctly classify the information exposed by an API using the PSR classification levels (e.g. UNCLASSIFIED, IN-CONFIDENCE, SENSITIVE, RESTRICTED), applying the appropriate endorsement where MSD- or social-sector-specific handling requirements apply.
+API Providers must classify the information exposed by an API using the PSR classification levels (e.g. UNCLASSIFIED, IN-CONFIDENCE, SENSITIVE, RESTRICTED), together with the endorsement required by any MSD- or social-sector-specific handling requirements that attach to it.
 </Standard>
 
 Where information is classified above UNCLASSIFIED, unauthorised disclosure won't be permitted unless the client (or their authorised representative) has consented, another person is authorised to receive it, or disclosure is authorised by statute or a legal instrument such as an Approved Information Sharing Agreement (AISA) under Part 9A of the Privacy Act 2020\.

@@ -78,11 +78,13 @@ Rules:
 - `id` must match `MSDAS_<TYPE>_...`, where `<TYPE>` is `MUST`, `MUST_NOT`, `SHOULD`, `SHOULD_NOT`, or `MAY` — the *canonical* RFC 2119 group, even if `type` uses a synonym (e.g. `type="REQUIRED"` still gets an `MSDAS_MUST_...` id).
 - `id` is not required for non-normative callouts: `type="INFO"`, `"EXAMPLE"`, or `"NOTE"`.
 - Content crammed onto the same line as `<Standard>` or `</Standard>` (block form) can break the MDX build — always put it on its own line.
+- A markdown link to **another page** inside the box body fails the build (`Invariant failed` during static rendering): the component renders its children to plain text for the tooltip, and a cross-page link is a router-backed component that cannot render outside a page. Same-page anchors (`[…](#MSDAS_MUST_…)`) are fine, because they compile to a plain `<a>`. Put cross-page links in the prose around the box.
 
 The clause text — the `toolTip`, or the box content when there is no `toolTip` — is read on its own in the Checklist and in the JSON, so the validator rejects two things that only make sense in context:
 
 - **A reference the clause never resolves.** "In order for this to occur…", "This model may be used…" — name the thing. Checked on the opening sentence only, since later sentences refer back to the first.
 - **A word presupposing an unstated condition** — "the response must *still* indicate…". State the condition or drop the word.
+- **A MUST or MUST NOT gated on an unquantified qualifier** — *appropriate*, *sufficient*, *robust*, *correctly*, *clearly*, *relevant*. Nothing can fail "appropriate authorisation must be applied". Name the requirement, or make it a `NOTE`/`INFO` box pointing at the clauses that do. The check is limited to MUST and MUST NOT: a SHOULD is advisory, so a judgement call is legitimate there.
 
 The surrounding page keeps its narrative flow either way: only the extracted clause text has to stand alone, which is what the `toolTip` attribute is for.
 

@@ -49,7 +49,7 @@ The paths section is a parent property containing the resource paths in the API 
 | `{path}.summary` | Short, human-readable summary of the resource's purpose. | MUST |
 | `{path}.description` | See Property Descriptions. | MUST |
 | `{path}.{verb}.summary` | Short summary of the operation's purpose. | MUST |
-| `{path}.{verb}.security` | The security scheme appropriate for the path/verb. | MUST |
+| `{path}.{verb}.security` | The security scheme that applies to the path/verb. | MUST |
 | `{path}.{verb}.operationId` | A unique string identifying the operation. | MUST |
 | `{path}.{verb}.requestBody` | The request body for the operation. | MUST for POST/PUT/PATCH; MUST NOT for GET/DELETE/HEAD/OPTIONS |
 | `{path}.{verb}.responses` | The responses an API Consumer can expect. | MUST |
@@ -57,7 +57,7 @@ The paths section is a parent property containing the resource paths in the API 
 ### **Security**
 
 <Standard id="MSDAS_MUST_DEFINE_OPENAPI_SECURITY_SCHEMES" type="MUST">
-OpenAPI Specifications MUST define appropriate security mechanisms. Security schemes MUST be defined in components.securitySchemes and referenced in all API operations.
+OpenAPI Specifications MUST define their security schemes in components.securitySchemes, and MUST reference a scheme from every API operation.
 </Standard>
 
 Even a public operation (e.g. a health-check or metadata endpoint) <Standard inline id="MSDAS_SHOULD_SET_EXPLICIT_SECURITY_ON_PUBLIC_OPERATIONS" type="SHOULD" toolTip="Even a public operation (e.g. a health-check or metadata endpoint) should still carry a security property, set explicitly to empty.">SHOULD</Standard> still carry a security property, set explicitly to empty.

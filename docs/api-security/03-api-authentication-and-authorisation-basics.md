@@ -8,8 +8,8 @@ Authorisation and authentication are intrinsically linked within the OAuth 2.0 f
 
 ## **Authentication**
 
-<Standard id="MSDAS_MUST_AUTHENTICATE_API_ACCESS" type="MUST">
-Appropriate authentication must be achieved when accessing APIs.
+<Standard type="INFO">
+Authentication is not a single obligation in this catalogue. The concrete requirements sit with the mechanism in use: [API Keys for system-to-system authentication](#MSDAS_MUST_USE_API_KEYS_FOR_SYSTEM_AUTHENTICATION), [Developer Authentication](#MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION), OpenID Connect for APIs exposing IN-CONFIDENCE or more sensitive information (see Using OAuth 2.0 and OIDC), and — where the anonymous model is used at all — [the compensating controls below](#MSDAS_MUST_APPLY_CONTROLS_FOR_ANONYMOUS_ACCESS).
 </Standard>
 
 When securing APIs, authentication identifies the social sector participants and/or API Consumers who want to access or use an API. Authentication enables the API Provider to identify all consumers of an API and confirm that the consumer requesting access is who they say they are. This doesn't automatically authorise them to access the API or the underlying resources.
@@ -44,7 +44,7 @@ Anonymous access may be used when the risk associated with the API is negligible
 The downside of this model is that it makes it difficult to gather effective analytics, and therefore to understand the implications of proposed changes to, or deprecation of, an API.
 
 <Standard id="MSDAS_MUST_APPLY_CONTROLS_FOR_ANONYMOUS_ACCESS" type="MUST">
-If using the anonymous authentication model, the API must implement appropriate protection against typical API vulnerabilities and threats, as listed on the OWASP API Security site — in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery.
+If using the anonymous authentication model, the API must implement protection against the API vulnerabilities and threats listed on the OWASP API Security site — in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery.
 </Standard>
 
 ### **Username and password authentication**
@@ -101,8 +101,8 @@ In mutual (certificate) authentication, both the API Consumer and the API Provid
 
 ## **Authorisation**
 
-<Standard id="MSDAS_MUST_APPLY_APPROPRIATE_AUTHORISATION" type="MUST">
-Appropriate authorisation must be applied.
+<Standard type="INFO">
+As with authentication, authorisation is not a single obligation in this catalogue. The access control model an API applies is chosen from the mechanisms below — [RBAC](#MSDAS_SHOULD_USE_RBAC), [OAuth 2.0 scopes](#MSDAS_MAY_USE_OAUTH_SCOPES_TO_LIMIT_AUTHORISATION), [ABAC](#MSDAS_MAY_USE_ABAC) — and enforced at the point named there.
 </Standard>
 
 Authorisation is the act of performing access control on a resource: defining access rules and policies, and enforcing them. It's the foundation on which a provider grants or denies a consuming application and/or client access to a resource, at whatever level of granularity is appropriate.
@@ -118,10 +118,6 @@ RBAC should be used.
 In many organisations a directory service provides authentication, and directory groups then provide authorisation — a form of discretionary access control, where access is granted by applying access control lists directly to users or the groups they belong to. Directory (or LDAP) groups are synonymous with roles and can be used to provide coarse-grained authorisation for MSD APIs.
 
 ### **Scopes (limited fine-grained access)**
-
-<Standard id="MSDAS_MUST_INCLUDE_SCOPES_IN_ACCESS_TOKENS" type="MUST">
-Appropriate scopes must be present in access tokens when accessing APIs.
-</Standard>
 
 <Standard id="MSDAS_MAY_USE_OAUTH_SCOPES_TO_LIMIT_AUTHORISATION" type="MAY">
 OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner.

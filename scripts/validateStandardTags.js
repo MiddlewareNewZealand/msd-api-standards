@@ -286,6 +286,62 @@ function findDanglingReferences(filePath, content) {
   return errors;
 }
 
+// --- Unquantified-qualifier check -----------------------------------------
+// A MUST gated on a word that is never defined cannot be failed: any choice can
+// be defended as "appropriate". Such a clause still consumes a clause ID and
+// drags down any coverage figure computed against the catalogue, so it is worse
+// than saying nothing.
+//
+// Restricted to MUST and MUST NOT deliberately. A SHOULD is advisory by
+// construction — "should remain available for an appropriate transition period"
+// invites a judgement, which is what SHOULD is for. The same words in a MUST
+// invite one and then forbid the outcome of making it.
+//
+// The vocabulary matches the defect report's Appendix A regex exactly, so a
+// clean run here means the reported count is 0 rather than merely lower. Note
+// the converse does not hold: this is a word list, not a semantic check, and
+// "complete" in MSDAS_MUST_DESCRIBE_EACH_TOOL_CLEARLY is just as much a
+// judgement call while passing cleanly. Adding a word here means committing to
+// fixing every clause that then fails.
+const VAGUE_QUALIFIER_REGEX =
+  /\b(appropriate(?:ly)?|sufficient|robust|correctly|clear(?:ly)?|relevant)\b/gi;
+
+const VAGUE_CHECKED_TYPES = new Set(["MUST", "MUST_NOT"]);
+
+// Reviewed exceptions, as with ACKNOWLEDGED_OVERLAPS and ACKNOWLEDGED_REFERENCES.
+// An entry means someone read the clause and concluded the word is quantified by
+// the clause itself.
+const ACKNOWLEDGED_QUALIFIERS = new Map();
+
+function findVagueQualifiers(filePath, content) {
+  const relPath = path.relative(process.cwd(), filePath);
+  const errors = [];
+  let match;
+  TAG_REGEX.lastIndex = 0;
+
+  while ((match = TAG_REGEX.exec(content))) {
+    const { id, type, toolTip } = parseAttrs(match[1]);
+    const canonical = CANONICAL_TYPE[type];
+    if (!id || !VAGUE_CHECKED_TYPES.has(canonical) || ACKNOWLEDGED_QUALIFIERS.has(id)) continue;
+
+    const text = clauseText(toolTip || match[2]);
+    const hits = new Set();
+    VAGUE_QUALIFIER_REGEX.lastIndex = 0;
+    let hit;
+    while ((hit = VAGUE_QUALIFIER_REGEX.exec(text))) hits.add(hit[1].toLowerCase());
+    if (hits.size === 0) continue;
+
+    errors.push(
+      `${relPath}:${lineOf(content, match.index)} "${id}" is a ${type} gated on an unquantified ` +
+        `qualifier: ${[...hits].join(", ")}. Nothing can fail it. Name the concrete requirement, ` +
+        `demote the clause to prose, or record it in ACKNOWLEDGED_QUALIFIERS with the reason it is ` +
+        `quantified in the clause text.`,
+    );
+  }
+
+  return errors;
+}
+
 function parseAttrs(attrString) {
   const attrs = {};
   let m;
@@ -374,7 +430,8 @@ function validateFile(filePath) {
 
   return errors
     .concat(findMixedStrengthPairs(filePath, content))
-    .concat(findDanglingReferences(filePath, content));
+    .concat(findDanglingReferences(filePath, content))
+    .concat(findVagueQualifiers(filePath, content));
 }
 
 function main() {

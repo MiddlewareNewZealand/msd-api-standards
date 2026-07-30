@@ -44,11 +44,11 @@ Tool descriptions and resource content are a channel an attacker can use to infl
 </Standard>
 
 <Standard id="MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED" type="MUST">
-MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to correctly enforce an access control decision that the server itself is capable of enforcing directly.
+MCP Servers must treat all resource content and tool output as untrusted from the agent's perspective, and must not rely on the agent to enforce an access control decision that the server itself is capable of enforcing directly.
 </Standard>
 
 ## **Audit logging**
 
 <Standard id="MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS" type="MUST">
-All tool invocations that access or modify client or whānau data must be logged with sufficient detail to identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally.
+All tool invocations that access or modify client or whānau data must be logged, and each log entry must identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally.
 </Standard>

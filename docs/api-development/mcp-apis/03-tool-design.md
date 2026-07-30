@@ -3,11 +3,11 @@ title: "Tool design"
 ---
 
 <Standard id="MSDAS_MUST_DECLARE_TOOL_INPUT_SCHEMA" type="MUST">
-Every Tool MUST declare a machine-readable schema for its input parameters, and SHOULD declare one for its output. Tool names MUST be unique within a Server and SHOULD use clear verb-noun naming, e.g. get-client-summary, create-case-note.
+Every Tool MUST declare a machine-readable schema for its input parameters, and SHOULD declare one for its output. Tool names MUST be unique within a Server and SHOULD use verb-noun naming, e.g. get-client-summary, create-case-note.
 </Standard>
 
 <Standard id="MSDAS_MUST_DESCRIBE_EACH_TOOL_CLEARLY" type="MUST">
-Every Tool MUST provide a clear, complete natural-language description of what it does, including any side effects. This description is read by the agent (and, indirectly, by the person the agent is acting for) to decide when and how to use the tool — an ambiguous or incomplete description leads directly to incorrect or unintended use.
+Every Tool MUST provide a complete natural-language description of what it does, including any side effects. This description is read by the agent (and, indirectly, by the person the agent is acting for) to decide when and how to use the tool — an ambiguous or incomplete description leads directly to incorrect or unintended use.
 </Standard>
 
 ```json

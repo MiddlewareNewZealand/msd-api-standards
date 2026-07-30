@@ -15,7 +15,7 @@ This standard applies to all cloud APIs which provide storage and access to MSD 
 ## **Requirements**
 
 <Standard id="MSDAS_MUST_MEET_CLOUD_SECURITY_REQUIREMENTS" type="MUST">
-Cloud API designers and developers must ensure the implementation achieves all of the following: robust authentication and authorisation (OAuth 2.0, SSO with OpenID Connect, request-level authorisation); validation of all incoming requests; throttling of API requests and quotas on endpoints that could consume substantial human, compute or data resources; logging of API activity; dependence only on trusted code libraries and packages; a zero-trust model (no session-based authentication such as cookies); filtering of traffic traversing public networks (WAFs and API gateways controlling internet-routed requests); and specific identity and access management policies controlling access to sensitive resources such as credentials, keys and configuration.
+Cloud API designers and developers must ensure the implementation achieves all of the following: authentication and authorisation (OAuth 2.0, SSO with OpenID Connect, request-level authorisation); validation of all incoming requests; throttling of API requests and quotas on endpoints that could consume substantial human, compute or data resources; logging of API activity; dependence only on trusted code libraries and packages; a zero-trust model (no session-based authentication such as cookies); filtering of traffic traversing public networks (WAFs and API gateways controlling internet-routed requests); and specific identity and access management policies controlling access to sensitive resources such as credentials, keys and configuration.
 </Standard>
 
 ## **Further reading**

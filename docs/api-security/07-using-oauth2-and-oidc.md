@@ -43,7 +43,7 @@ Depending on the grant flow in use, some or all of the following endpoints are e
 | /.well-known/openid-configuration | Returns the API Provider's OAuth 2.0/OIDC configuration and capabilities, including endpoints, algorithms and grant types. | — |
 
 <Standard id="MSDAS_MUST_DOCUMENT_CONSUMER_ONBOARDING_PROCESS" type="MUST">
-API Providers must clearly define and document their API Consumer onboarding process and requirements.
+API Providers must document their API Consumer onboarding process and the requirements a prospective consumer has to meet.
 </Standard>
 
 ## **OpenID Connect**

@@ -11,7 +11,7 @@ API Providers MUST publish the GraphQL schema for every GraphQL API. The schema 
 </Standard>
 
 <Standard id="MSDAS_MUST_DESCRIBE_GRAPHQL_SCHEMA_ELEMENTS" type="MUST">
-Every type, field, argument, enum value and input object within the schema must include a descriptive comment using GraphQL's native description syntax ("""..."""). Descriptions must clearly explain the business purpose, expected behaviour and any constraints.
+Every type, field, argument, enum value and input object within the schema must include a descriptive comment using GraphQL's native description syntax ("""..."""). Descriptions must state the business purpose, expected behaviour and any constraints.
 </Standard>
 
 <Standard id="MSDAS_MUST_DOCUMENT_GRAPHQL_QUERY_LIMITS" type="MUST">
@@ -39,7 +39,7 @@ GraphQL schema documents MUST be validated for GraphQL SDL compliance before pub
 Validation should be performed automatically as part of the API delivery pipeline wherever practical, consistent with the validation of OpenAPI and AsyncAPI specifications.
 
 <Standard id="MSDAS_MUST_MARK_DEPRECATED_GRAPHQL_ELEMENTS" type="MUST">
-Fields, types and other schema elements that are superseded MUST be marked using GraphQL's standard @deprecated directive and include a clear deprecation reason.
+Fields, types and other schema elements that are superseded MUST be marked using GraphQL's standard @deprecated directive and include a deprecation reason.
 </Standard>
 
 Deprecated elements should remain available for an appropriate transition period in accordance with the API versioning policy.

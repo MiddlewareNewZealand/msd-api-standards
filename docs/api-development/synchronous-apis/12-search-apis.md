@@ -14,7 +14,7 @@ Search query parameters MUST NOT contain personal identifiable or sensitive info
 </Standard>
 
 <Standard id="MSDAS_MUST_USE_POST_FOR_SENSITIVE_SEARCH" type="MUST">
-Where the POST mechanism is used for a sensitive search, the API MUST have a distinct search resource (e.g. /clients/_search) so the API can clearly distinguish a search from a resource-creation request.
+Where the POST mechanism is used for a sensitive search, the API MUST have a distinct search resource (e.g. /clients/_search) so the API can distinguish a search from a resource-creation request.
 </Standard>
 
 Template: `POST /{version}/{namespace}/{search-resource}`
@@ -60,6 +60,6 @@ This applies to any user-supplied input reaching a data store (e.g. parameterise
 Output rendered into any HTML, script, or markup context MUST be encoded using the rendering framework's built-in output-encoding mechanism
 </Standard>
 
-The specific encoding used <Standard inline id="MSDAS_MUST_MATCH_OUTPUT_ENCODING_TO_CONTEXT" type="MUST" toolTip="The specific output encoding used must be appropriate to the context (HTML body, attribute, URL, JavaScript) it is rendered into.">MUST</Standard> be appropriate to the context (HTML body, attribute, URL, JavaScript) it's rendered into. See the OWASP SQL Injection Prevention and Cross-Site Scripting Prevention Cheat Sheets for library-specific guidance.
+The specific encoding used <Standard inline id="MSDAS_MUST_MATCH_OUTPUT_ENCODING_TO_CONTEXT" type="MUST" toolTip="The output encoding used must match the context (HTML body, attribute, URL, JavaScript) the output is rendered into.">MUST</Standard> match the context (HTML body, attribute, URL, JavaScript) it's rendered into. See the OWASP SQL Injection Prevention and Cross-Site Scripting Prevention Cheat Sheets for library-specific guidance.
 
 Pagination behaviour <Standard inline id="MSDAS_SHOULD_KEEP_PAGINATION_CONSISTENT" type="SHOULD" toolTip="Pagination behaviour should be consistent with the interaction described in URIs and Query Arguments, and can be implemented as page number/size, offset/limit, or a continuation token.">SHOULD</Standard> be consistent with the interaction described in URIs, Query Arguments, and can be implemented as page number/size, offset/limit, or a continuation token, depending on the scale and volatility of the search results. Since the HTTP protocol treats POST as unsafe, POST search results aren't cacheable — even with a Cache-Control header present — so consider the performance impact for high-volume search operations.
