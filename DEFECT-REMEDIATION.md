@@ -10,6 +10,13 @@ batch, updates the status table, and stops. Do not carry work across batches.
 14 SHOULD NOT, 8 MUST NOT). Matches the reviewed snapshot exactly — every defect in the
 report is live against the current tree.
 
+**All phases complete, 2026-07-30.** Closing baseline: **240 clauses** (112 MUST, 74 SHOULD,
+24 MAY, 16 SHOULD NOT, 14 MUST NOT). Mixed-strength clauses 35 → **0**, vague MUSTs 19 → **0**,
+no duplicate IDs or content. Defect 11 is the one open item, deferred as a pre-publication gate —
+see Phase 6. The conformance suite is re-baselined at **33 tags**. Four blocking lints now hold
+defect classes 1, 2, 3 and 5 shut in the generator, and a fifth check in the conformance repo
+blocks tagging a consumer-bound clause.
+
 ---
 
 ## Why ID stability is deferred, not first
@@ -238,7 +245,9 @@ Seed material, should it be re-opened: `id-fixes.md` (the 198-row rename applied
 
 ---
 
-### Phase 7 — verify & re-baseline
+### Phase 7 — verify & re-baseline — **done, 2026-07-30**
+
+Executed as written; results in the status row and the Phase 7 notes at the end of this file.
 
 1. `yarn validate:standards && yarn build`
 2. Re-run every count in STANDARDS-DEFECTS.md Appendix A. Mixed-strength must be 0,
@@ -298,7 +307,7 @@ actual clause prose rather than working from summaries.
 | 5c — split (synchronous) | **done** | 2026-07-30 | Defect 1, synchronous: 7 clauses in 6 files. See the shared Phase 5 notes below. |
 | 5d — split (mcp + async) | **done** | 2026-07-30 | Defect 1, MCP + async: 5 clauses in 5 files (`mcp-apis/08` had none left — Phase 2 resolved its one instance). See the shared Phase 5 notes below. |
 | 6 — ID stability | **closed, no work** | 2026-07-30 | Defect 11 closed as not applicable yet, with the owner. No generator change, no renumbering, no published rename map — all three exist to protect downstream consumers, and there are none: nothing is published outside `/draft/`, `versions.json` is `[]`, the specs and tooling are unreleased, and the sole reader is `../api-standards-conformance` under the same ownership. Verified first: only **3 of the 31** conformance tags stopped resolving across phases 1–5, and all 3 already carry a retag target in the rename log, so the log alone drives the Phase 7 retag. Also corrected a wrong claim in the Phase 2 log entry — `MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` *is* a live tag, not comment-only. Re-open before the catalog leaves `/draft/` or a second consumer appears; see the Phase 6 section for the trigger conditions and why the full stable-ID option is the one to take then. |
-| 7 — verify & re-baseline | not started | | |
+| 7 — verify & re-baseline | **done** | 2026-07-30 | All four steps executed. **Every Appendix A count re-derived from a fresh local build and confirmed:** 240 clauses (MUST 112, SHOULD 74, MAY 24, SHOULD NOT 16, MUST NOT 14), mixed-strength **0**, vague MUSTs **0** of 126, no duplicate IDs, no duplicate content, text-derived IDs 33 of 126 (Phase 6's open item). `validateStandardTags.js`, `validateAccessibility.js` and `docusaurus build` + `extractStandards.js` all clean. Conformance repo re-baselined: exactly the **3** predicted tags were stale and no others, so the rename log alone drove the retag, as Phase 6 said it would. 12 files changed there; `standards:check` green, mock suite **39/39** conforming and 24 failures nonconforming. Tag count 31 → **33**. Details, decisions and the two things left for the owner are in the Phase 7 notes below. |
 
 ## Phase 4 notes (4a and 4b)
 
@@ -565,10 +574,10 @@ against a provider endpoint cannot verify any of them, so a tag on one is an ove
 
 | Clause | Party | Why |
 |---|---|---|
-| `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` | consumer | Defect 7. Chain and CRL validation happens in software the provider does not control. Currently tagged in `transport-security.feature`. |
+| `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS` | consumer | Defect 7. Chain and CRL validation happens in software the provider does not control. **Untagged in Phase 7.** |
 | `MSDAS_MUST_PROVIDE_AUTHORISATION_INTENT` | consumer | The consumer sends the intent to the authorisation server. |
 | `MSDAS_MUST_IGNORE_BODY_IN_HEAD_RESPONSE` | consumer | New in Phase 3; only the receiver can ignore a body. |
-| `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT` | consumer | Both halves bind the party sending the request. Currently tagged — see the Phase 3 status note. |
+| `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT` | consumer | Both halves bind the party sending the request. **Untagged in Phase 7**; the provider-side 406 obligation it was standing in for still has no clause — see the Phase 7 notes. |
 | `MSDAS_SHOULD_PROTECT_EMBEDDED_API_KEYS` | consumer | The key is embedded in the consumer's application; the page prose already says the consumer's developers are responsible for it. |
 | `MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS` | both | The MCP Server declares which tools need confirmation, but the confirmation prompt is the Host's to show. Neither party can satisfy it alone. |
 | `MSDAS_MUST_OBTAIN_RENEWED_CONSENT_FOR_CHANGED_TOOLS` | consumer | New in Phase 5. Only the Host can put the changed tool back in front of the person the agent acts for. Its provider-side counterpart, `MSDAS_MUST_REQUIRE_RENEWED_CONSENT_FOR_CHANGED_TOOLS`, is a separate clause rather than a `both` — see the Phase 5 notes. |
@@ -577,3 +586,109 @@ Judged `provider` despite naming the consumer: `MSDAS_MUST_IDENTIFY_CONSUMER_IN_
 authorisation server mints the token), `MSDAS_MUST_LIMIT_GRANT_TYPES` (the consumer half is
 descriptive, not normative), and the ~30 publishing clauses of the form "API Providers MUST publish
 X for API Consumers", where the consumer is the beneficiary and not the bound party.
+
+---
+
+## Phase 7 notes
+
+### 1–2. Verification (standards repo — no source changes)
+
+`node scripts/validateStandardTags.js`, `node scripts/validateAccessibility.js` and
+`npm run build` (docusaurus + `extractStandards.js`) all clean over 80 doc files. Every Appendix A
+command was re-run verbatim against the freshly built
+`build/draft/assets/api-standards.json`; results are in the status row. Nothing in the standards
+repo needed editing, which is the point — phases 1–6 left it consistent.
+
+Note `yarn` cannot be used in this repo: there is a `package.json`/`yarn.lock` pair at `/home/pete`,
+so Yarn Berry resolves the standards repo as a stray non-workspace and refuses. Use
+`npm run build` / `node scripts/…` directly. Not worth fixing here; recorded so the next agent
+doesn't read the error as a repo problem.
+
+Two residual grep hits were checked and are correct as they stand: the one surviving `W3C`
+reference is `MSDAS_SHOULD_PROPAGATE_TRACE_CONTEXT`, where W3C Trace Context genuinely is a W3C
+standard (defect 10 was about HTTP), and the one surviving `HMAC` mention is in the
+message-authentication clause Phase 1 created for it.
+
+### 3–4. Conformance re-baseline (`../api-standards-conformance`, 12 files)
+
+Phase 6's prediction held exactly: of the 31 tags, **the same 3 and only those 3** were stale, and
+the rename log carried a retag target for each. No rename infrastructure was on the critical path.
+
+Verified against a **local** catalog build, not the published one — the remediated catalog is still
+unpublished, so `standards:check` against its default URL would have compared the new tags to the
+old snapshot. Serve `build/draft/assets/` over HTTP and set `STANDARDS_JSON_ENDPOINT`; `fetch` will
+not take a `file://` URL. This is now written down in that repo's `STANDARDS-DRIFT-CHECK.md`.
+
+**Retags (3, from the rename log).** `MSDAS_MUST_CONFORM_JSON_TO_RFC_7159` → `…_TO_STD_90`;
+`MSDAS_SHOULD_DISABLE_OBSOLETE_TLS_VERSIONS` → `MSDAS_MUST_…` (tag plus the two comment mentions
+Phase 6 corrected the log about); `MSDAS_MUST_USE_STANDARD_ENCRYPTION_ALGORITHMS` →
+`MSDAS_MUST_AUTHENTICATE_MESSAGES_WITH_APPROVED_ALGORITHMS`. **The last one also corrects the
+conformance repo's own earlier guess:** its commit `31b1671` ("fix renamed tag") had repointed the
+`mock/server.js` comment at `MSDAS_MUST_ENCRYPT_CONTENT_WITH_APPROVED_ALGORITHMS`, the encryption
+clause. The scenario decodes a JWT header and asserts the `alg` — signing, not encryption — so the
+rename log's target was right and that comment was wrong.
+
+**Scenario splits (4).** Each of the four scenarios flagged in the Phase 5 notes asserted a clause
+that has since been split, so one scenario spanned two clause IDs. All four were split into two
+scenarios rather than double-tagged: a double tag reports both clauses as failing when only one
+assertion breaks, which is the same all-or-nothing reporting defect 1 existed to remove. New tags
+now live: `MSDAS_MUST_MAKE_TOOL_NAMES_UNIQUE_WITHIN_A_SERVER`,
+`MSDAS_MUST_DECLARE_TOOL_CONTRACT_VERSION`, `MSDAS_SHOULD_INCLUDE_RETRY_AFTER_ON_429`,
+`MSDAS_MUST_DOCUMENT_ERROR_RESPONSES`. The last needed the combined
+`every OpenAPI operation should document multiple responses including an error response` step
+replaced by two steps in `oas-lint.steps.js`. Two of these were previously asserted at the wrong
+strength — `Retry-After` at MUST and the error response at SHOULD — and now report at their own.
+
+**Repoint (1).** `@MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS` → `MSDAS_MUST_NOT_HONOUR_MCP_TOKENS_ACROSS_AUDIENCES`.
+The scenario mints a token for the widgets audience and expects the MCP call to 401, which is the
+rejection clause. The surviving MUST binds the token *issuer* and is now untested — a genuine
+coverage gap, not a regression, and not fillable against a mock that issues its own tokens.
+
+**Untags (2) — the step-4 decision.** Both tagged consumer-bound clauses were untagged and recorded
+in `standards-mapping.json` with the reason. `MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS`: the
+scenario asserts the *test client's* trust store, so no target behaviour can fail it. Kept as a
+guard that the handshake probe still validates chains (it catches a stray
+`NODE_TLS_REJECT_UNAUTHORIZED=0`), but untagged. `MSDAS_MUST_INDICATE_RESPONSE_FORMAT_VIA_ACCEPT`:
+the scenario asserts a provider 406, and that obligation still has no clause. Both scenarios were
+kept and both remain in the run; only the conformance *claim* was withdrawn. Net effect on the tag
+count: 31 − 2 + 4 = **33**, across 35 tagged scenarios of 40.
+
+A third **blocking check** was added to `check-standards.js` — a tag on a `boundParty="consumer"`
+clause now fails `standards:check`. Same pattern as the phase 2–5 lints, and negative-tested both
+ways (a throwaway feature tagging the TLS clause fails with the right message; removing it passes).
+`both` is deliberately allowed: a provider run can evidence the provider's half. A catalog
+predating `boundParty` omits the field, which is read as the `provider` default, so the check is a
+no-op against older snapshots rather than a wall of false failures.
+
+**Fixture bug found and fixed (unplanned).** The whole suite was unrunnable: the mock target's
+self-signed cert has one-day validity but was only regenerated when *absent*, so every request
+failed `CERT_HAS_EXPIRED` until `mock/certs/` was deleted by hand. `ensureTlsCertificate()` now
+regenerates when the cert is missing *or* fails `openssl x509 -checkend 300`. Unrelated to the
+remediation, but it blocked step 3 and would have hit the next person the same way.
+
+The nonconforming mock was also taught to omit `serverInfo.version`, so
+`MSDAS_MUST_DECLARE_TOOL_CONTRACT_VERSION` is demonstrated failing as well as passing. Without it
+the new tag would only ever have been green.
+
+**Results.** `standards:check` green. Mock suite **39/39** passing conforming; **24 failures**
+nonconforming, including every newly split scenario — so each new tag detects a violation, not just
+a pass. `eslint` clean on the three changed JS files. The `oas-lint` family still passes in both
+modes, since `MOCK_MODE` doesn't vary `mock/oas.yml`; pre-existing and documented in
+`mock/README.md`.
+
+### Left for the owner
+
+1. **The missing provider-side content-negotiation clause.** The catalogue obliges the consumer to
+   send `Accept`, but says nothing about what a provider does with an `Accept` it cannot satisfy.
+   RFC 9110 §12.5.1 and §15.5.7 give the answer (406, or serve a default), the mock already
+   implements it, and a scenario already tests it — it just has no clause to tag. Adding one is new
+   normative content, which is why phases 3 and 7 both stopped short. This is the one real
+   *coverage* gap the remediation opened.
+2. **`MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS` is now untested** (see Repoint above). It needs a
+   scenario that inspects an issued token's `aud`, not one that watches a server reject someone
+   else's token.
+
+Not done, deliberately: `../api-standards-conformance/STANDARDS-DEFECTS.md` was left untouched. It
+states its snapshot (fetched 2026-07-29, sha256 `84f9fa4b952cfa97…`, 198 clauses) in its own header,
+so it reads correctly as a historical report; editing counts into it would make it neither the
+original review nor a current one. This file is the record of what was done about it.
