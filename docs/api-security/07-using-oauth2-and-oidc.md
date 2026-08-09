@@ -77,8 +77,7 @@ ID Tokens are returned either from the authorise endpoint over TLS, or from the 
 
 ### **Interaction patterns and identity requirements**
 
-The correct authentication and authorisation model depends on *who or what is actually authenticating*, not on the sensitivity of the data alone. The table below sets out the three patterns APIs are expected to encounter. 
-
+The correct authentication and authorisation model depends on *who or what is actually authenticating*, not on the sensitivity of the data alone. The table below sets out the three patterns APIs are expected to encounter.
 
 | Interaction pattern | Description | Requirement |
 | --- | --- | --- | --- |
