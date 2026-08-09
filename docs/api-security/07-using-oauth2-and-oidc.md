@@ -1,5 +1,5 @@
 ---
-title: "Using OAuth 2.0 and OpenID Connect to Secure Your API"
+title: Using OAuth 2.0 and OpenID Connect to Secure Your API
 ---
 OAuth 2.0 and OpenID Connect are both token-based authorisation frameworks, defined and implemented using grant flow patterns. These define the different types of interaction a client application can perform to gain an access token, and thus access to a protected API.
 
@@ -77,14 +77,14 @@ ID Tokens are returned either from the authorise endpoint over TLS, or from the 
 
 ### **Interaction patterns and identity requirements**
 
-The correct authentication and authorisation model depends on *who or what is actually authenticating*, not on the sensitivity of the data alone. The table below sets out the three patterns MSD APIs are expected to encounter. 
+The correct authentication and authorisation model depends on *who or what is actually authenticating*, not on the sensitivity of the data alone. The table below sets out the three patterns APIs are expected to encounter. 
+
 
 | Interaction pattern | Description | Requirement |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | Individual present | A client, whānau member, MSD staff member, or a delivery partner's staff member authenticates directly and the API acts on their behalf. | | OpenID Connect MUST be used — ID Token, consent, and an appropriate Level of Assurance MUST all apply, regardless of information classification. |
 | System-to-system (B2B) | A partner's backend system calls an MSD API under its own authority, with no individual authenticating as part of the flow (e.g. nightly reconciliation, batch data sync). | The Client Credentials grant MUST be used, with strong client authentication and scopes limited to exactly what the integration needs. OpenID Connect MUST NOT be required, since there's no individual subject for an ID Token to represent. |
 | Delegated / acting-on-behalf-of | A partner's *system* acts on behalf of an identifiable individual at that partner (e.g. a caseworker at a delivery partner organisation), without that individual authenticating directly to MSD. | Client Credentials MUST be used for the system-to-system leg, and the calling system MUST include a claim identifying the individual it's acting on behalf of  so MSD retains individual-level accountability for the access, even though that individual never authenticates to MSD directly. The azp (authorised party) claim (see Level of Assurance) supports the System-to-system and Delegated patterns by identifying which registered client is calling, independent of any individual claims that may or may not also be present. |
-
 
 ### **Userinfo endpoint and scopes**
 
