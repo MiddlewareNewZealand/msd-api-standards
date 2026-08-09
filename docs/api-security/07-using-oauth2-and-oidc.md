@@ -60,7 +60,7 @@ OpenID Connect MUST NOT be treated as a substitute for a genuine data-sharing ri
 ### **ID Token**
 
 <Standard id="MSDAS_MUST_USE_ID_TOKEN_FOR_SENSITIVE_APIS" type="MUST">
-The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information.
+The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information wherever an individual — a client, whānau member, MSD staff member, or a delivery partner's staff member — is directly authenticating through the consuming application and the API is acting on that individual's behalf.
 </Standard>
 
 The ID Token is a JWT containing authenticated user information provided by the OpenID Connect server to the API Consumer. It may be used to enforce finer-grained access controls via additional claims; must be signed by an approved algorithm; should include claims that hash the code, state and access token to protect user integrity; may carry additional non-identity metadata (e.g. session details); must have its issuer, audience, nonce and expiry validated by the API Consumer; and may be encrypted.
