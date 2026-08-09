@@ -2,7 +2,7 @@
 title: "API Artefacts"
 ---
 
-<Standard id="MSDAS_MUST_ALL_API_ARTEFACTS_MAINTAINED_SYSTEM" type="MUST">
+<Standard id="MSDAS_MUST_MAINTAIN_ARTEFACTS_WITH_CHANGE_TRACKING" type="MUST">
 All API artefacts MUST be maintained in a system that supports change tracking.
 </Standard>
 

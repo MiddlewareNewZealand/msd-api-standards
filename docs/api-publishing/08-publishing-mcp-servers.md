@@ -5,7 +5,7 @@ MCP Servers (see Part C, MCP APIs) don't have a static specification artefact in
 
 ## **Capability catalogue**
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_MCP_SERVER_PUBLISH_2" type="MUST">
+<Standard id="MSDAS_MUST_PUBLISH_MCP_CAPABILITY_CATALOGUE" type="MUST">
 API Providers of an MCP Server MUST publish a capability catalogue — a human-readable listing of available Tools, Resources and Prompts, each with its purpose, required scopes, and any side effects (particularly for Tools that write data or trigger real-world actions) — via the MSD Developer Portal, in addition to the protocol's own machine-readable discovery.
 </Standard>
 

@@ -52,7 +52,7 @@ There are several different types of API, and the type chosen may depend on the 
 
 ### **Future-focused design**
 
-<Standard id="MSDAS_SHOULD_NOT_APIS_EXPOSE_OBSOLETE_LEGACY_STRUCTURES" type="SHOULD NOT">
+<Standard id="MSDAS_SHOULD_NOT_EXPOSE_LEGACY_STRUCTURES" type="SHOULD NOT">
 APIs SHOULD NOT expose obsolete or legacy structures or functions.
 </Standard>
 
@@ -82,7 +82,7 @@ Agility matters more than completeness early on: share draft interface specifica
 
 ## **Design-driven development**
 
-<Standard id="MSDAS_MUST_BUILDING_APIS_DESIGN_DRIVEN_APPROACH" type="MUST">
+<Standard id="MSDAS_MUST_TAKE_DESIGN_DRIVEN_APPROACH" type="MUST">
 When building APIs, a design-driven approach MUST be taken, comprising: interface specification first; an iterative design approach; and continuous integration/deployment/testing.
 </Standard>
 
@@ -96,11 +96,11 @@ Big-bang releases rarely deliver business or client benefit. An iterative approa
 
 ### **Automation first**
 
-Automation gives fast turnaround on informing API developers about breaking changes as code is submitted to a shared codebase, via an automated, integrated build process that flags anything broken. Tests written against the interface specification early in development — using stubs or mocks — can be incorporated into this automated build, giving early warning of regressions. API code <Standard inline id="MSDAS_SHOULD_NOT_API_CODE_PROGRESS_UNTIL_PASSES_TESTS" type="SHOULD NOT" toolTip="API code should not progress through delivery environments until it passes automated tests.">SHOULD NOT</Standard> progress through delivery environments until it passes automated tests.
+Automation gives fast turnaround on informing API developers about breaking changes as code is submitted to a shared codebase, via an automated, integrated build process that flags anything broken. Tests written against the interface specification early in development — using stubs or mocks — can be incorporated into this automated build, giving early warning of regressions. API code <Standard inline id="MSDAS_SHOULD_NOT_PROMOTE_CODE_BEFORE_TESTS_PASS" type="SHOULD NOT" toolTip="API code should not progress through delivery environments until it passes automated tests.">SHOULD NOT</Standard> progress through delivery environments until it passes automated tests.
 
 ## **Granularity**
 
-APIs <Standard inline id="MSDAS_SHOULD_APIS_DESIGNED_LOWEST_PRACTICAL_GRANULARITY" type="SHOULD" toolTip="APIs should be designed at the lowest practical level of granularity.">SHOULD</Standard> be designed at the lowest practical level of granularity, since this makes each resource simpler and allows resources to be combined in ways that suit the application developer, rather than tying them to a specific sequence of calls just because that's how the back end happens to be built.
+APIs <Standard inline id="MSDAS_SHOULD_DESIGN_AT_LOWEST_GRANULARITY" type="SHOULD" toolTip="APIs should be designed at the lowest practical level of granularity.">SHOULD</Standard> be designed at the lowest practical level of granularity, since this makes each resource simpler and allows resources to be combined in ways that suit the application developer, rather than tying them to a specific sequence of calls just because that's how the back end happens to be built.
 
 Too fine-grained a resource forces consuming applications to make many more calls to collect the information they need (“chatty” communication). Too coarse-grained a resource (returning everything about it) can produce enormous response payloads that may not suit every consumer's needs, and become cumbersome to maintain. Varying granularity may be needed within a single API depending on purpose — for example, a coarse-grained resource for posting a new case file as a bundle of content (notes, documents, keywords, supporting information), but separate, fine-grained sub-resources for adding comments to that file.
 
@@ -112,9 +112,9 @@ General guidelines: don't aim for the finest possible granularity — build arou
 
 An API represents a contract between the API Provider and API Consumer for access to the provider's resources. Because API consumption is a programmatic exercise, a clear definition of what the API offers and how those resources are accessed — the interface specification — is essential.
 
-The specification <Standard inline id="MSDAS_SHOULD_SPECIFICATION_DESIGNED_ADVANCE_DEVELOPING_API" type="SHOULD" toolTip="The interface specification should be designed in advance of developing the API.">SHOULD</Standard> be designed in advance of developing the API: working through it typically surfaces issues that would otherwise affect the underlying resource-handling code, and it lets application developers review the capabilities on offer against their needs before they start building. Where API development is outsourced, the interface specification can be written in abstract as a means of defining what the vendor should build; it's version-controllable and can serve as the primary API documentation.
+The specification <Standard inline id="MSDAS_SHOULD_DESIGN_SPECIFICATION_FIRST" type="SHOULD" toolTip="The interface specification should be designed in advance of developing the API.">SHOULD</Standard> be designed in advance of developing the API: working through it typically surfaces issues that would otherwise affect the underlying resource-handling code, and it lets application developers review the capabilities on offer against their needs before they start building. Where API development is outsourced, the interface specification can be written in abstract as a means of defining what the vendor should build; it's version-controllable and can serve as the primary API documentation.
 
-<Standard id="MSDAS_MUST_OPENAPI_SWAGGER_USED_INTERFACE_SPECIFICATION" type="MUST">
+<Standard id="MSDAS_MUST_USE_OPENAPI_AS_SPECIFICATION_LANGUAGE" type="MUST">
 OpenAPI/Swagger MUST be used as the interface specification language for all synchronous APIs being developed.
 </Standard>
 
@@ -126,12 +126,18 @@ As a general rule, using APIs as an orchestration tool isn't recommended, due to
 
 ## **Software Development Kits (SDKs)**
 
-<Standard id="MSDAS_SHOULD_API_PROVIDERS_OFFER_SDK" type="RECOMMENDED">
+<Standard id="MSDAS_SHOULD_OFFER_CONSUMER_SDK" type="RECOMMENDED">
 It's recommended that API Providers offer an SDK to developers of consuming applications.
 </Standard>
 
 An SDK is the implementation toolset for using MSD's APIs: it lets developers build applications faster without needing to understand every detail of the API, and should include sample code demonstrating the API's functionality.
 
-<Standard id="MSDAS_SHOULD_ONCE_API_FIT_STATE_OFFERED" type="SHOULD">
-Once an API is in a fit state to be offered to consumers, the API definition SHOULD be published to the MSD Developer Portal or equivalent social sector capability. The primary way developers discover an API is via this catalogue, so an external API MUST be well documented there, with accurate and up-to-date guidance.
+<Standard id="MSDAS_SHOULD_PUBLISH_API_DEFINITION_WHEN_READY" type="SHOULD">
+Once an API is in a fit state to be offered to consumers, the API definition SHOULD be published to the MSD Developer Portal or equivalent social sector capability.
 </Standard>
+
+<Standard id="MSDAS_MUST_DOCUMENT_EXTERNAL_APIS_IN_THE_CATALOGUE" type="MUST">
+An external API MUST be documented in the MSD Developer Portal or equivalent social sector capability, with accurate and up-to-date guidance.
+</Standard>
+
+The catalogue is the primary way developers discover an API.

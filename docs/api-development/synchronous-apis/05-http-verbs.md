@@ -2,8 +2,8 @@
 title: "HTTP Verbs"
 ---
 
-<Standard id="MSDAS_MUST_ACCESS_REST_APIS_VIA_STANDARD" type="MUST">
-Access to REST APIs MUST be via the standard HTTP verbs: GET, PUT, POST, DELETE, in line with the W3C Standard.
+<Standard id="MSDAS_MUST_USE_STANDARD_HTTP_VERBS" type="MUST">
+Access to REST APIs MUST be via the standard HTTP verbs — GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS — using the method semantics defined in RFC 9110 (HTTP Semantics) section 9.
 </Standard>
 
 | Verb | Common usage |
@@ -20,8 +20,12 @@ Access to REST APIs MUST be via the standard HTTP verbs: GET, PUT, POST, DELETE,
 
 GET is used for retrieval of information — where the interaction is more like a question, i.e. a safe, idempotent operation such as a query. GET returns a representation in JSON with an HTTP 200 (OK) on success, or 404 (NOT FOUND) if the resource doesn't exist.
 
-<Standard id="MSDAS_MUST_NOT_DO_EXPOSE_UNSAFE_OPERATIONS_VIA" type="MUST NOT">
-Do not expose unsafe operations via GET — it should never modify any resources on the server.
+<Standard id="MSDAS_MUST_NOT_EXPOSE_UNSAFE_OPERATIONS_VIA_GET" type="MUST NOT">
+Unsafe operations must not be exposed via GET.
+</Standard>
+
+<Standard id="MSDAS_MUST_NOT_MODIFY_RESOURCES_IN_A_GET" type="MUST NOT">
+A GET request must not modify any resource on the server.
 </Standard>
 
 ### **GET example**
@@ -74,11 +78,11 @@ Location: https://api.msd.govt.nz/clients/12345/appointments/9a1b2c3d
 
 PUT is used to update or replace an existing resource item, and, less commonly, to create a resource where the consumer chooses the resource ID. PUT is not safe but is idempotent — calling it repeatedly with the same body leaves the resource in the same state.
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_API_CONSUMERS_DESIGN" type="MUST">
-API Providers and API Consumers MUST design APIs that are PUT tolerant, and be aware of the race condition this can expose when two consumers update the same resource concurrently.
+<Standard id="MSDAS_MUST_ACCEPT_FULL_REPRESENTATION_ON_PUT" type="MUST">
+API Providers MUST accept a PUT request carrying the complete resource representation as the API previously returned it, treating properties the consumer is not permitted to change as unchanged rather than rejecting the request.
 </Standard>
 
-This is commonly handled through optimistic or pessimistic concurrency control — see Versioning APIs, Resource Version Control.
+Because PUT replaces the whole resource, two consumers updating the same resource concurrently can silently overwrite each other's changes. That race condition is addressed by the concurrency control mechanism required under [Versioning APIs, Resource version control](11-versioning-apis.md#MSDAS_MUST_IMPLEMENT_CONCURRENCY_CONTROL), commonly implemented as optimistic or pessimistic concurrency.
 
 ## **DELETE**
 
@@ -96,6 +100,10 @@ PATCH is a valid HTTP verb but its use is discouraged due to complexity, except 
 
 ### **HEAD**
 
-<Standard id="MSDAS_MUST_NOT_RESPONSE_HEAD_REQUEST_CONTAIN_BODY" type="MUST NOT">
-The response to a HEAD request MUST NOT contain a body. If a response body is returned it MUST be ignored.
+<Standard id="MSDAS_MUST_NOT_RETURN_BODY_FOR_HEAD_REQUEST" type="MUST NOT">
+The response to a HEAD request MUST NOT contain a body.
+</Standard>
+
+<Standard id="MSDAS_MUST_IGNORE_BODY_IN_HEAD_RESPONSE" type="MUST" boundParty="consumer">
+An API Consumer that receives a body in a response to a HEAD request MUST ignore that body.
 </Standard>

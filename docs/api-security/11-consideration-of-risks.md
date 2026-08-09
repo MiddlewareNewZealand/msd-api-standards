@@ -8,8 +8,16 @@ An API offers a direct channel into part of an organisation's resources and info
 
 It's therefore important that API Providers consider their consumers — and the consumers of those consumers — to determine risks and what information should be accessible via APIs.
 
-<Standard id="MSDAS_MUST_API_DESIGNERS_IMPLEMENTERS_SHOW_HOW" type="MUST">
-API designers and implementers must show how they have assessed and managed risks associated with their API solution. This assessment should be conducted during API design and be part of ongoing risk assessment of the API and its products. Records of risk assessment, current status and mitigation should be maintained in MSD's risk management systems.
+<Standard id="MSDAS_MUST_DEMONSTRATE_RISK_ASSESSMENT" type="MUST">
+API designers and implementers must show how they have assessed and managed risks associated with their API solution.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_ASSESS_API_RISK_AT_DESIGN_AND_ONGOING" type="SHOULD">
+Risk assessment of an API solution should be conducted during API design, and be part of ongoing risk assessment of the API and its products.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_MAINTAIN_RISK_RECORDS_IN_MSD_SYSTEMS" type="SHOULD">
+Records of API risk assessment, current status and mitigation should be maintained in MSD's risk management systems.
 </Standard>
 
 This standard calls for API designers and implementers to show they've considered API security risk mitigation — generally demonstrated by design documentation, or, where mitigations are reused from other solutions, by reference to that solution's documentation or certification.
@@ -41,6 +49,6 @@ Zero trust (ZT) describes an evolving set of cybersecurity paradigms that move d
 
 Zero trust architecture removes the concept of trusted internal versus untrusted external networks, focusing instead on “never trust, always verify”. The shift to cloud services has brought this model to the fore: every actor — staff, delivery partners and others — requires access controls regardless of location or device.
 
-<Standard id="MSDAS_SHOULD_MSD_CONSIDER_FOLLOWING_PLANNING_ZERO" type="SHOULD">
+<Standard id="MSDAS_SHOULD_CONSIDER_ZERO_TRUST_PRINCIPLES" type="SHOULD">
 MSD should consider the following when planning a Zero Trust architecture: apply strong identification and authentication; build a dynamic digital trust model, valid only for the current session; constantly evaluate and always authenticate; apply contextual authorisation (attributes, consent, location, time, behaviour); build in a digital risk capability that maps to a level of confidence and constantly re-evaluates; incorporate endpoint (device) security; apply transaction-level verification and continuous session validation; apply data security via encryption and user privacy controls, including consent management; implement strong auditing, logging, event reporting and forensics; use automated analytics for threat detection; inject identity context into API traffic (user, application, device); apply fine-grained access control at egress points to modify or block responses; propagate identity through to backend services to inform decisions; and secure all APIs as if they were public.
 </Standard>

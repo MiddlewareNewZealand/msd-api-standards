@@ -21,13 +21,23 @@ The jwt-bearer flow may also be used alongside authorisation code flows, in whic
 
 Functionally similar to the JWT flow, but using a SAML assertion in place of a JWT.
 
-<Standard id="MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER" type="SHOULD NOT">
-SAML assertion flows should not be used for server-to-server flows, and should not use a client-created assertion model. Note the related [MAY guidance](#MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS) below for when they may be used.
+<Standard id="MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER" type="SHOULD NOT">
+SAML assertion flows should not be used for server-to-server flows.
 </Standard>
 
-<Standard id="MSDAS_MAY_SAML_ASSERTION_FLOWS_USED_UNCLASSIFIED_APIS" type="MAY">
-SAML assertion flows may be used for UNCLASSIFIED APIs, and may be used with authorisation code flows for IN-CONFIDENCE APIs where a SAML token-endpoint authorisation model is specifically required. Note the related [SHOULD NOT guidance](#MSDAS_SHOULD_NOT_SAML_ASSERTION_FLOWS_USED_SERVER) above.
+<Standard id="MSDAS_SHOULD_NOT_USE_CLIENT_CREATED_SAML_ASSERTIONS" type="SHOULD NOT">
+SAML assertion flows should not use a client-created assertion model.
 </Standard>
+
+<Standard id="MSDAS_MAY_USE_SAML_FOR_UNCLASSIFIED_APIS" type="MAY">
+SAML assertion flows may be used for UNCLASSIFIED APIs.
+</Standard>
+
+<Standard id="MSDAS_MAY_USE_SAML_WITH_AUTHORISATION_CODE_FOR_CONFIDENCE_APIS" type="MAY">
+SAML assertion flows may be used with authorisation code flows for IN-CONFIDENCE APIs, where a SAML token-endpoint authorisation model is required.
+</Standard>
+
+The two [restrictions](#MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER) above and the two [permitted uses](#MSDAS_MAY_USE_SAML_FOR_UNCLASSIFIED_APIS) here are complementary: the restrictions govern the flow shape, the permitted uses govern the information classification.
 
 ## **Web application (browser-based) patterns**
 
@@ -35,8 +45,8 @@ Emerging guidance for OAuth 2.0 in browser-based applications — particularly s
 
 ### **Backend for Frontend (BFF)**
 
-<Standard id="MSDAS_MAY_MSD_USE_BACKEND_FRONTEND_PATTERN" type="MAY">
-MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while this guidance remains in draft at the IETF.
+<Standard id="MSDAS_MAY_USE_BACKEND_FOR_FRONTEND_PATTERN" type="MAY">
+MSD may use the Backend for Frontend pattern for single-page applications that need to support IN-CONFIDENCE APIs, while the IETF's guidance on OAuth 2.0 for browser-based applications remains in draft.
 </Standard>
 
 In this pattern, a user interacts with the API Consumer application, which communicates with a Backend for Frontend service sitting within the API Provider's (or the consumer's own) infrastructure. The BFF service requests authorisation from the authorisation server, redirecting the user to grant consent; on receiving an authorisation code, it exchanges this for access and refresh tokens on the user's behalf, then uses the access token to retrieve the requested resource, which it returns to the API Consumer application. This keeps tokens out of the browser entirely, closing off the main risk PKCE alone doesn't fully address for sensitive, IN-CONFIDENCE data.

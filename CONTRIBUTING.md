@@ -63,10 +63,32 @@ Providers must not use X- notation headers.
 API Keys <Standard inline id="MSDAS_MUST_API_KEYS_USED" type="MUST" toolTip="API Keys must be used wherever system-to-system authentication is needed.">must</Standard> be used wherever system-to-system authentication is needed.
 ```
 
+**Consumer-bound** (`boundParty`) — the catalog is used as a provider-side conformance contract, so clauses are provider-bound by default. Where a clause obliges the party *calling* the API, say so, otherwise a conformance tool will claim to have verified something it cannot see:
+
+```mdx
+<Standard id="MSDAS_MUST_VALIDATE_TLS_CERTIFICATE_CHAINS" type="MUST" boundParty="consumer">
+API Consumer applications must validate TLS certificate chains…
+</Standard>
+```
+
+`boundParty` accepts `provider` (the default — omit it), `consumer`, or `both`, and is emitted into the Checklist JSON.
+
 Rules:
 
 - `id` must match `MSDAS_<TYPE>_...`, where `<TYPE>` is `MUST`, `MUST_NOT`, `SHOULD`, `SHOULD_NOT`, or `MAY` — the *canonical* RFC 2119 group, even if `type` uses a synonym (e.g. `type="REQUIRED"` still gets an `MSDAS_MUST_...` id).
 - `id` is not required for non-normative callouts: `type="INFO"`, `"EXAMPLE"`, or `"NOTE"`.
 - Content crammed onto the same line as `<Standard>` or `</Standard>` (block form) can break the MDX build — always put it on its own line.
+- A markdown link to **another page** inside the box body fails the build (`Invariant failed` during static rendering): the component renders its children to plain text for the tooltip, and a cross-page link is a router-backed component that cannot render outside a page. Same-page anchors (`[…](#MSDAS_MUST_…)`) are fine, because they compile to a plain `<a>`. Put cross-page links in the prose around the box.
+
+The clause text — the `toolTip`, or the box content when there is no `toolTip` — is read on its own in the Checklist and in the JSON, so the validator rejects two things that only make sense in context:
+
+- **A reference the clause never resolves.** "In order for this to occur…", "This model may be used…" — name the thing. Checked on the opening sentence only, since later sentences refer back to the first.
+- **A word presupposing an unstated condition** — "the response must *still* indicate…". State the condition or drop the word.
+- **A MUST or MUST NOT gated on an unquantified qualifier** — *appropriate*, *sufficient*, *robust*, *correctly*, *clearly*, *relevant*. Nothing can fail "appropriate authorisation must be applied". Name the requirement, or make it a `NOTE`/`INFO` box pointing at the clauses that do. The check is limited to MUST and MUST NOT: a SHOULD is advisory, so a judgement call is legitimate there.
+- **An RFC 2119 keyword other than the clause's own `type`.** One ID carries one obligation at one strength, because the JSON has one `standardType` field per clause. "Every Tool MUST declare an input schema, and SHOULD declare one for its output" reports as a single MUST, so a tool with no output schema passes as fully conformant. Split the second obligation into its own `<Standard>` — two adjacent boxes read fine, and each gets its own ID.
+
+  This also catches the keyword used as ordinary description ("since the agent *may* relay tool output", "the rules API Consumers *must* agree to"). Reword those: a reader of the JSON cannot tell a description from a rule either. Synonyms (`REQUIRED`, `RECOMMENDED`, `OPTIONAL`) are only matched in upper case, so "the minimum data and actions required" is fine.
+
+The surrounding page keeps its narrative flow either way: only the extracted clause text has to stand alone, which is what the `toolTip` attribute is for.
 
 Run `npm run validate:standards` to check your changes before pushing (pre-commit and CI also run it).

@@ -2,10 +2,19 @@
 The contents of this page is displayed on the deployed website at /community/contributors
 -->
 
+import ThemedImage from '@theme/ThemedImage';
+
 <div style={{ textAlign: 'left' }}>
   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', gap: '80px', padding: '20px' }}>
     <img src="/msd-api-standards/img/mwnz.svg" alt="Middleware New Zealand"  style={{ width: '20%' }} />
-    <img src="/msd-api-standards/img/msd-logo-light.svg" alt="Ministry of Social Development"  style={{ width: '60%' }} />
+    <ThemedImage
+      alt="Ministry of Social Development"
+      style={{ width: '60%' }}
+      sources={{
+        light: '/msd-api-standards/img/msd-logo-light.svg',
+        dark: '/msd-api-standards/img/msd-logo-dark.svg',
+      }}
+    />
   </div>
   <br/>
   <p>These Standards have been authored by <a href="https://www.middleware.co.nz/">Middleware New Zealand,</a> on behalf of MSD.</p>

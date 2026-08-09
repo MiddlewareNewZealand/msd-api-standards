@@ -2,7 +2,7 @@
 title: "Publish/Subscribe (Pub/Sub)"
 ---
 
-<Standard id="MSDAS_SHOULD_API_PROVIDERS_USE_PUB_SUB" type="SHOULD">
+<Standard id="MSDAS_SHOULD_USE_PUB_SUB_FOR_INTEGRATION_EVENTS" type="SHOULD">
 API Providers SHOULD use the Pub/Sub pattern for integration event messages published within the social sector, as it's best suited to increasing interoperability.
 </Standard>
 

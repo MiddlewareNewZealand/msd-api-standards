@@ -60,9 +60,7 @@ rectangle "API Security Reference Architecture" {
 
 These functions can be delivered via discrete applications, bespoke code, commercial off-the-shelf products, or by leveraging existing devices configured to provide them — some functionality may overlap or be combined depending on the vendor. Not every function is required for every API: for example, a purely public, read-only API may only need threat protection (denial-of-service prevention), delivered via an existing service protection capability.
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_IMPLEMENT_DEVELOPER_AUTHENTICATION" type="MUST">
-API Providers must implement Developer Authentication, together with authentication and authorisation services to control access to APIs (see API Authentication and Authorisation Basics, below).
-</Standard>
+API Providers must implement [Developer Authentication](./03-api-authentication-and-authorisation-basics.md#MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION), together with authentication and authorisation services to control access to APIs — see API Authentication and Authorisation Basics, below.
 
 The support stack may also be split, with one set of components supporting internal API usage and a separate set supporting external use, depending on individual circumstances — for example, where API development is outsourced, the ‘internal’ functional stack may sit with the outsourcer.
 

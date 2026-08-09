@@ -4,28 +4,20 @@ title: "MCP security"
 
 MCP introduces security considerations beyond those covered in Part B, because the consumer is an AI agent making autonomous decisions about which capabilities to invoke, often based on natural-language content it doesn't fully control. The specific authorisation flow MCP mandates has changed between specification revisions and should be expected to change again; the principles below should hold regardless of which flow is current.
 
-<Standard id="MSDAS_MUST_AUTHENTICATION_AUTHORISATION_REMOTE_MCP_SERVERS" type="MUST">
-Authentication and authorisation for remote MCP Servers MUST follow whichever authorisation flow the current MCP specification mandates, implemented consistently with the equivalent controls set out in Part B: API Security. MCP-specific access tokens MUST NOT be accepted by other MSD APIs, and vice versa (token audience MUST be validated), to prevent a compromised MCP Server or Client from being used to obtain access to unrelated MSD systems.
+<Standard id="MSDAS_MUST_FOLLOW_CURRENT_MCP_AUTHORISATION_FLOW" type="MUST">
+Authentication and authorisation for remote MCP Servers MUST follow whichever authorisation flow the current MCP specification mandates, implemented consistently with the equivalent controls set out in Part B: API Security.
 </Standard>
 
-<Standard id="MSDAS_MUST_TOOLS_SCOPED_MINIMUM_DATA_ACTIONS" type="MUST">
-Tools MUST be scoped to the minimum data and actions required, following the same least-privilege principle as REST API scopes (see Part B). A tool that reads client entitlements MUST NOT also carry the ability to update them.
-</Standard>
+The token, tool-level and audit controls for MCP Servers are defined in Part B: API Security — see [MCP API Security](../../api-security/14-mcp-api-security.md). They apply in full here:
 
-<Standard id="MSDAS_SHOULD_TOOLS_WRITE_DATA_TRIGGER_REAL_2" type="SHOULD">
-Tools that write data or trigger real-world actions on a client's record SHOULD require explicit human confirmation within the Host application before execution, particularly where the action is difficult to reverse (e.g. issuing a payment, closing a case).
-</Standard>
+- [Access tokens issued for MCP use must be audience-restricted to the specific MCP Server](../../api-security/14-mcp-api-security.md#MSDAS_MUST_AUDIENCE_RESTRICT_MCP_TOKENS), and must not be accepted by other MSD APIs or vice versa, preventing a compromised MCP Client or Server from becoming a stepping stone to unrelated MSD systems.
+- [Tools must be scoped to the minimum data and actions required](../../api-security/14-mcp-api-security.md#MSDAS_MUST_SCOPE_MCP_TOOLS_TO_MINIMUM_ACCESS) — least privilege, following the same principle as REST API scopes; a tool that reads client entitlements must not also carry the ability to update them.
+- [Tools that write data or trigger real-world actions should require explicit human confirmation](../../api-security/14-mcp-api-security.md#MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS) within the Host before execution, particularly where the action is difficult to reverse.
+- [An MCP Server must not silently change a previously approved tool](../../api-security/14-mcp-api-security.md#MSDAS_MUST_NOT_SILENTLY_CHANGE_APPROVED_TOOLS) after a Client has connected, guarding against so-called “rug-pull” attacks.
+- [All tool invocations that access or modify client or whānau data must be logged](../../api-security/14-mcp-api-security.md#MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS), with each entry identifying the requesting agent, the user it acted for, and the data accessed.
 
 <Standard type="NOTE">
 Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action. MCP Servers SHOULD treat all resource content and tool output as untrusted input from the agent's perspective, and MUST NOT rely on the agent alone to enforce access control decisions that the Server itself is capable of enforcing.
-</Standard>
-
-<Standard id="MSDAS_MUST_NOT_MCP_SILENTLY_CHANGE_APPROVED_TOOL" type="MUST NOT">
-MCP Servers MUST NOT silently change a previously approved Tool's behaviour or description after a Client has connected, without notifying the Client of the change and, where the change is material, requiring the Host to re-confirm consent (guarding against so-called “rug-pull” attacks where a trusted tool's behaviour is altered post-approval).
-</Standard>
-
-<Standard id="MSDAS_MUST_ALL_TOOL_INVOCATIONS_ACCESS_MODIFY_2" type="MUST">
-All Tool invocations that access or modify client or whānau data MUST be logged with sufficient detail to identify the requesting agent, the authenticated user on whose behalf it acted, and the data accessed — consistent with MSD's audit logging obligations for client data generally.
 </Standard>
 
 ```plantuml alt="Sequence diagram showing token audience restriction and re-confirmation after a tool changes"

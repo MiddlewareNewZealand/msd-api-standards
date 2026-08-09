@@ -26,7 +26,7 @@ title: HTTP Headers
 
 ## **Custom headers**
 
-<Standard id="MSDAS_SHOULD_NOT_X_NOTATION_HEADERS_DEPRECATED_PER" type="SHOULD NOT">
+<Standard id="MSDAS_SHOULD_NOT_USE_X_PREFIX_HEADERS" type="SHOULD NOT">
 X- notation headers are deprecated per RFC 6648 and SHOULD NOT be used. Define a plain custom header name instead (e.g. Request-Id rather than X-Request-Id).
 </Standard>
 
@@ -34,13 +34,13 @@ X- notation headers are deprecated per RFC 6648 and SHOULD NOT be used. Define a
 
 A single client-initiated request often triggers a chain of internal calls across multiple services — API Gateway, backend application, downstream partner system. Without a consistent tracing mechanism, diagnosing where in that chain a failure or slowdown occurred becomes guesswork, particularly across the service and organisational boundaries typical of MSD's delivery-partner integrations.
 
-<Standard id="MSDAS_SHOULD_APIS_PROPAGATE_DISTRIBUTED_TRACING_CONTEXT" type="SHOULD">
+<Standard id="MSDAS_SHOULD_PROPAGATE_TRACE_CONTEXT" type="SHOULD">
 APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard
 </Standard>
 
-This is done via the `traceparent` header (carrying the trace ID, parent span ID, and trace flags) and, where needed, the `tracestate` header (vendor-specific tracing system state). Where an incoming request carries a `traceparent` header, it <Standard inline id="MSDAS_MUST_TRACEPARENT_HEADER_PROPAGATED_UNCHANGED" type="MUST" toolTip="Where an incoming request carries a traceparent header, it must be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.">MUST</Standard> be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.
+This is done via the `traceparent` header (carrying the trace ID, parent span ID, and trace flags) and, where needed, the `tracestate` header (vendor-specific tracing system state). Where an incoming request carries a `traceparent` header, it <Standard inline id="MSDAS_MUST_PROPAGATE_TRACEPARENT_UNCHANGED" type="MUST" toolTip="Where an incoming request carries a traceparent header, it must be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.">MUST</Standard> be propagated unchanged to any downstream calls made in the course of handling that request, with a new span ID generated for each hop.
 
-<Standard id="MSDAS_SHOULD_APIS_GENERATE_TRACEPARENT_HEADER_WHEN_ABSENT" type="SHOULD">
+<Standard id="MSDAS_SHOULD_GENERATE_TRACEPARENT_WHEN_ABSENT" type="SHOULD">
 Where an incoming request has no `traceparent` header, the API SHOULD generate one and propagate it downstream
 </Standard>
 
@@ -48,7 +48,7 @@ This ensures a trace exists even when the originating consumer doesn't support t
 
 ## **Authorization**
 
-Most API requests are authorised via the Authorization header. If an API Key header isn't used, the Authorization token <Standard inline id="MSDAS_MUST_AUTHORIZATION_TOKEN_IDENTIFY_API_CONSUMER" type="MUST" toolTip="If an API Key header is not used, the Authorization token must identify the API Consumer via an attribute within the token.">MUST</Standard> identify the API Consumer via an attribute within the token.
+Most API requests are authorised via the Authorization header. If an API Key header isn't used, the Authorization token <Standard inline id="MSDAS_MUST_IDENTIFY_CONSUMER_IN_TOKEN" type="MUST" toolTip="If an API Key header is not used, the Authorization token must identify the API Consumer via an attribute within the token.">MUST</Standard> identify the API Consumer via an attribute within the token.
 
 ```http
 # OAuth 2.0 Access Token (Opaque)
@@ -60,7 +60,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9...
 
 ## **Cache-Control**
 
-<Standard id="MSDAS_MUST_ENSURE_APIS_PERFORM_AT_SCALE" type="MUST">
+<Standard id="MSDAS_MUST_USE_CACHE_CONTROL_HEADER" type="MUST">
 To ensure APIs perform at scale, the Cache-Control header MUST be used.
 </Standard>
 

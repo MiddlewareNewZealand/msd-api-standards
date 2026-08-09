@@ -14,7 +14,7 @@ OpenAPI Specification Structure:
 
 ## **Servers property**
 
-<Standard id="MSDAS_MUST_SERVERS_PROPERTY_DEFINING_LIST_ENDPOINTS" type="MUST">
+<Standard id="MSDAS_MUST_DEFINE_SERVERS_PROPERTY" type="MUST">
 The servers property, defining the list of endpoints where the API can be accessed, MUST be included.
 </Standard>
 
@@ -36,7 +36,7 @@ The info section of an OpenAPI specification contains details on the API Provide
 
 ## **External documentation**
 
-<Standard id="MSDAS_SHOULD_EXTERNALDOCS_PROPERTY_REFERENCING_SUPPORTING_DOCUMENTATION" type="SHOULD">
+<Standard id="MSDAS_SHOULD_REFERENCE_EXTERNAL_DOCS" type="SHOULD">
 The externalDocs property, referencing supporting documentation for the API, SHOULD be included.
 </Standard>
 
@@ -49,18 +49,18 @@ The paths section is a parent property containing the resource paths in the API 
 | `{path}.summary` | Short, human-readable summary of the resource's purpose. | MUST |
 | `{path}.description` | See Property Descriptions. | MUST |
 | `{path}.{verb}.summary` | Short summary of the operation's purpose. | MUST |
-| `{path}.{verb}.security` | The security scheme appropriate for the path/verb. | MUST |
+| `{path}.{verb}.security` | The security scheme that applies to the path/verb. | MUST |
 | `{path}.{verb}.operationId` | A unique string identifying the operation. | MUST |
 | `{path}.{verb}.requestBody` | The request body for the operation. | MUST for POST/PUT/PATCH; MUST NOT for GET/DELETE/HEAD/OPTIONS |
 | `{path}.{verb}.responses` | The responses an API Consumer can expect. | MUST |
 
 ### **Security**
 
-<Standard id="MSDAS_MUST_OPENAPI_SPECIFICATIONS_DEFINE_APPROPRIATE_SECURITY" type="MUST">
-OpenAPI Specifications MUST define appropriate security mechanisms. Security schemes MUST be defined in components.securitySchemes and referenced in all API operations.
+<Standard id="MSDAS_MUST_DEFINE_OPENAPI_SECURITY_SCHEMES" type="MUST">
+OpenAPI Specifications MUST define their security schemes in components.securitySchemes, and MUST reference a scheme from every API operation.
 </Standard>
 
-Even a public operation (e.g. a health-check or metadata endpoint) <Standard inline id="MSDAS_SHOULD_PUBLIC_OPERATION_CARRY_SECURITY_PROPERTY" type="SHOULD" toolTip="Even a public operation (e.g. a health-check or metadata endpoint) should still carry a security property, set explicitly to empty.">SHOULD</Standard> still carry a security property, set explicitly to empty.
+Even a public operation (e.g. a health-check or metadata endpoint) <Standard inline id="MSDAS_SHOULD_SET_EXPLICIT_SECURITY_ON_PUBLIC_OPERATIONS" type="SHOULD" toolTip="Even a public operation (e.g. a health-check or metadata endpoint) should still carry a security property, set explicitly to empty.">SHOULD</Standard> still carry a security property, set explicitly to empty.
 
 ```yaml
 paths:
@@ -95,8 +95,12 @@ components:
 
 ### **Responses**
 
-<Standard id="MSDAS_SHOULD_PATH_VERB_RESPONSES_INCLUDE_ALL" type="SHOULD">
-`{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code, and MUST include error responses, referring to an error schema where possible.
+<Standard id="MSDAS_SHOULD_DOCUMENT_ALL_RESPONSES" type="SHOULD">
+`{path}.{verb}.responses` SHOULD include ALL responses by HTTP status code.
+</Standard>
+
+<Standard id="MSDAS_MUST_DOCUMENT_ERROR_RESPONSES" type="MUST">
+`{path}.{verb}.responses` MUST include error responses, referring to an error schema where possible.
 </Standard>
 
 ```yaml
@@ -121,21 +125,25 @@ responses:
           $ref: '#/components/schemas/Error'
 ```
 
-<Standard id="MSDAS_SHOULD_NOT_API_PROVIDERS_INCLUDE_DEFAULT_RESPONSE" type="SHOULD NOT">
+<Standard id="MSDAS_SHOULD_NOT_USE_DEFAULT_RESPONSE" type="SHOULD NOT">
 API Providers SHOULD NOT include a default response. Although OpenAPI supports it, an explicit, complete response list is preferred.
 </Standard>
 
 ### **Request body**
 
-<Standard id="MSDAS_MUST_OPENAPI_SPECIFICATION_DEFINES_POST_PUT" type="MUST">
-Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property, which SHOULD reference a schema defined in components.
+<Standard id="MSDAS_MUST_DEFINE_REQUEST_BODY_SCHEMA" type="MUST">
+Where an OpenAPI Specification defines a POST, PUT, or PATCH operation, it MUST include a requestBody property.
+</Standard>
+
+<Standard id="MSDAS_SHOULD_REFERENCE_REQUEST_BODY_SCHEMA_FROM_COMPONENTS" type="SHOULD">
+A requestBody property SHOULD reference a schema defined in components.
 </Standard>
 
 ## **Components section**
 
 ### **Parameters**
 
-<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_DEFINE_REUSABLE_PARAMETERS" type="SHOULD">
+<Standard id="MSDAS_SHOULD_DEFINE_REUSABLE_PARAMETERS" type="SHOULD">
 OpenAPI specifications SHOULD define reusable parameters under components.parameters.
 </Standard>
 
@@ -153,22 +161,26 @@ components:
 
 ### **Schemas**
 
-<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_USE_SCHEMA_REFERENCES" type="SHOULD">
-OpenAPI specifications SHOULD use schema references under components.schemas to define content, and MAY use nested schema references for reusable elements.
+<Standard id="MSDAS_SHOULD_USE_SCHEMA_REFERENCES" type="SHOULD">
+OpenAPI specifications SHOULD use schema references under components.schemas to define content.
+</Standard>
+
+<Standard id="MSDAS_MAY_NEST_SCHEMA_REFERENCES" type="MAY">
+OpenAPI specifications MAY use nested schema references for reusable elements.
 </Standard>
 
 ### **Examples**
 
-<Standard id="MSDAS_SHOULD_OPENAPI_SPECIFICATIONS_DEFINE_REUSABLE_EXAMPLES" type="SHOULD">
+<Standard id="MSDAS_SHOULD_DEFINE_REUSABLE_EXAMPLES" type="SHOULD">
 OpenAPI specifications SHOULD define reusable examples under components.examples.
 </Standard>
 
 ## **Property descriptions**
 
-Property descriptions are for API Consumer developers to understand the purpose of a specification property. Description fields support CommonMark syntax, which <Standard inline id="MSDAS_SHOULD_DESCRIPTION_FIELDS_USE_COMMONMARK" type="SHOULD" toolTip="Description fields support CommonMark syntax, which should be used, as it renders correctly in most OpenAPI tooling.">SHOULD</Standard> be used, as it renders correctly in most OpenAPI tooling.
+Property descriptions are for API Consumer developers to understand the purpose of a specification property. Description fields support CommonMark syntax, which <Standard inline id="MSDAS_SHOULD_USE_COMMONMARK_IN_DESCRIPTIONS" type="SHOULD" toolTip="Description fields support CommonMark syntax, which should be used, as it renders correctly in most OpenAPI tooling.">SHOULD</Standard> be used, as it renders correctly in most OpenAPI tooling.
 
 ## **OpenAPI validation**
 
-<Standard id="MSDAS_MUST_OPENAPI_DOCUMENT_PASS_VALIDATION_AGAINST" type="MUST">
+<Standard id="MSDAS_MUST_VALIDATE_OPENAPI_DOCUMENT" type="MUST">
 The OpenAPI document MUST pass validation against the OpenAPI specification, e.g. using the Swagger Editor or an equivalent tool, ideally as part of an automated pipeline or developer IDE integration.
 </Standard>

@@ -9,6 +9,14 @@ const RFC_DEFINITIONS = {
   MAY: 'This word, or the adjective "OPTIONAL", mean that an item is truly optional. One vendor may choose to include the item because a particular marketplace requires it or because the vendor feels that it enhances the product while another vendor may omit the same item.',
 };
 
+// Clauses are provider-bound unless stated otherwise, so only the exceptions
+// get a label. Absent for anything served from a catalog built before
+// boundParty existed, which reads the same as "provider".
+const BOUND_PARTY_LABEL = {
+  consumer: "Binds the API Consumer, not the API Provider",
+  both: "Binds both the API Provider and the API Consumer",
+};
+
 const SECTIONS = {
   'All sections': '',
   'Part B: API Security': '/api-security/',
@@ -74,7 +82,12 @@ const StandardsChecklist = () => {
                 <p style={{ marginBottom: "10px", fontSize: "1rem" }}>
                   <strong dangerouslySetInnerHTML={{ __html: item.id.replaceAll("_", "_<wbr>") }}></strong>
                 </p>
-                <p style={{ marginBottom: 0 }}>{item.content}</p>
+                <p style={{ marginBottom: BOUND_PARTY_LABEL[item.boundParty] ? "6px" : 0 }}>{item.content}</p>
+                {BOUND_PARTY_LABEL[item.boundParty] ? (
+                  <p style={{ marginBottom: 0, fontSize: "0.85rem", fontStyle: "italic" }}>
+                    {BOUND_PARTY_LABEL[item.boundParty]}
+                  </p>
+                ) : null}
               </td>
               <td>
                 <a href={item.link} target="_blank" rel="noopener noreferrer">

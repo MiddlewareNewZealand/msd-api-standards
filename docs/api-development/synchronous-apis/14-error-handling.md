@@ -4,7 +4,7 @@ title: "Error Handling"
 
 API Consumers see an API as a black box; when something goes wrong they need clear, actionable information — without the response leaking details about the provider's internal systems.
 
-<Standard id="MSDAS_MUST_ERROR_OCCURS_RESPONSE_BODY_CONTAIN" type="MUST">
+<Standard id="MSDAS_MUST_INCLUDE_DETAILS_IN_ERROR_BODY" type="MUST">
 When an error occurs, the response body MUST contain: the HTTP status code; an API-specific error code that support staff can look up; and a human-readable error message.
 </Standard>
 
@@ -27,7 +27,7 @@ When an error occurs, the response body MUST contain: the HTTP status code; an A
 
 ## **Error schema**
 
-<Standard id="MSDAS_MUST_API_PROVIDERS_DOCUMENT_ERRORS_MACHINE" type="MUST">
+<Standard id="MSDAS_MUST_DOCUMENT_ERRORS_IN_SCHEMA" type="MUST">
 API Providers MUST document their errors in a machine-readable schema, published as part of the OpenAPI specification.
 </Standard>
 
@@ -42,4 +42,4 @@ API Providers MUST document their errors in a machine-readable schema, published
 }
 ```
 
-Human-readable error messages <Standard inline id="MSDAS_SHOULD_ERROR_MESSAGES_INFORMATIVE_WITHOUT_INTERNAL_DETAILS" type="SHOULD" toolTip="Human-readable error messages should be informative without exposing internal system details (component names, stack traces) that could help a malicious actor.">SHOULD</Standard> be informative without exposing internal system details (component names, stack traces) that could help a malicious actor, and <Standard inline id="MSDAS_MUST_NOT_ERROR_MESSAGES_CONFIRM_DENY_SENSITIVE" type="MUST NOT" toolTip="Human-readable error messages must not confirm or deny sensitive information such as whether a specific client ID exists.">MUST NOT</Standard> confirm or deny sensitive information such as whether a specific client ID exists.
+Human-readable error messages <Standard inline id="MSDAS_SHOULD_OMIT_INTERNAL_DETAILS_FROM_ERRORS" type="SHOULD" toolTip="Human-readable error messages should be informative without exposing internal system details (component names, stack traces) that could help a malicious actor.">SHOULD</Standard> be informative without exposing internal system details (component names, stack traces) that could help a malicious actor, and <Standard inline id="MSDAS_MUST_NOT_REVEAL_SENSITIVE_INFO_IN_ERRORS" type="MUST NOT" toolTip="Human-readable error messages must not confirm or deny sensitive information such as whether a specific client ID exists.">MUST NOT</Standard> confirm or deny sensitive information such as whether a specific client ID exists.

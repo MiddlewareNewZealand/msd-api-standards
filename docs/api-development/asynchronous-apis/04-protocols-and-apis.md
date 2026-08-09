@@ -2,7 +2,7 @@
 title: "Protocols and APIs"
 ---
 
-<Standard id="MSDAS_SHOULD_API_PROVIDERS_AIM_SUPPORT_MANY" type="SHOULD">
+<Standard id="MSDAS_SHOULD_SUPPORT_MANY_TRANSPORT_PROTOCOLS" type="SHOULD">
 API Providers SHOULD aim to support as many transport protocols as reasonably possible, so API Consumers can use whichever best suits their own infrastructure.
 </Standard>
 
@@ -15,6 +15,6 @@ API Providers SHOULD aim to support as many transport protocols as reasonably po
 | Proprietary (e.g. broker-specific formats) | Vendor-specific messaging protocols. | MAY be used, but MUST NOT be the only protocol offered |
 | JMS (Java Message Service) | Common Java interface for creating, sending and receiving messages. | MAY be offered |
 
-<Standard id="MSDAS_SHOULD_PUBLISH_MESSAGES_USING_JSON" type="RECOMMENDED">
+<Standard id="MSDAS_SHOULD_PUBLISH_MESSAGES_AS_JSON" type="RECOMMENDED">
 It's recommended to publish messages using JSON as the data serialisation format, given its low barrier to entry, human readability, and broad native language support, over alternatives like Protocol Buffers or FlatBuffers.
 </Standard>
