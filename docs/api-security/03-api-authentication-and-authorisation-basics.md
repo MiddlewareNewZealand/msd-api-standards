@@ -27,7 +27,7 @@ MSD APIs may use a range of authentication mechanisms, each suited to a differen
 | API Key | Recommended for all APIs, particularly system-to-system integration. |
 | Mutual certificates (mTLS) | Common for business-to-business integration; in use across the NZ public sector for high-trust B2B channels. |
 | OAuth 2.0 | Recommended for public and internal APIs. |
-| OAuth 2.0 \+ OpenID Connect (OIDC) | Recommended wherever an OpenID Connect Provider is available, and required for any API exposing personal or sensitive client information. |
+| OAuth 2.0 \+ OpenID Connect (OIDC) | Recommended wherever an OpenID Connect Provider is available, and required for any API exposing personal or sensitive client information where the API is acting on the end user's behalf. |
 
 ### **Anonymous authentication**
 
