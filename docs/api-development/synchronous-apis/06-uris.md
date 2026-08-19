@@ -68,13 +68,13 @@ Example: `https://api.msd.govt.nz/v2/clients/33245/entitlements/E100782`
 
 ### **Sub-resource ownership**
 
-A URI resolving successfully doesn't confirm that a sub-resource actually belongs to the parent resource in the path, or that the requesting user is authorised to access both — for example, `/clients/33245/entitlements/E100782` returning a 200 doesn't by itself guarantee entitlement `E100782` belongs to client `33245`, rather than to a different client entirely.
+A URI resolving successfully doesn't confirm that a sub-resource actually belongs to the parent resource in the path, or that the requesting user is authorised to access both - for example, `/clients/33245/entitlements/E100782` returning a 200 doesn't by itself guarantee entitlement `E100782` belongs to client `33245`, rather than to a different client entirely.
 
 <Standard id="MSDAS_MUST_VERIFY_SUB_RESOURCE_OWNERSHIP" type="MUST">
 The API implementation MUST verify both that the requested sub-resource genuinely belongs to the specified parent resource, and that the authenticated caller is authorised to access both, before returning a response.
 </Standard>
 
-A sub-resource request for a resource the caller isn't authorised to access <Standard inline id="MSDAS_MUST_RETURN_404_FOR_UNAUTHORISED_SUB_RESOURCE" type="MUST" toolTip="A sub-resource request for a resource the caller is not authorised to access must be treated as if the resource does not exist (404), not as a distinct authorisation failure (403).">MUST</Standard> be treated as if the resource doesn't exist (404), not as a distinct authorisation failure (403) that would confirm the resource's existence to an unauthorised caller — see Error Handling.
+A sub-resource request for a resource the caller isn't authorised to access <Standard inline id="MSDAS_MUST_RETURN_404_FOR_UNAUTHORISED_SUB_RESOURCE" type="MUST" toolTip="A sub-resource request for a resource the caller is not authorised to access must be treated as if the resource does not exist (404), not as a distinct authorisation failure (403).">MUST</Standard> be treated as if the resource doesn't exist (404), not as a distinct authorisation failure (403) that would confirm the resource's existence to an unauthorised caller - see Error Handling.
 
 This check is typically an **application-layer concern, not a gateway concern**: it usually requires a state lookup (confirming the actual parent-child relationship in the underlying data) that an API Gateway, operating only on the URI and token, isn't positioned to perform. Gateway-level authorisation (see Part B: API Security) can confirm a caller is allowed to call the *endpoint*; it generally can't confirm the caller is allowed to access *this specific instance* of a sub-resource. That confirmation has to happen in the API implementation itself, at the point it resolves the relationship.
 
@@ -88,8 +88,8 @@ Path and query string parameters SHOULD be lower case with hyphen separators for
 
 Query arguments filter or modify a result set. The general rule: if it changes the behaviour of the result set, it <Standard inline id="MSDAS_SHOULD_USE_QUERY_ARGUMENTS_FOR_RESULT_SETS" type="SHOULD" toolTip="If a parameter changes the behaviour of the result set, it should be a query argument.">SHOULD</Standard> be a query argument; if it changes the behaviour of the API, it <Standard inline id="MSDAS_SHOULD_PUT_BEHAVIOUR_PARAMETERS_IN_PATH" type="SHOULD" toolTip="If a parameter changes the behaviour of the API, it should be in the path.">SHOULD</Standard> be in the path.
 
-- Sorting or ordering — e.g. sort-order=ascending
+- Sorting or ordering - e.g. sort-order=ascending
 
-- Pagination — the response <Standard inline id="MSDAS_SHOULD_PAGINATE_WITH_HYPERMEDIA_LINKS" type="SHOULD" toolTip="For pagination, the response should point consumers to previous/next result pages using hypermedia links.">SHOULD</Standard> point consumers to previous/next result pages using hypermedia links (see Content, HATEOAS)
+- Pagination - the response <Standard inline id="MSDAS_SHOULD_PAGINATE_WITH_HYPERMEDIA_LINKS" type="SHOULD" toolTip="For pagination, the response should point consumers to previous/next result pages using hypermedia links.">SHOULD</Standard> point consumers to previous/next result pages using hypermedia links (see Content, HATEOAS)
 
-- Field selection — e.g. filtering a client record down to specific fields; use sparingly, and consider GraphQL where this flexibility is a core requirement
+- Field selection - e.g. filtering a client record down to specific fields; use sparingly, and consider GraphQL where this flexibility is a core requirement

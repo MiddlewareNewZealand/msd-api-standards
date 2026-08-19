@@ -2,7 +2,7 @@
 title: "AsyncAPI Specifications"
 ---
 
-The AsyncAPI Specification describes and documents message-driven APIs in a machine-readable, protocol-agnostic format — usable for APIs over AMQP, MQTT, WebSockets, Kafka, HTTP and more (see Part C, Asynchronous APIs, Protocols and APIs).
+The AsyncAPI Specification describes and documents message-driven APIs in a machine-readable, protocol-agnostic format - usable for APIs over AMQP, MQTT, WebSockets, Kafka, HTTP and more (see Part C, Asynchronous APIs, Protocols and APIs).
 
 AsyncAPI specification structure:
 
@@ -38,7 +38,7 @@ The asyncapi property, indicating the specification version in use, MUST be incl
 
 ## **Channels section**
 
-Holds the relative paths to individual channels and their operations — channels are also known as topics, routing keys, event types, or paths (see Part C, Topics and Subscriptions). Note that the structure of this section changed significantly between AsyncAPI versions 2 and 3\.
+Holds the relative paths to individual channels and their operations - channels are also known as topics, routing keys, event types, or paths (see Part C, Topics and Subscriptions). Note that the structure of this section changed significantly between AsyncAPI versions 2 and 3\.
 
 * The address field (v3+) <Standard inline id="MSDAS_MUST_PUT_TOPIC_NAME_IN_ADDRESS_FIELD" type="MUST" toolTip="In AsyncAPI v3 and later, the address field must contain the topic name.">MUST</Standard> contain the topic name. In v2, the topic name <Standard inline id="MSDAS_MUST_PUT_TOPIC_NAME_IN_V2_DESCRIPTION" type="MUST" toolTip="In AsyncAPI v2, which has no address field, the topic name must be included in the description field instead.">MUST</Standard> be included in the description field instead.
 

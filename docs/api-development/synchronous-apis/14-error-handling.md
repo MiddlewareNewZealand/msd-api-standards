@@ -2,7 +2,7 @@
 title: "Error Handling"
 ---
 
-API Consumers see an API as a black box; when something goes wrong they need clear, actionable information — without the response leaking details about the provider's internal systems.
+API Consumers see an API as a black box; when something goes wrong they need clear, actionable information - without the response leaking details about the provider's internal systems.
 
 <Standard id="MSDAS_MUST_INCLUDE_DETAILS_IN_ERROR_BODY" type="MUST">
 When an error occurs, the response body MUST contain: the HTTP status code; an API-specific error code that support staff can look up; and a human-readable error message.

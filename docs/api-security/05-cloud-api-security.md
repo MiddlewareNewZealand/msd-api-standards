@@ -6,7 +6,7 @@ title: "Cloud API Security"
 ‘Cloud API’ here means any API which is intended to handle MSD client or whānau information and provides or exposes cloud-deployed data or functions.
 </Standard>
 
-A cloud API's primary purpose may be to expose a specific commercial service, serve as a cross-platform integration point across diverse cloud services, or proxy for an application or service running in a legacy environment. Regardless of purpose, cloud APIs generally involve communication between an API Provider implementation running on shared, as-a-service public infrastructure, and API Consumers sending requests across a public network — which is why the measures below are needed to mitigate the risks inherent in cloud API provision and consumption.
+A cloud API's primary purpose may be to expose a specific commercial service, serve as a cross-platform integration point across diverse cloud services, or proxy for an application or service running in a legacy environment. Regardless of purpose, cloud APIs generally involve communication between an API Provider implementation running on shared, as-a-service public infrastructure, and API Consumers sending requests across a public network - which is why the measures below are needed to mitigate the risks inherent in cloud API provision and consumption.
 
 ## **Applicability**
 

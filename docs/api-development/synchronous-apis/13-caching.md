@@ -2,7 +2,7 @@
 title: "Caching"
 ---
 
-Caching enables faster API responses and reduces backend load. It's well suited to information that's frequently requested but doesn't change often — for example, a list of MSD service centre locations or reference/lookup codes.
+Caching enables faster API responses and reduces backend load. It's well suited to information that's frequently requested but doesn't change often - for example, a list of MSD service centre locations or reference/lookup codes.
 
 ## **Response cache**
 
@@ -16,4 +16,4 @@ For example: a client requests service centre opening hours; the gateway checks 
 
 ## **Object cache**
 
-An object cache holds objects fundamental to an API's function that don't change often — for example, a reference table of benefit or entitlement codes used to validate incoming requests. Rather than querying the reference database on every request, the API layer caches these codes with a time-to-live (TTL) and refers to the cache until it expires or is explicitly invalidated (for example, when an administrator updates the reference data).
+An object cache holds objects fundamental to an API's function that don't change often - for example, a reference table of benefit or entitlement codes used to validate incoming requests. Rather than querying the reference database on every request, the API layer caches these codes with a time-to-live (TTL) and refers to the cache until it expires or is explicitly invalidated (for example, when an administrator updates the reference data).

@@ -32,11 +32,11 @@ Where a thin event carries no pointer back to the resource that triggered it, th
 }
 ```
 
-Characteristics: minimal information transferred, reducing the risk of unauthorised disclosure; less risk of data going out of sync, since consumers fetch the latest data themselves; smaller, simpler contracts that are easier to evolve. This message type <Standard inline id="MSDAS_SHOULD_USE_THIN_EVENTS_FOR_UNTRUSTED_CONSUMERS" type="SHOULD" toolTip="The thin-event message type should be used where the API Consumer is not fully trusted, or where re-authentication of the client is required.">SHOULD</Standard> be used where the API Consumer isn't fully trusted, or where re-authentication of the client is required — which is common with the Pub/Sub pattern.
+Characteristics: minimal information transferred, reducing the risk of unauthorised disclosure; less risk of data going out of sync, since consumers fetch the latest data themselves; smaller, simpler contracts that are easier to evolve. This message type <Standard inline id="MSDAS_SHOULD_USE_THIN_EVENTS_FOR_UNTRUSTED_CONSUMERS" type="SHOULD" toolTip="The thin-event message type should be used where the API Consumer is not fully trusted, or where re-authentication of the client is required.">SHOULD</Standard> be used where the API Consumer isn't fully trusted, or where re-authentication of the client is required - which is common with the Pub/Sub pattern.
 
 ## **Event-carried state transfer (thick events)**
 
-A “thick” event carries enough current data for the consumer to act on the event without contacting the source system — sometimes called a “fact” event, since it captures state at a point in time.
+A “thick” event carries enough current data for the consumer to act on the event without contacting the source system - sometimes called a “fact” event, since it captures state at a point in time.
 
 ```json
 {
@@ -57,7 +57,7 @@ Characteristics: consumers are fully decoupled from the provider, since they alr
 
 ## **Delta events**
 
-A delta event details only what changed between one state and the next — the fields that changed, their new values, and optionally the reason for the change — without repeating unchanged data.
+A delta event details only what changed between one state and the next - the fields that changed, their new values, and optionally the reason for the change - without repeating unchanged data.
 
 ```json
 {
@@ -78,7 +78,7 @@ Delta events can reduce processing effort for consumers who don't otherwise know
 
 ## **Message header fields**
 
-Message headers (sometimes called message metadata) let a message broker perform routing and logging without inspecting the full payload. Where the CloudEvents specification is used, this metadata is expressed as Context Attributes — id, source, specversion and type are mandatory. Where a specification like CloudEvents isn't in use, the following minimal header set is suggested:
+Message headers (sometimes called message metadata) let a message broker perform routing and logging without inspecting the full payload. Where the CloudEvents specification is used, this metadata is expressed as Context Attributes - id, source, specversion and type are mandatory. Where a specification like CloudEvents isn't in use, the following minimal header set is suggested:
 
 | Header | Example value | Description |
 | --- | --- | --- |

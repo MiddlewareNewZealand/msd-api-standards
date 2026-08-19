@@ -8,7 +8,7 @@ slug: /
 <!-- markdownlint-disable-next-line MD036 -->
 *DRAFT v0.1*
 
-These standards give MSD's API providers and API consumers a shared, practical reference for designing, building, securing and publishing APIs. They exist to help teams across MSD — and the partner agencies, community providers and vendors who integrate with us — build APIs that are consistent, secure, easy to consume and fit for a social sector context.
+These standards give MSD's API providers and API consumers a shared, practical reference for designing, building, securing and publishing APIs. They exist to help teams across MSD - and the partner agencies, community providers and vendors who integrate with us - build APIs that are consistent, secure, easy to consume and fit for a social sector context.
 
 ## Introduction
 
@@ -20,7 +20,7 @@ Part A sets out the business context for APIs and their use within MSD. It cover
 
 [**Part B: API Security**](./api-security/index.md)
 
-Part B sets out the API security reference architecture and the technical detail needed to implement API security. It lays out the minimum security requirements for both API providers and consumers, and gives guidance on security best practice — particularly important given the volume of personal and sensitive client information exchanged across MSD's APIs.
+Part B sets out the API security reference architecture and the technical detail needed to implement API security. It lays out the minimum security requirements for both API providers and consumers, and gives guidance on security best practice - particularly important given the volume of personal and sensitive client information exchanged across MSD's APIs.
 
 [**Part C: API Development**](./api-development/index.md)
 
@@ -34,7 +34,7 @@ These standards and guidelines:
 
 - are intended to apply to all API standards and protocols used at MSD, though much of the detailed guidance is oriented towards REST (Representational State Transfer) APIs;
 
-- use hypothetical or illustrative use cases from the social sector — income support, employment services, housing assistance, care and protection — to demonstrate practical application of the concepts described. Examples do not represent MSD's actual API design or data content, and are for illustration only.
+- use hypothetical or illustrative use cases from the social sector - income support, employment services, housing assistance, care and protection - to demonstrate practical application of the concepts described. Examples do not represent MSD's actual API design or data content, and are for illustration only.
 
 ## Target audience
 
@@ -42,7 +42,7 @@ These standards and guidelines:
 
 Part A is aimed primarily at technical business people who need to understand the value and benefit of APIs and gain an appreciation of what's involved and what needs to be in place. It also provides context for Parts B and C, for enterprise architects, solution architects and API developers.
 
-It may also be of interest to commercial entities, NGOs, iwi and community providers, or other third parties developing — or planning to develop — applications that use MSD or wider government APIs.
+It may also be of interest to commercial entities, NGOs, iwi and community providers, or other third parties developing - or planning to develop - applications that use MSD or wider government APIs.
 
 ### Parts B and C: API security and API development
 

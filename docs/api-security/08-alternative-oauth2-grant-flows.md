@@ -4,7 +4,7 @@ title: "Alternative OAuth 2.0 Grant Flow Extensions and Web Application Patterns
 
 ## **Assertion grant flows**
 
-The OAuth 2.0 framework has been extended to support authenticating a client to the API Provider's token endpoint using an assertion — a signed package containing identity and security information usable across security domains, both to authenticate the API Consumer and to obtain an access token. Two assertion grant flows are defined: the JWT Bearer Assertion flow and the SAML Bearer Assertion flow.
+The OAuth 2.0 framework has been extended to support authenticating a client to the API Provider's token endpoint using an assertion - a signed package containing identity and security information usable across security domains, both to authenticate the API Consumer and to obtain an access token. Two assertion grant flows are defined: the JWT Bearer Assertion flow and the SAML Bearer Assertion flow.
 
 ### **JWT Assertion Grant Flow**
 
@@ -41,7 +41,7 @@ The two [restrictions](#MSDAS_SHOULD_NOT_USE_SAML_FOR_SERVER_TO_SERVER) above an
 
 ## **Web application (browser-based) patterns**
 
-Emerging guidance for OAuth 2.0 in browser-based applications — particularly single-page applications — covers three models: a Backend for Frontend, where all OAuth 2.0 and resource calls are proxied through a backend service; a Token-Mediating Backend, where only the OAuth 2.0 calls are proxied; and a browser-only client, using PKCE with the authorisation code flow rather than the Implicit flow.
+Emerging guidance for OAuth 2.0 in browser-based applications - particularly single-page applications - covers three models: a Backend for Frontend, where all OAuth 2.0 and resource calls are proxied through a backend service; a Token-Mediating Backend, where only the OAuth 2.0 calls are proxied; and a browser-only client, using PKCE with the authorisation code flow rather than the Implicit flow.
 
 ### **Backend for Frontend (BFF)**
 
@@ -95,4 +95,4 @@ end note
 @enduml
 ```
 
-<DetailedDescription text="This shows the Backend for Frontend pattern — the API Consumer (SPA) never handles tokens directly; instead the BFF service requests authorisation, exchanges the authorisation code for access and refresh tokens, and calls the Resource Server on the user's behalf, keeping all tokens held server-side and out of the browser." />
+<DetailedDescription text="This shows the Backend for Frontend pattern - the API Consumer (SPA) never handles tokens directly; instead the BFF service requests authorisation, exchanges the authorisation code for access and refresh tokens, and calls the Resource Server on the user's behalf, keeping all tokens held server-side and out of the browser." />

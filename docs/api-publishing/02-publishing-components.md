@@ -18,7 +18,7 @@ An API specification goes a long way toward documenting an API, but consumers ty
 ### **Business context**
 
 <Standard id="MSDAS_MUST_CAPTURE_BUSINESS_CONTEXT" type="MUST">
-API Providers MUST capture the business context of a published API — how it fits into MSD's broader business processes and use cases — to help consumers use it effectively.
+API Providers MUST capture the business context of a published API - how it fits into MSD's broader business processes and use cases - to help consumers use it effectively.
 </Standard>
 
 <Standard id="MSDAS_SHOULD_PUBLISH_BUSINESS_CONTEXT_ON_WEB" type="SHOULD">
@@ -39,7 +39,7 @@ Diagrams SHOULD be available via a web experience.
 ### **Developer documentation**
 
 <Standard id="MSDAS_MUST_PUBLISH_DEVELOPER_DOCUMENTATION" type="MUST">
-API Providers MUST publish developer documentation covering the technical constructs of their API — for example, where API Consumers are required to behave in a certain way when accessing the API.
+API Providers MUST publish developer documentation covering the technical constructs of their API - for example, where API Consumers are required to behave in a certain way when accessing the API.
 </Standard>
 
 For example, an API supporting field-level encryption of sensitive client data should clearly document both the mechanism and the effect of that encryption. Code snippets are useful wherever complex consumer-side logic is required.
@@ -65,7 +65,7 @@ API Providers MUST provide a developer onboarding function enabling API Consumer
 </Standard>
 
 <Standard id="MSDAS_SHOULD_OFFER_ONBOARDING_ON_AUTHENTICATED_WEB" type="SHOULD">
-The developer onboarding function SHOULD be made available via an authenticated web experience — the MSD Developer Portal is the preferred mechanism.
+The developer onboarding function SHOULD be made available via an authenticated web experience - the MSD Developer Portal is the preferred mechanism.
 </Standard>
 
 ## **Service level agreements (SLA)**
@@ -78,9 +78,9 @@ Common SLAs include: API availability (uptime); latency; and request throughput 
 
 ### **Throttling thresholds**
 
-Publishing a throughput figure isn't sufficient on its own — API Consumers need to know the specific mechanics of how it is enforced, so they work within those limits rather than discovering them through failed calls in production.
+Publishing a throughput figure isn't sufficient on its own - API Consumers need to know the specific mechanics of how it is enforced, so they work within those limits rather than discovering them through failed calls in production.
 <Standard id="MSDAS_MUST_PUBLISH_THROTTLING_QUOTAS" type="MUST">
-Where an API applies request throttling, the API Provider MUST publish: the request quota (e.g. requests per minute/hour) the threshold applies to; whether burst traffic above the sustained quota is permitted, and by how much; and the consumer identity the quota is scoped to (e.g. per client credential, per IP, or per end-user token) — since these produce materially different integration patterns.
+Where an API applies request throttling, the API Provider MUST publish: the request quota (e.g. requests per minute/hour) the threshold applies to; whether burst traffic above the sustained quota is permitted, and by how much; and the consumer identity the quota is scoped to (e.g. per client credential, per IP, or per end-user token) - since these produce materially different integration patterns.
 </Standard>
 
 <Standard id="MSDAS_MUST_RETURN_429_WHEN_THROTTLED" type="MUST">
@@ -104,7 +104,7 @@ Throttling thresholds MAY vary by SLA tier, where tiering is offered.
 </Standard>
 
 <Standard id="MSDAS_MAY_OFFER_SLA_TIERING" type="MAY">
-API Providers MAY offer SLA tiering, applying different SLAs to different consumers — for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
+API Providers MAY offer SLA tiering, applying different SLAs to different consumers - for example, a higher tier for a client-facing application, and a lower tier for a non-critical back-office integration.
 </Standard>
 
 SLAs <Standard inline id="MSDAS_SHOULD_PUBLISH_SLAS_ON_WEB" type="SHOULD" toolTip="SLAs should be available via a web experience.">SHOULD</Standard> be available via a web experience.

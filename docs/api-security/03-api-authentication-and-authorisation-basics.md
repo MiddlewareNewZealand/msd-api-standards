@@ -9,12 +9,12 @@ Authorisation and authentication are intrinsically linked within the OAuth 2.0 f
 ## **Authentication**
 
 <Standard type="INFO">
-Authentication is not a single obligation in this catalogue. The concrete requirements sit with the mechanism in use: [API Keys for system-to-system authentication](#MSDAS_MUST_USE_API_KEYS_FOR_SYSTEM_AUTHENTICATION), [Developer Authentication](#MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION), OpenID Connect for APIs exposing IN-CONFIDENCE or more sensitive information (see Using OAuth 2.0 and OIDC), and — where the anonymous model is used at all — [the compensating controls below](#MSDAS_MUST_APPLY_CONTROLS_FOR_ANONYMOUS_ACCESS).
+Authentication is not a single obligation in this catalogue. The concrete requirements sit with the mechanism in use: [API Keys for system-to-system authentication](#MSDAS_MUST_USE_API_KEYS_FOR_SYSTEM_AUTHENTICATION), [Developer Authentication](#MSDAS_MUST_IMPLEMENT_DEVELOPER_AUTHENTICATION), OpenID Connect for APIs exposing IN-CONFIDENCE or more sensitive information (see Using OAuth 2.0 and OIDC), and - where the anonymous model is used at all - [the compensating controls below](#MSDAS_MUST_APPLY_CONTROLS_FOR_ANONYMOUS_ACCESS).
 </Standard>
 
 When securing APIs, authentication identifies the social sector participants and/or API Consumers who want to access or use an API. Authentication enables the API Provider to identify all consumers of an API and confirm that the consumer requesting access is who they say they are. This doesn't automatically authorise them to access the API or the underlying resources.
 
-Providers should define a registration process for each category of API Consumer or social sector participant. Understanding who or what is using an API matters at every stage of the API lifecycle — including deprecation and outage notification — and lets the provider apply different service levels to different consumers. Requiring application developers to register also means they must agree to terms and conditions covering how they use API data, and commit to their consumer behaving in an acceptable, non-abusive way that preserves the privacy of the information owner.
+Providers should define a registration process for each category of API Consumer or social sector participant. Understanding who or what is using an API matters at every stage of the API lifecycle - including deprecation and outage notification - and lets the provider apply different service levels to different consumers. Requiring application developers to register also means they must agree to terms and conditions covering how they use API data, and commit to their consumer behaving in an acceptable, non-abusive way that preserves the privacy of the information owner.
 
 ### **Authentication mechanisms**
 
@@ -38,13 +38,13 @@ Anonymous access should not be used other than for genuinely low-risk, public in
 Anonymous authentication is where the client and the API Consumer they're using can access APIs without authenticating in any way.
 
 <Standard id="MSDAS_MAY_USE_ANONYMOUS_ACCESS_WHEN_LOW_RISK" type="MAY">
-Anonymous access may be used when the risk associated with the API is negligible — for example, an API offering publicly available service-centre location information.
+Anonymous access may be used when the risk associated with the API is negligible - for example, an API offering publicly available service-centre location information.
 </Standard>
 
 The downside of this model is that it makes it difficult to gather effective analytics, and therefore to understand the implications of proposed changes to, or deprecation of, an API.
 
 <Standard id="MSDAS_MUST_APPLY_CONTROLS_FOR_ANONYMOUS_ACCESS" type="MUST">
-If using the anonymous authentication model, the API must implement protection against the API vulnerabilities and threats listed on the OWASP API Security site — in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery.
+If using the anonymous authentication model, the API must implement protection against the API vulnerabilities and threats listed on the OWASP API Security site - in particular, throttling to prevent denial-of-service attacks, and payload, header and query-parameter analysis to block attacks such as cross-site scripting, SQL injection, command injection and cross-site request forgery.
 </Standard>
 
 ### **Username and password authentication**
@@ -55,7 +55,7 @@ Username and password (direct) authentication should not be used for production 
 
 See the related [guidance on testing and development use](#MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_TESTING) below.
 
-In this model — also known as HTTP Basic or Digest Auth — the user authenticates via an identity store using username and password credentials over HTTPS.
+In this model - also known as HTTP Basic or Digest Auth - the user authenticates via an identity store using username and password credentials over HTTPS.
 
 <Standard id="MSDAS_MAY_USE_PASSWORD_AUTHENTICATION_FOR_LEGACY" type="MAY">
 There are possibly some legacy situations where an API Provider may implement username and password (direct) authentication.
@@ -110,12 +110,12 @@ In mutual (certificate) authentication, both the API Consumer and the API Provid
 ## **Authorisation**
 
 <Standard type="INFO">
-As with authentication, authorisation is not a single obligation in this catalogue. The access control model an API applies is chosen from the mechanisms below — [RBAC](#MSDAS_SHOULD_USE_RBAC), [OAuth 2.0 scopes](#MSDAS_MAY_USE_OAUTH_SCOPES_TO_LIMIT_AUTHORISATION), [ABAC](#MSDAS_MAY_USE_ABAC) — and enforced at the point named there.
+As with authentication, authorisation is not a single obligation in this catalogue. The access control model an API applies is chosen from the mechanisms below - [RBAC](#MSDAS_SHOULD_USE_RBAC), [OAuth 2.0 scopes](#MSDAS_MAY_USE_OAUTH_SCOPES_TO_LIMIT_AUTHORISATION), [ABAC](#MSDAS_MAY_USE_ABAC) - and enforced at the point named there.
 </Standard>
 
 Authorisation is the act of performing access control on a resource: defining access rules and policies, and enforcing them. It's the foundation on which a provider grants or denies a consuming application and/or client access to a resource, at whatever level of granularity is appropriate.
 
-Authentication on its own doesn't grant permission to access an API or application — it only validates that a party is who they claim to be. Once a party is authenticated, an authorisation process grants or denies them the right to perform an action or access information. Normally this is applied using either coarse-grained access (typically at the API or API Gateway request point) or fine-grained access (typically at the API Provider's service implementation).
+Authentication on its own doesn't grant permission to access an API or application - it only validates that a party is who they claim to be. Once a party is authenticated, an authorisation process grants or denies them the right to perform an action or access information. Normally this is applied using either coarse-grained access (typically at the API or API Gateway request point) or fine-grained access (typically at the API Provider's service implementation).
 
 ### **Role Based Access Control (RBAC)**
 
@@ -123,7 +123,7 @@ Authentication on its own doesn't grant permission to access an API or applicati
 RBAC should be used.
 </Standard>
 
-In many organisations a directory service provides authentication, and directory groups then provide authorisation — a form of discretionary access control, where access is granted by applying access control lists directly to users or the groups they belong to. Directory (or LDAP) groups are synonymous with roles and can be used to provide coarse-grained authorisation for MSD APIs.
+In many organisations a directory service provides authentication, and directory groups then provide authorisation - a form of discretionary access control, where access is granted by applying access control lists directly to users or the groups they belong to. Directory (or LDAP) groups are synonymous with roles and can be used to provide coarse-grained authorisation for MSD APIs.
 
 ### **Scopes (limited fine-grained access)**
 
@@ -131,7 +131,7 @@ In many organisations a directory service provides authentication, and directory
 OAuth 2.0 scopes may be used to limit the authorisation granted to the API Consumer by the resource owner.
 </Standard>
 
-Based on the services an API exposes, additional access controls can be applied using scopes — for example, a data service might expose separate read and write scopes, granted to a user based on their directory group. The developer must ensure the minimum privileges are granted to API Consumers needed to complete the requests the user wants carried out.
+Based on the services an API exposes, additional access controls can be applied using scopes - for example, a data service might expose separate read and write scopes, granted to a user based on their directory group. The developer must ensure the minimum privileges are granted to API Consumers needed to complete the requests the user wants carried out.
 
 An API Consumer may invite a client or social sector worker to authorise the application to act on their behalf.
 
@@ -145,7 +145,7 @@ Where an API Consumer asks a client or social sector worker to authorise its app
 API Providers may utilise ABAC.
 </Standard>
 
-ABAC defines an access control process where access is granted based on policies built from attributes — for example, a policy might state that access to a specified resource is only permitted for users in a particular team, who hold a particular role, during business hours. ABAC provides fine-grained authorisation and lets access decisions take account of context, such as the IP address or operating system of the requesting device.
+ABAC defines an access control process where access is granted based on policies built from attributes - for example, a policy might state that access to a specified resource is only permitted for users in a particular team, who hold a particular role, during business hours. ABAC provides fine-grained authorisation and lets access decisions take account of context, such as the IP address or operating system of the requesting device.
 
 <Standard id="MSDAS_MAY_IMPLEMENT_ABAC_WITH_XACML" type="MAY">
 API Providers may implement ABAC using XACML, the recognised standard, which provides a reference architecture, a request/response protocol and a policy language built around four services: a Policy Enforcement Point (PEP), Policy Decision Point (PDP), Policy Administration Point (PAP) and Policy Information Point (PIP).

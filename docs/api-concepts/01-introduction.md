@@ -36,7 +36,7 @@ An API should not be confused with a service. Web services are APIs, but not all
 
 ### **Interoperability**
 
-Service delivery across the social sector improves when information is provided or shared seamlessly between the agencies, providers and community organisations working with the same clients and whānau. Interoperability is a key enabler of the connected government New Zealand is building towards. It supports information about a client or whānau being accessible — with appropriate authorisation — to the right people, in the right service, at the right time, reducing the number of times a person has to retell their story to different parts of government. API’s are a key tool to achieve interoperability.
+Service delivery across the social sector improves when information is provided or shared seamlessly between the agencies, providers and community organisations working with the same clients and whānau. Interoperability is a key enabler of the connected government New Zealand is building towards. It supports information about a client or whānau being accessible - with appropriate authorisation - to the right people, in the right service, at the right time, reducing the number of times a person has to retell their story to different parts of government. API’s are a key tool to achieve interoperability.
 
 ### **Standards**
 

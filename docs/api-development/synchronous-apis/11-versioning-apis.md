@@ -35,7 +35,7 @@ Non-breaking changes include: adding new properties; adding new resources; addin
 
 ## **Resource version control**
 
-API Providers <Standard inline id="MSDAS_MUST_IMPLEMENT_CONCURRENCY_CONTROL" type="MUST" toolTip="API Providers must implement a concurrency control mechanism to handle situations where two consumers attempt to update the same resource at the same time.">MUST</Standard> implement a concurrency control mechanism to handle situations where two consumers attempt to update the same resource at the same time — for example, two case managers updating the same client record concurrently.
+API Providers <Standard inline id="MSDAS_MUST_IMPLEMENT_CONCURRENCY_CONTROL" type="MUST" toolTip="API Providers must implement a concurrency control mechanism to handle situations where two consumers attempt to update the same resource at the same time.">MUST</Standard> implement a concurrency control mechanism to handle situations where two consumers attempt to update the same resource at the same time - for example, two case managers updating the same client record concurrently.
 
 | Feature | Optimistic concurrency | Pessimistic concurrency |
 | --- | --- | --- |

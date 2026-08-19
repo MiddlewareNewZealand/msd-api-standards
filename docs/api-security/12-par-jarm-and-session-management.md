@@ -14,7 +14,7 @@ PAR may be applied for IN-CONFIDENCE APIs, or solutions that require complex aut
 
 ## **JWT Secured Authorisation Response Mode (JARM)**
 
-Where PAR addresses the authorise request, JARM addresses the authorise response, letting the API Consumer specify (via a response\_mode parameter) that the response should be returned as a signed — and optionally encrypted — JWT rather than plain query parameters. JARM originates from the banking industry as part of the Financial-Grade API (FAPI) profile.
+Where PAR addresses the authorise request, JARM addresses the authorise response, letting the API Consumer specify (via a response\_mode parameter) that the response should be returned as a signed - and optionally encrypted - JWT rather than plain query parameters. JARM originates from the banking industry as part of the Financial-Grade API (FAPI) profile.
 
 <Standard id="MSDAS_MAY_USE_JARM_FOR_CONFIDENCE_APIS" type="MAY">
 JARM may be used for IN-CONFIDENCE APIs.

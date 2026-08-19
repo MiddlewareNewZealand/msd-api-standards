@@ -12,7 +12,7 @@ REST APIs SHOULD, by default, return content in JSON format, and SHOULD be human
 The response format for a GET request MUST be indicated by the consumer using the Accept header; the request format for POST/PUT MUST be indicated using the Content-Type header.
 </Standard>
 
-Where JSON is used, it <Standard inline id="MSDAS_MUST_CONFORM_JSON_TO_STD_90" type="MUST" toolTip="Where JSON is used, it must conform to STD 90, the JSON Data Interchange Format (currently RFC 8259).">MUST</Standard> conform to STD 90, the JSON Data Interchange Format (currently RFC 8259). STD 90 already requires JSON exchanged between systems to be UTF-8; textual content in other formats <Standard inline id="MSDAS_SHOULD_ENCODE_NON_JSON_TEXT_AS_UTF_8" type="SHOULD" toolTip="Textual content in formats other than JSON should be UTF-8 encoded.">SHOULD</Standard> be UTF-8 encoded too. Binary data such as images <Standard inline id="MSDAS_SHOULD_NOT_RETURN_BINARY_DATA_DIRECTLY" type="SHOULD NOT" toolTip="Binary data such as images should not be returned directly in API responses — prefer a hyperlink to the image instead.">SHOULD NOT</Standard> be returned directly in API responses — prefer a hyperlink to the image instead.
+Where JSON is used, it <Standard inline id="MSDAS_MUST_CONFORM_JSON_TO_STD_90" type="MUST" toolTip="Where JSON is used, it must conform to STD 90, the JSON Data Interchange Format (currently RFC 8259).">MUST</Standard> conform to STD 90, the JSON Data Interchange Format (currently RFC 8259). STD 90 already requires JSON exchanged between systems to be UTF-8; textual content in other formats <Standard inline id="MSDAS_SHOULD_ENCODE_NON_JSON_TEXT_AS_UTF_8" type="SHOULD" toolTip="Textual content in formats other than JSON should be UTF-8 encoded.">SHOULD</Standard> be UTF-8 encoded too. Binary data such as images <Standard inline id="MSDAS_SHOULD_NOT_RETURN_BINARY_DATA_DIRECTLY" type="SHOULD NOT" toolTip="Binary data such as images should not be returned directly in API responses - prefer a hyperlink to the image instead.">SHOULD NOT</Standard> be returned directly in API responses - prefer a hyperlink to the image instead.
 
 ## **Layout**
 
@@ -49,7 +49,7 @@ Responses SHOULD be a JSON object (not a bare array) by default, so metadata and
 
 ## **Singletons vs. collections**
 
-A single-item GET (e.g. /clients/12345) returns the fundamental details of that resource; a collection GET (e.g. /clients) returns an array plus related metadata. If a queried collection legitimately has no results (e.g. no appointments scheduled for a given client), the correct response is 200 with an empty array — not 404.
+A single-item GET (e.g. /clients/12345) returns the fundamental details of that resource; a collection GET (e.g. /clients) returns an array plus related metadata. If a queried collection legitimately has no results (e.g. no appointments scheduled for a given client), the correct response is 200 with an empty array - not 404.
 
 <Standard id="MSDAS_SHOULD_NOT_EMBED_BINARY_IN_COLLECTIONS" type="SHOULD NOT">
 Collection resources SHOULD NOT contain binary attachments or other content that would lead to large response payloads.
@@ -57,7 +57,7 @@ Collection resources SHOULD NOT contain binary attachments or other content that
 
 ## **HATEOAS**
 
-Hypermedia as the Engine of Application State (HATEOAS) is the principle of returning not just the requested data, but links to related, useful transitions — for example, a client record returning links to that client's entitlements and appointments, rather than embedding stale copies of that data. This reduces the risk of consumers holding cached, out-of-date embedded data, and allows front-ends to adapt automatically as new capabilities are added.
+Hypermedia as the Engine of Application State (HATEOAS) is the principle of returning not just the requested data, but links to related, useful transitions - for example, a client record returning links to that client's entitlements and appointments, rather than embedding stale copies of that data. This reduces the risk of consumers holding cached, out-of-date embedded data, and allows front-ends to adapt automatically as new capabilities are added.
 
 ```json
 {

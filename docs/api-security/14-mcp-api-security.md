@@ -2,9 +2,9 @@
 title: "MCP API Security"
 ---
 
-The Model Context Protocol (MCP) — covered from a design perspective in Part C, MCP APIs — introduces security considerations beyond the REST- and event-oriented guidance above, because the consumer is an AI agent making autonomous, in-the-moment decisions about which capabilities to invoke, often influenced by natural-language content it doesn't fully control.
+The Model Context Protocol (MCP) - covered from a design perspective in Part C, MCP APIs - introduces security considerations beyond the REST- and event-oriented guidance above, because the consumer is an AI agent making autonomous, in-the-moment decisions about which capabilities to invoke, often influenced by natural-language content it doesn't fully control.
 
-The baseline requirements set out earlier in this Part — authentication, transport encryption, token handling, information classification — apply in full to MCP Servers. This section sets out additional controls specific to the agentic consumption model.
+The baseline requirements set out earlier in this Part - authentication, transport encryption, token handling, information classification - apply in full to MCP Servers. This section sets out additional controls specific to the agentic consumption model.
 
 ## **Authentication and authorisation**
 
@@ -16,7 +16,7 @@ Access tokens issued for MCP use must be audience-restricted to the specific MCP
 </Standard>
 
 <Standard id="MSDAS_MUST_NOT_HONOUR_MCP_TOKENS_ACROSS_AUDIENCES" type="MUST NOT">
-An access token must not be accepted by any API other than the one named in its audience — neither an MCP Server honouring a token minted for another MSD API, nor the reverse.
+An access token must not be accepted by any API other than the one named in its audience - neither an MCP Server honouring a token minted for another MSD API, nor the reverse.
 </Standard>
 
 Audience restriction prevents a compromised MCP Client or Server from being used as a stepping stone to unrelated MSD systems.
@@ -30,7 +30,7 @@ For example, a tool that reads client entitlements would not also carry the abil
 ## **Consent and human oversight**
 
 <Standard id="MSDAS_SHOULD_REQUIRE_CONFIRMATION_FOR_WRITE_TOOLS" type="SHOULD" boundParty="both">
-Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution — particularly where the action is difficult to reverse, such as issuing a payment or closing a case.
+Tools that write data, or trigger a real-world action on a client's record, should require explicit human confirmation within the host application before execution - particularly where the action is difficult to reverse, such as issuing a payment or closing a case.
 </Standard>
 
 Because MCP Servers expose their capability list dynamically rather than through a specification a developer reviews in advance, the practical safeguard against unintended tool use shifts from design-time review to runtime consent and confirmation.
@@ -54,13 +54,13 @@ Where a previously approved tool has changed materially, the host must obtain re
 </Standard>
 
 <Standard type="INFO">
-This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered — for example, to broaden the data it accesses or the actions it performs — without the change being surfaced for re-approval.
+This guards against so-called “rug-pull” attacks, where a tool that was reviewed and approved in one form is later altered - for example, to broaden the data it accesses or the actions it performs - without the change being surfaced for re-approval.
 </Standard>
 
 ## **Untrusted content and indirect prompt injection**
 
 <Standard type="NOTE">
-Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour — sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action, such as exfiltrating other clients' data.
+Tool descriptions and resource content are a channel an attacker can use to influence agent behaviour - sometimes called indirect prompt injection. For example, a case note resource containing hidden instructions could attempt to manipulate an agent reading it into taking an unintended action, such as exfiltrating other clients' data.
 </Standard>
 
 <Standard id="MSDAS_MUST_TREAT_MCP_CONTENT_AS_UNTRUSTED" type="MUST">
@@ -74,5 +74,5 @@ An MCP Server must not rely on the agent to enforce an access control decision t
 ## **Audit logging**
 
 <Standard id="MSDAS_MUST_LOG_CLIENT_DATA_TOOL_INVOCATIONS" type="MUST">
-All tool invocations that access or modify client or whānau data must be logged, and each log entry must identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed — consistent with MSD's audit logging obligations for client data generally.
+All tool invocations that access or modify client or whānau data must be logged, and each log entry must identify the requesting agent, the authenticated MSD staff member on whose behalf it acted, and the specific data accessed or changed - consistent with MSD's audit logging obligations for client data generally.
 </Standard>

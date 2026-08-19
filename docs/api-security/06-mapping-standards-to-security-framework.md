@@ -24,7 +24,7 @@ Selecting the right API security architecture should account for: the type of re
 
 ## **OpenID Connect (OIDC)**
 
-OpenID Connect is the recommended security profile for OAuth 2.0 when an API requires stronger authentication — for example, where data flows two ways between the consuming application and the API. It introduces the concept of identity via an ID Token containing information about the end user, which can enhance the onboarding experience, provide single sign-on, secure the transfer of user data, and provide a trust framework for Service and Identity Providers to share consented user data.
+OpenID Connect is the recommended security profile for OAuth 2.0 when an API requires stronger authentication - for example, where data flows two ways between the consuming application and the API. It introduces the concept of identity via an ID Token containing information about the end user, which can enhance the onboarding experience, provide single sign-on, secure the transfer of user data, and provide a trust framework for Service and Identity Providers to share consented user data.
 
 OpenID Connect's fundamental security components mirror OAuth 2.0's, just with different names; the significant addition is the ID Token.
 

@@ -32,7 +32,7 @@ X- notation headers are deprecated per RFC 6648 and SHOULD NOT be used. Define a
 
 ## **Distributed tracing**
 
-A single client-initiated request often triggers a chain of internal calls across multiple services — API Gateway, backend application, downstream partner system. Without a consistent tracing mechanism, diagnosing where in that chain a failure or slowdown occurred becomes guesswork, particularly across the service and organisational boundaries typical of MSD's delivery-partner integrations.
+A single client-initiated request often triggers a chain of internal calls across multiple services - API Gateway, backend application, downstream partner system. Without a consistent tracing mechanism, diagnosing where in that chain a failure or slowdown occurred becomes guesswork, particularly across the service and organisational boundaries typical of MSD's delivery-partner integrations.
 
 <Standard id="MSDAS_SHOULD_PROPAGATE_TRACE_CONTEXT" type="SHOULD">
 APIs SHOULD propagate distributed tracing context using the W3C Trace Context standard

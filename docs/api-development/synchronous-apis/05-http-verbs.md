@@ -3,7 +3,7 @@ title: "HTTP Verbs"
 ---
 
 <Standard id="MSDAS_MUST_USE_STANDARD_HTTP_VERBS" type="MUST">
-Access to REST APIs MUST be via the standard HTTP verbs — GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS — using the method semantics defined in RFC 9110 (HTTP Semantics) section 9.
+Access to REST APIs MUST be via the standard HTTP verbs - GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS - using the method semantics defined in RFC 9110 (HTTP Semantics) section 9.
 </Standard>
 
 | Verb | Common usage |
@@ -18,7 +18,7 @@ Access to REST APIs MUST be via the standard HTTP verbs — GET, HEAD, POST, PUT
 
 ## **GET**
 
-GET is used for retrieval of information — where the interaction is more like a question, i.e. a safe, idempotent operation such as a query. GET returns a representation in JSON with an HTTP 200 (OK) on success, or 404 (NOT FOUND) if the resource doesn't exist.
+GET is used for retrieval of information - where the interaction is more like a question, i.e. a safe, idempotent operation such as a query. GET returns a representation in JSON with an HTTP 200 (OK) on success, or 404 (NOT FOUND) if the resource doesn't exist.
 
 <Standard id="MSDAS_MUST_NOT_EXPOSE_UNSAFE_OPERATIONS_VIA_GET" type="MUST NOT">
 Unsafe operations must not be exposed via GET.
@@ -55,7 +55,7 @@ Content-Type: application/json
 
 ## **POST**
 
-POST is used to create a resource, or to spawn an action — for example, opening a new case, or submitting an application for assistance. POST is neither safe nor idempotent: repeating the same POST request will typically create a second resource. On successful creation, POST returns HTTP 201 with a Location header pointing to the new resource.
+POST is used to create a resource, or to spawn an action - for example, opening a new case, or submitting an application for assistance. POST is neither safe nor idempotent: repeating the same POST request will typically create a second resource. On successful creation, POST returns HTTP 201 with a Location header pointing to the new resource.
 
 ### **POST example**
 
@@ -76,7 +76,7 @@ Location: https://api.msd.govt.nz/clients/12345/appointments/9a1b2c3d
 
 ## **PUT**
 
-PUT is used to update or replace an existing resource item, and, less commonly, to create a resource where the consumer chooses the resource ID. PUT is not safe but is idempotent — calling it repeatedly with the same body leaves the resource in the same state.
+PUT is used to update or replace an existing resource item, and, less commonly, to create a resource where the consumer chooses the resource ID. PUT is not safe but is idempotent - calling it repeatedly with the same body leaves the resource in the same state.
 
 <Standard id="MSDAS_MUST_ACCEPT_FULL_REPRESENTATION_ON_PUT" type="MUST">
 API Providers MUST accept a PUT request carrying the complete resource representation as the API previously returned it, treating properties the consumer is not permitted to change as unchanged rather than rejecting the request.

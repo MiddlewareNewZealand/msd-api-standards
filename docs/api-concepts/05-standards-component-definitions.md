@@ -24,7 +24,7 @@ An API Consumer, in the context of these standards, is a software application:
 
 ## **Social Sector Clients and Whānau**
 
-A social sector client, in the context of these standards, is a person interacting — via a software application — with an API Consumer that is consuming an API published on the MSD Developer Portal or equivalent sector capability. This includes individuals accessing income support, employment services, housing assistance or care and protection services, and their whānau.
+A social sector client, in the context of these standards, is a person interacting - via a software application - with an API Consumer that is consuming an API published on the MSD Developer Portal or equivalent sector capability. This includes individuals accessing income support, employment services, housing assistance or care and protection services, and their whānau.
 
 ## **Social Sector Organisations**
 
@@ -40,7 +40,7 @@ An API Designer, in the context of these standards, is a software developer or a
 
 ## **API Developers**
 
-An API Developer, in the context of these standards, is a software engineer who designs, builds and maintains APIs — the sets of rules that allow different software applications to communicate with each other. API developers create APIs that let other developers access data and functionality without needing to know the underlying implementation.
+An API Developer, in the context of these standards, is a software engineer who designs, builds and maintains APIs - the sets of rules that allow different software applications to communicate with each other. API developers create APIs that let other developers access data and functionality without needing to know the underlying implementation.
 
 ## **Application Developers**
 
@@ -54,13 +54,13 @@ An Application Developer, in the context of these standards, is a software engin
 
 ## **Message Producer**
 
-A Message Producer, in the context of these standards, is a software application that publishes data to API Consumers using Asynchronous APIs — for example, publishing an event when a client's case status changes.
+A Message Producer, in the context of these standards, is a software application that publishes data to API Consumers using Asynchronous APIs - for example, publishing an event when a client's case status changes.
 
 ## **How these components relate**
 
 At a social sector organisation, an API Developer builds and operates an API Provider; an Application Developer builds and operates an API Consumer. The API Developer works through the MSD Developer Portal to publish their API, which is then discoverable and consumable by Application Developers across MSD and its delivery partners.
 
-Social sector clients, whānau, iwi and community providers interact with API Consumers — the applications built on top of MSD's published APIs — rather than with the underlying APIs directly. A Message Producer at a social sector organisation publishes data (for example, a change of circumstances event) to a message broker, which is then consumed by one or more API Consumers.
+Social sector clients, whānau, iwi and community providers interact with API Consumers - the applications built on top of MSD's published APIs - rather than with the underlying APIs directly. A Message Producer at a social sector organisation publishes data (for example, a change of circumstances event) to a message broker, which is then consumed by one or more API Consumers.
 
 ## Relationship Diagrams
 

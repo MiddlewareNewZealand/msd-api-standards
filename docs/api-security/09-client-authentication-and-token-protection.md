@@ -29,7 +29,7 @@ Two JWT authentication methods provide a higher level of security than the share
 
 | Method | Description | Recommendation |
 | :---- | :---- | :---- |
-| client\_secret\_jwt | Still requires a managed client ID and secret, but the secret is never sent directly — it's used as a symmetric key to sign a JWT (containing the client ID and an expiry) which is presented instead. | May be used for UNCLASSIFIED and IN-CONFIDENCE APIs; may be used with Confidential Clients; should not be used with Public Clients. |
+| client\_secret\_jwt | Still requires a managed client ID and secret, but the secret is never sent directly - it's used as a symmetric key to sign a JWT (containing the client ID and an expiry) which is presented instead. | May be used for UNCLASSIFIED and IN-CONFIDENCE APIs; may be used with Confidential Clients; should not be used with Public Clients. |
 | private\_key\_jwt | Uses asymmetric cryptography rather than a shared secret: the API Consumer holds a private signing key and registers the corresponding public key with the API Provider, which validates the signed JWT. | Should be used when protecting IN-CONFIDENCE APIs via a confidential client; should not be used with Public Clients. Simpler to operate than tls\_client\_auth. |
 
 ## **Mutual TLS method**
@@ -54,7 +54,7 @@ Public clients should not use either mTLS method (self\_signed\_tls\_client\_aut
 
 ## **Token protection**
 
-A major risk with OAuth 2.0 and OpenID Connect is token theft — where a captured access token is used to obtain information from a protected resource. OpenID Connect provides Demonstrating Proof of Possession (DPoP), which strengthens client authentication by linking the access token to the client presenting it via a cryptographic key, rather than treating it as a plain bearer token anyone holding it can use.
+A major risk with OAuth 2.0 and OpenID Connect is token theft - where a captured access token is used to obtain information from a protected resource. OpenID Connect provides Demonstrating Proof of Possession (DPoP), which strengthens client authentication by linking the access token to the client presenting it via a cryptographic key, rather than treating it as a plain bearer token anyone holding it can use.
 
 | DPoP method | Description |
 | :---- | :---- |

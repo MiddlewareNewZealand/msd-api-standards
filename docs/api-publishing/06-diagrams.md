@@ -5,11 +5,11 @@ Effective use case diagrams document an API's behaviour in an easily human-reada
 
 When creating use case diagrams, consider:
 
-- Actors — the people, systems and organisations involved in the use case.
+- Actors - the people, systems and organisations involved in the use case.
 
-- Relationships — how the actors relate to one another.
+- Relationships - how the actors relate to one another.
 
-- Purpose — the role each actor plays.
+- Purpose - the role each actor plays.
 
 ## **Example**
 

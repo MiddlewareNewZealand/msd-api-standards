@@ -38,8 +38,8 @@ Depending on the grant flow in use, some or all of the following endpoints are e
 | /jwks | Retrieves the API Provider's public keys, used to verify issued token signatures and encrypt ID Tokens. | Must be implemented by the API Provider; is a public endpoint and must be protected with TLS. |
 | /par | Pushed Authorisation Request endpoint (see PAR, JARM and Session Management, below). | May be used. |
 | /bc-authorize | Client-Initiated Backchannel Authentication (CIBA) endpoint for decoupled authentication. | May be used. |
-| /register | Lets relying parties register a client on the authorisation server. | — |
-| /.well-known/openid-configuration | Returns the API Provider's OAuth 2.0/OIDC configuration and capabilities, including endpoints, algorithms and grant types. | — |
+| /register | Lets relying parties register a client on the authorisation server. | - |
+| /.well-known/openid-configuration | Returns the API Provider's OAuth 2.0/OIDC configuration and capabilities, including endpoints, algorithms and grant types. | - |
 
 <Standard id="MSDAS_MUST_DOCUMENT_CONSUMER_ONBOARDING_PROCESS" type="MUST">
 API Providers must document their API Consumer onboarding process and the requirements a prospective consumer has to meet.
@@ -50,7 +50,7 @@ API Providers must document their API Consumer onboarding process and the requir
 OpenID Connect adds two capabilities on top of OAuth 2.0: an ID Token, and a Userinfo endpoint. It's invoked using the openid request scope in the initial authorisation call.
 
 <Standard id="MSDAS_MUST_USE_OPENID_CONNECT_FOR_INTERACTIVE_SENSITIVE_APIS" type="MUST">
-OpenID Connect MUST be used wherever an individual — a client, whānau member, MSD staff member, or a delivery partner's staff member — is directly authenticating through the consuming application and the API is acting on that individual's behalf
+OpenID Connect MUST be used wherever an individual - a client, whānau member, MSD staff member, or a delivery partner's staff member - is directly authenticating through the consuming application and the API is acting on that individual's behalf
 </Standard>
 
 <Standard id="MSDAS_MUST_NOT_USE_OPENID_CONNECT_AS_RISK_ASSESSMENT" type="MUST NOT">
@@ -60,7 +60,7 @@ OpenID Connect MUST NOT be treated as a substitute for a genuine data-sharing ri
 ### **ID Token**
 
 <Standard id="MSDAS_MUST_USE_ID_TOKEN_FOR_SENSITIVE_APIS" type="MUST">
-The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information wherever an individual — a client, whānau member, MSD staff member, or a delivery partner's staff member — is directly authenticating through the consuming application and the API is acting on that individual's behalf.
+The ID Token must be used with all APIs exposing IN-CONFIDENCE or more sensitive information wherever an individual - a client, whānau member, MSD staff member, or a delivery partner's staff member - is directly authenticating through the consuming application and the API is acting on that individual's behalf.
 </Standard>
 
 The ID Token is a JWT containing authenticated user information provided by the OpenID Connect server to the API Consumer. It may be used to enforce finer-grained access controls via additional claims; must be signed by an approved algorithm; should include claims that hash the code, state and access token to protect user integrity; may carry additional non-identity metadata (e.g. session details); must have its issuer, audience, nonce and expiry validated by the API Consumer; and may be encrypted.
@@ -81,7 +81,7 @@ The correct authentication and authorisation model depends on *who or what is ac
 
 | Interaction pattern | Description | Requirement |
 | --- | --- | --- |
-| Individual present | A client, whānau member, MSD staff member, or a delivery partner's staff member authenticates directly and the API acts on their behalf. | OpenID Connect MUST be used — ID Token, consent, and an appropriate Level of Assurance MUST all apply, regardless of information classification. |
+| Individual present | A client, whānau member, MSD staff member, or a delivery partner's staff member authenticates directly and the API acts on their behalf. | OpenID Connect MUST be used - ID Token, consent, and an appropriate Level of Assurance MUST all apply, regardless of information classification. |
 | System-to-system (B2B) | A partner's backend system calls an MSD API under its own authority, with no individual authenticating as part of the flow (e.g. nightly reconciliation, batch data sync). | The Client Credentials grant MUST be used, with strong client authentication and scopes limited to exactly what the integration needs. OpenID Connect MUST NOT be required, since there's no individual subject for an ID Token to represent. |
 | Delegated / acting-on-behalf-of | A partner's *system* acts on behalf of an identifiable individual at that partner (e.g. a caseworker at a delivery partner organisation), without that individual authenticating directly to MSD. | Client Credentials MUST be used for the system-to-system leg, and the calling system MUST include a claim identifying the individual it's acting on behalf of so MSD retains individual-level accountability for the access, even though that individual never authenticates to MSD directly. The `azp` (authorised party) claim (see Level of Assurance) supports the System-to-system and Delegated patterns by identifying which registered client is calling, independent of any individual claims that may or may not also be present. |
 
@@ -90,18 +90,18 @@ The correct authentication and authorisation model depends on *who or what is ac
 The Userinfo endpoint may be exposed by the API Provider, callable with an access token to obtain the same claims provided in the ID Token, or configured to provide additional claims. OpenID Connect introduces additional scopes (e.g. profile, name, email) detailing specific attributes that can be presented in an ID Token.
 
 <Standard id="MSDAS_MUST_OBTAIN_CONSENT_TO_SHARE_ATTRIBUTES" type="MUST">
-Before releasing identity attributes through the ID Token or the Userinfo endpoint, the API Provider must ensure consent to share those attributes has been given by the information owner — typically the client or their authorised representative — and must record any consent and its associated parameters.
+Before releasing identity attributes through the ID Token or the Userinfo endpoint, the API Provider must ensure consent to share those attributes has been given by the information owner - typically the client or their authorised representative - and must record any consent and its associated parameters.
 </Standard>
 
 ## **Grant types**
 
-OAuth 2.0 and OpenID Connect support two client types — Confidential and Public — and eleven grant/response types, each suited to different situations.
+OAuth 2.0 and OpenID Connect support two client types - Confidential and Public - and eleven grant/response types, each suited to different situations.
 
 <Standard id="MSDAS_MUST_LIMIT_GRANT_TYPES" type="MUST">
 The API Provider must limit grant types to those agreed and documented for a given API; the API Consumer indicates its desired grant type via the response_type parameter in its initial authorisation call.
 </Standard>
 
-Confidential clients are websites and services that make secure server-side connections to the OAuth 2.0 server, and can securely store a client secret or JWT; they must be used to secure IN-CONFIDENCE APIs. Public clients — single-page applications, applications running on devices, and applications that cannot protect secrets — may only be used for UNCLASSIFIED APIs.
+Confidential clients are websites and services that make secure server-side connections to the OAuth 2.0 server, and can securely store a client secret or JWT; they must be used to secure IN-CONFIDENCE APIs. Public clients - single-page applications, applications running on devices, and applications that cannot protect secrets - may only be used for UNCLASSIFIED APIs.
 
 | Grant / response type | Recommendation |
 | --- | --- |
@@ -165,7 +165,7 @@ RS --> AC : Protected resource
 @enduml
 ```
 
-<DetailedDescription text="This shows the Authorisation Code Flow with PKCE — the API Consumer generates a code_verifier and code_challenge, the Social Sector Participant authenticates and consents at the API Provider, and the API Consumer then exchanges the returned authorisation code and code_verifier for tokens before calling the Resource Server with the access token." />
+<DetailedDescription text="This shows the Authorisation Code Flow with PKCE - the API Consumer generates a code_verifier and code_challenge, the Social Sector Participant authenticates and consents at the API Provider, and the API Consumer then exchanges the returned authorisation code and code_verifier for tokens before calling the Resource Server with the access token." />
 
 ### **PKCE**
 
@@ -173,17 +173,17 @@ RS --> AC : Protected resource
 PKCE must be used when securing IN-CONFIDENCE APIs.
 </Standard>
 
-PKCE (Proof Key for Code Exchange) mitigates man-in-the-middle attacks against the authorisation code flow. The API Consumer creates a random code verifier, applies a hash to produce a code challenge, and sends the code challenge (with hash method) to the API Provider, which stores it. When the API Consumer later exchanges the authorisation code for a token, it includes the original code verifier; the API Provider validates this against the stored code challenge before issuing the access token — confirming the token request came from the original client, not an intercepting party.
+PKCE (Proof Key for Code Exchange) mitigates man-in-the-middle attacks against the authorisation code flow. The API Consumer creates a random code verifier, applies a hash to produce a code challenge, and sends the code challenge (with hash method) to the API Provider, which stores it. When the API Consumer later exchanges the authorisation code for a token, it includes the original code verifier; the API Provider validates this against the stored code challenge before issuing the access token - confirming the token request came from the original client, not an intercepting party.
 
 For confidential clients using the code flow with PKCE, the refresh token is exchanged over a secure server-side backchannel. For public clients (native or mobile applications), MSD should not use the refresh token flow, since the refresh token would otherwise have to be managed in the browser.
 
 ### **Client Credentials**
 
-The Client Credentials flow should be used for server-to-server integration — for a client that is also the resource owner, needing to access its own data rather than acting on behalf of a client or whānau member (for example, a batch job updating its own configuration). It supports confidential clients only: the client authenticates directly to the /token endpoint with its own credentials and receives an access token without any user interaction, then uses that token to call the resource server, which validates it with the authorisation server on each call. It is recommended for the Authorised Consuming Application pattern (device to API) and for server-to-server (B2B) integration using signed tokens without user interaction.
+The Client Credentials flow should be used for server-to-server integration - for a client that is also the resource owner, needing to access its own data rather than acting on behalf of a client or whānau member (for example, a batch job updating its own configuration). It supports confidential clients only: the client authenticates directly to the /token endpoint with its own credentials and receives an access token without any user interaction, then uses that token to call the resource server, which validates it with the authorisation server on each call. It is recommended for the Authorised Consuming Application pattern (device to API) and for server-to-server (B2B) integration using signed tokens without user interaction.
 
 ### **Client Initiated Backchannel Authentication (CIBA)**
 
-CIBA adds a “decoupled” authorisation flow: rather than redirecting through a browser, a client or whānau member's authentication device (e.g. their phone) is decoupled from the client application and used to perform authentication and consent independently — the client application and authorisation service don't need to run on, or be linked to, the same device.
+CIBA adds a “decoupled” authorisation flow: rather than redirecting through a browser, a client or whānau member's authentication device (e.g. their phone) is decoupled from the client application and used to perform authentication and consent independently - the client application and authorisation service don't need to run on, or be linked to, the same device.
 
 In CIBA, the initial authorisation call goes to the backchannel authentication endpoint (/bc-authorize); the authorisation server then delegates authentication and consent to the user's authentication device, which accepts or denies the request. The resulting token can be delivered to the client via one of three sub-flows: Poll (the client polls the authorisation server until approval is received), Ping (the client waits to be notified, then requests the token), or Push (the authorisation server pushes the tokens to the client once approval is received).
 
@@ -228,8 +228,8 @@ end
 @enduml
 ```
 
-<DetailedDescription text="This shows the CIBA flow — the Client App calls /bc-authorize, the Authorisation Server delegates authentication and consent to the user's Authentication Device, and the resulting tokens are delivered via one of the Poll, Ping or Push sub-flows." />
+<DetailedDescription text="This shows the CIBA flow - the Client App calls /bc-authorize, the Authorisation Server delegates authentication and consent to the user's Authentication Device, and the resulting tokens are delivered via one of the Poll, Ping or Push sub-flows." />
 
 <Standard type="INFO">
-CIBA is not yet widely used, and is included here as forward guidance. It's likely to become more common — it's already used in the Payments NZ API Centre Standards — and MSD should watch for adoption in other parts of the NZ public and financial sectors as a signal for when to invest in it.
+CIBA is not yet widely used, and is included here as forward guidance. It's likely to become more common - it's already used in the Payments NZ API Centre Standards - and MSD should watch for adoption in other parts of the NZ public and financial sectors as a signal for when to invest in it.
 </Standard>

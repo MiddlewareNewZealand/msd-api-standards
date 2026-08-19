@@ -8,7 +8,7 @@ MSD API Standards is a new site - to ask questions, contribute, or give suggesti
 [visit the community on Github.](https://github.com/MiddlewareNewZealand/msd-api-standards)
 
 ## Email
-<!-- TODO: placeholder — confirm correct MSD contact mailbox -->
+<!-- TODO: placeholder - confirm correct MSD contact mailbox -->
 [apistandards@msd.govt.nz](mailto:apistandards@msd.govt.nz)
 
 ## NZ Relay Service
